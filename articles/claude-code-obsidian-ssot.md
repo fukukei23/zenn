@@ -237,6 +237,11 @@ SSOT/
 │       └── ...
 ```
 
+## 関連記事
+
+- [Claude Code CLIをGLM/MiniMaxで代替した話](https://zenn.dev/fukukei23/articles/claude-code-cost-optimization) — コスト最適化の文脈でLLMプロバイダーを比較・検討した記録
+- [playwright-stealthが開発停止なのでPython版を自作してPyPIに公開した話](https://zenn.dev/fukukei23/articles/pw-stealth-enhanced-python-anti-detection) — AI駆動開発で抽出・公開したスクレイピングツールの紹介
+
 ## おわりに
 
 本記事では、Obsidianを使ったAI記憶のSSOT化設計について述べました。

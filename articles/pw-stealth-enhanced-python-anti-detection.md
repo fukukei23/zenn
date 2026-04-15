@@ -208,6 +208,11 @@ await page.goto("https://browserleaks.com/canvas")
 
 > **注意**: ボット検知技術は日々進化しています。すべての検出をバイパスできるわけではありませんが、現段階の主要な検知手法には広範に対応しています。
 
+## 関連記事
+
+- [Claude Code CLIをGLM/MiniMaxで代替した話](https://zenn.dev/fukukei23/articles/claude-code-cost-optimization) — コスト最適化の文脈でLLMプロバイダーを比較・検討した記録
+- [Claude Codeの記憶をObsidianでSSOT化する設計](https://zenn.dev/fukukei23/articles/claude-code-obsidian-ssot) — AI開発環境の知識管理をSSOTで構築する方法
+
 ## おわりに
 
 `pw-stealth-enhanced`はMITライセンスで公開しています。
