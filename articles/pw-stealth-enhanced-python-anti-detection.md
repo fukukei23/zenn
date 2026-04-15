@@ -14,6 +14,8 @@ published: true
 
 「じゃあ自分で作るか」という結論に至り、**pw-stealth-enhanced**を開発・PyPIに公開しました。本記事ではその背景と使い方を紹介します。
 
+> 🔧 **開発環境の話**：このライブラリは、複数のLLMを用途別に切り替える環境で開発しました。[Claude Code CLIをGLM/MiniMaxで代替した話](https://zenn.dev/fukukei23/articles/claude-code-cost-optimization)で、そのAI駆動開発環境の構築方法を解説しています。
+
 ## 既存の状況：playwright-stealthの現状
 
 playwright-stealthは、Node.js向けのpuppeteer-extra-plugin-stealthのPython移植版です。主に以下の検知項目に対応してきました：
@@ -208,10 +210,12 @@ await page.goto("https://browserleaks.com/canvas")
 
 > **注意**: ボット検知技術は日々進化しています。すべての検出をバイパスできるわけではありませんが、現段階の主要な検知手法には広範に対応しています。
 
-## 関連記事
+> 📝 **開発知見の記録方法**：このライブラリの開発過程で「なぜこの実装にしたか」を属人化させずに記録する仕組みとして、SSOTを活用しています。[Claude Codeの記憶をObsidianでSSOT化する設計](https://zenn.dev/fukukei23/articles/claude-code-obsidian-ssot)でその設計思想を解説しています。
 
-- [Claude Code CLIをGLM/MiniMaxで代替した話](https://zenn.dev/fukukei23/articles/claude-code-cost-optimization) — コスト最適化の文脈でLLMプロバイダーを比較・検討した記録
-- [Claude Codeの記憶をObsidianでSSOT化する設計](https://zenn.dev/fukukei23/articles/claude-code-obsidian-ssot) — AI開発環境の知識管理をSSOTで構築する方法
+## この記事を読んで興味を持った方へ
+
+- 📖 [Claude Code CLIをGLM/MiniMaxで代替した話](https://zenn.dev/fukukei23/articles/claude-code-cost-optimization) — このライブラリが生まれたAI駆動開発環境の構築方法を、コスト管理の観点込みで解説
+- 📖 [Claude Codeの記憶をObsidianでSSOT化する設計](https://zenn.dev/fukukei23/articles/claude-code-obsidian-ssot) — AI開発での「なぜこう実装したか」を属人化させず、ナレッジとして蓄積する設計
 
 ## おわりに
 
