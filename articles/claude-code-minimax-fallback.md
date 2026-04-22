@@ -127,5 +127,13 @@ https://github.com/fukukei23/claude-cost-optimizer
 
 ### 関連記事
 
-- [Claude Code CLIをGLM/MiniMaxで代替した話（コスト大幅削減の実測）](https://zenn.dev/fukukei23/articles/claude-code-cost-optimization)
+- [Claude Code CLIをGLM（Z.AI）で代替した話（コスト大幅削減の実測）](https://zenn.dev/fukukei23/articles/claude-code-cost-optimization)
 - [Claude Codeの記憶をObsidianでSSOT化する設計](https://zenn.dev/fukukei23/articles/claude-code-obsidian-ssot)
+
+## この記事を読んで興味を持った方へ
+
+MiniMaxを試してみたい方は、以下の紹介リンクから登録できます。紹介コード使用で**10%オフ**になります。
+
+👉 [MiniMax Token Plan — 紹介リンク（10%オフ）](https://platform.minimax.io/subscribe/token-plan?code=KwGomCO8os&source=link)
+
+> 紹介リンク経由で登録すると、あなたは10%オフ、筆者にAPIボーナスが付与されます
