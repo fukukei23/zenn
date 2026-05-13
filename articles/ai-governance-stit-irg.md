@@ -171,3 +171,4 @@ AI駆動開発の成熟に向けて、一緒に歩み続けましょう。
 - 📖 [Claude Code CLIをGLM/MiniMaxで代替した話](https://zenn.dev/fukukei23/articles/claude-code-cost-optimization) — このガバナンス設計を支えているAI開発環境の構築方法を、コスト観点で解説
 - 📖 [Claude Codeの記憶をObsidianでSSOT化する設計](https://zenn.dev/fukukei23/articles/claude-code-obsidian-ssot) — ガバナンス設計での「決定記録」をObsidian SSOTで実践する方法
 - 📖 [playwright-stealthが開発停止なのでPython版を自作してPyPIに公開した話](https://zenn.dev/fukukei23/articles/pw-stealth-enhanced-python-anti-detection) — STIT+IRGのガバナンス下でAI駆動開発した実践例
+- 📖 [14のAIエージェントが協調する自律型開発フレームワークの設計と実装](https://zenn.dev/fukukei23/articles/nexuscore-multi-agent-architecture) — STIT+IRGを内包するマルチエージェントフレームワーク「NexusCore」のアーキテクチャ解説。フェーズ駆動開発・品質ゲート・ガバナンス自動化の実際を紹介
