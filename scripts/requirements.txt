@@ -1,0 +1,4 @@
+anthropic>=0.30.0
+PyYAML>=6.0
+bulkpublish>=1.0.0
+requests>=2.31.0

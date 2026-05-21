@@ -1,0 +1,69 @@
+name: Publish Approved Article
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  publish:
+    if: >
+      github.event.issue.labels.name == 'draft-review' &&
+      contains(github.event.comment.body, '/approve') &&
+      github.event.comment.author_association == 'OWNER'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Publish article
+        id: publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/publisher.py
+
+      - name: Wait for Zenn processing
+        if: steps.publish.outputs.published == 'true'
+        run: sleep 120
+
+      - name: Post to SNS
+        if: steps.publish.outputs.published == 'true'
+        env:
+          BULK_PUBLISH_API_KEY: ${{ secrets.BULK_PUBLISH_API_KEY }}
+          ARTICLE_SLUG: ${{ steps.publish.outputs.slug }}
+        run: python scripts/sns_poster.py
+
+      - name: Close issue
+        if: steps.publish.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUM: ${{ github.event.issue.number }}
+          ARTICLE_SLUG: ${{ steps.publish.outputs.slug }}
+        run: |
+          gh issue close "$ISSUE_NUM" --comment "Published: https://zenn.dev/fukukei23/articles/$ARTICLE_SLUG"
+
+      - name: Notify Discord
+        if: steps.publish.outputs.published == 'true'
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          ARTICLE_SLUG: ${{ steps.publish.outputs.slug }}
+        run: |
+          if [ -n "$DISCORD_WEBHOOK_URL" ]; then
+            curl -s -X POST "$DISCORD_WEBHOOK_URL" \
+              -H "Content-Type: application/json" \
+              -d "{\"content\": \"Article published: https://zenn.dev/fukukei23/articles/$ARTICLE_SLUG\"}"
+          fi

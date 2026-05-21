@@ -1,0 +1,83 @@
+name: Discover Article Topics
+
+on:
+  schedule:
+    # 毎日 06:00 JST (21:00 UTC 前日)
+    - cron: '21 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Scan repositories
+        env:
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: python scripts/scanner.py
+
+      - name: Check if skip
+        id: check
+        run: |
+          if [ -f skip.flag ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "No recent activity, skipping"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate article draft
+        if: steps.check.outputs.skip != 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/generator.py
+
+      - name: Read article metadata
+        if: steps.check.outputs.skip != 'true'
+        id: article
+        run: |
+          if [ -f article_meta.json ]; then
+            echo "generated=true" >> "$GITHUB_OUTPUT"
+            slug=$(python3 -c "import json; print(json.load(open('article_meta.json'))['slug'])")
+            echo "slug=$slug" >> "$GITHUB_OUTPUT"
+          else
+            echo "generated=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push draft article
+        if: steps.article.outputs.generated == 'true'
+        env:
+          SLUG: ${{ steps.article.outputs.slug }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "articles/$SLUG.md"
+          git add scripts/topic_history.json
+          git diff --cached --quiet || git commit -m "draft: $SLUG"
+          git push
+
+      - name: Notify (Discord + Issue)
+        if: steps.article.outputs.generated == 'true'
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/notifier.py
+
+      - name: Cleanup temp files
+        if: always()
+        run: rm -f scan_results.json article_meta.json skip.flag
