@@ -6,151 +6,159 @@
 <title>Zenn 半自動パブリッシュパイプライン設計書 v2</title>
 <style>
   :root {
-    --bg: #0d1117;
-    --card: #161b22;
-    --border: #30363d;
-    --text: #e6edf3;
-    --text-muted: #8b949e;
-    --accent-blue: #58a6ff;
-    --accent-green: #3fb950;
-    --accent-orange: #d29922;
-    --accent-purple: #bc8cff;
-    --accent-red: #f85149;
-    --accent-cyan: #39d353;
+    --bg: #f8f9fb;
+    --card: #ffffff;
+    --border: #e2e5ea;
+    --text: #1a1d23;
+    --text-sub: #555a65;
+    --text-muted: #8d919a;
+    --blue: #3b82f6;
+    --blue-light: #eff6ff;
+    --blue-border: #bfdbfe;
+    --green: #22c55e;
+    --green-light: #f0fdf4;
+    --green-border: #bbf7d0;
+    --orange: #f59e0b;
+    --orange-light: #fffbeb;
+    --orange-border: #fde68a;
+    --purple: #8b5cf6;
+    --purple-light: #f5f3ff;
+    --purple-border: #ddd6fe;
+    --red: #ef4444;
+    --red-light: #fef2f2;
+    --red-border: #fecaca;
+    --cyan: #06b6d4;
+    --cyan-light: #ecfeff;
+    --cyan-border: #a5f3fc;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.7;
-    padding: 2rem;
-    max-width: 960px;
-    margin: 0 auto;
+    line-height: 1.8;
+    padding: 2rem 1rem;
   }
+  .container { max-width: 880px; margin: 0 auto; }
   h1 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 0.3rem;
   }
-  .meta { color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem; }
-  .meta span { margin-right: 1.5rem; }
+  .subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .badge-row { text-align: center; margin-bottom: 1.5rem; }
+  .badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin: 0 0.2rem;
+  }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-orange { background: var(--orange-light); color: var(--orange); }
+  .badge-green { background: var(--green-light); color: var(--green); }
+
   h2 {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     margin: 2.5rem 0 1rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid var(--border);
-    color: var(--accent-blue);
+    padding: 0.6rem 1rem;
+    background: var(--blue);
+    color: #fff;
+    border-radius: 8px;
   }
-  h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: var(--accent-purple); }
-  h4 { font-size: 1rem; margin: 1rem 0 0.3rem; color: var(--accent-orange); }
-  p { margin: 0.5rem 0; }
-  strong { color: var(--accent-green); }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; color: var(--text); }
+
+  p { margin: 0.4rem 0; }
+  strong { color: var(--text); }
   code {
-    background: #1c2128;
-    padding: 0.15rem 0.4rem;
+    background: #f1f3f5;
+    padding: 0.1rem 0.4rem;
     border-radius: 4px;
     font-size: 0.85rem;
     font-family: 'Fira Code', 'Consolas', monospace;
+    color: var(--purple);
   }
   pre {
-    background: #1c2128;
-    border: 1px solid var(--border);
+    background: #1e293b;
+    color: #e2e8f0;
     border-radius: 8px;
     padding: 1rem;
     overflow-x: auto;
     margin: 0.8rem 0;
-    font-size: 0.85rem;
-    line-height: 1.5;
+    font-size: 0.82rem;
+    line-height: 1.6;
   }
-  pre code { background: none; padding: 0; }
+  pre code { background: none; color: inherit; padding: 0; }
   table {
     width: 100%;
     border-collapse: collapse;
     margin: 0.8rem 0;
     font-size: 0.9rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
   }
-  th, td {
-    border: 1px solid var(--border);
-    padding: 0.6rem 0.8rem;
-    text-align: left;
-  }
-  th { background: #1c2128; color: var(--accent-blue); }
-  td { background: var(--card); }
+  th, td { padding: 0.6rem 0.8rem; text-align: left; }
+  th { background: #f1f5f9; color: var(--text); font-weight: 600; border-bottom: 2px solid var(--border); }
+  td { background: var(--card); border-bottom: 1px solid var(--border); }
+  ul, ol { margin: 0.3rem 0 0.3rem 1.5rem; }
+  li { margin: 0.2rem 0; }
+
   .card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    margin: 0.8rem 0;
+    box-shadow: var(--shadow);
+  }
+
+  /* ===== 一言で言うと ===== */
+  .hero {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    color: #fff;
+    text-align: center;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow-lg);
+  }
+  .hero-big { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+  /* ===== 比喩セクション ===== */
+  .metaphor {
+    background: var(--orange-light);
+    border: 2px solid var(--orange-border);
+    border-radius: var(--radius);
     padding: 1.2rem 1.5rem;
     margin: 1rem 0;
   }
-  .flow-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin: 1.5rem 0;
-  }
-  .flow-box {
-    border-radius: 10px;
-    padding: 1.2rem 1.5rem;
-    border-left: 4px solid;
-  }
-  .flow-auto {
-    background: #0d2818;
-    border-color: var(--accent-green);
-  }
-  .flow-auto .flow-label { color: var(--accent-green); }
-  .flow-human {
-    background: #1c1a0d;
-    border-color: var(--accent-orange);
-  }
-  .flow-human .flow-label { color: var(--accent-orange); }
-  .flow-arrow {
+  .metaphor-title { font-weight: 700; color: var(--orange); margin-bottom: 0.3rem; }
+
+  /* ===== SVG フローダイアグラム ===== */
+  .diagram-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: var(--shadow);
     text-align: center;
-    padding: 0.3rem;
-    color: var(--text-muted);
-    font-size: 1.2rem;
+    overflow-x: auto;
   }
-  .flow-label {
-    font-weight: 700;
-    font-size: 0.95rem;
-    margin-bottom: 0.5rem;
-  }
-  .flow-box ol {
-    margin: 0.3rem 0 0 1.5rem;
-  }
-  .flow-box li { margin: 0.2rem 0; }
-  .badge {
-    display: inline-block;
-    padding: 0.15rem 0.6rem;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin-right: 0.3rem;
-  }
-  .badge-green { background: #0d2818; color: var(--accent-green); border: 1px solid var(--accent-green); }
-  .badge-blue { background: #0d1a28; color: var(--accent-blue); border: 1px solid var(--accent-blue); }
-  .badge-orange { background: #1c1a0d; color: var(--accent-orange); border: 1px solid var(--accent-orange); }
-  .badge-purple { background: #1a0d28; color: var(--accent-purple); border: 1px solid var(--accent-purple); }
-  .badge-red { background: #280d0d; color: var(--accent-red); border: 1px solid var(--accent-red); }
-  .step-grid {
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    gap: 0.3rem 1rem;
-    margin: 0.8rem 0;
-  }
-  .step-num {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 0.85rem;
-    background: #0d1a28;
-    color: var(--accent-blue);
-    border: 1px solid var(--accent-blue);
-  }
-  .step-content { padding-top: 0.3rem; }
+  .diagram-wrap svg { max-width: 100%; height: auto; }
+
+  /* ===== 人間の判断3パターン ===== */
   .pattern-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -159,314 +167,392 @@
   }
   .pattern-card {
     background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s;
   }
-  .pattern-card h4 { margin: 0 0 0.5rem; }
-  .secret-list {
+  .pattern-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .pattern-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .pattern-card h4 { font-size: 1rem; margin: 0.3rem 0; }
+  .pattern-card p { font-size: 0.85rem; color: var(--text-sub); }
+  .pattern-ok { border-color: var(--green-border); }
+  .pattern-ok h4 { color: var(--green); }
+  .pattern-edit { border-color: var(--orange-border); }
+  .pattern-edit h4 { color: var(--orange); }
+  .pattern-ng { border-color: var(--red-border); }
+  .pattern-ng h4 { color: var(--red); }
+
+  /* ===== Secrets ===== */
+  .secret-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.8rem;
     margin: 1rem 0;
   }
-  .secret-item {
+  .secret-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 0.8rem 1rem;
+    box-shadow: var(--shadow);
   }
-  .secret-item code { font-size: 0.8rem; }
-  .cost-highlight {
-    text-align: center;
+  .secret-card code { font-size: 0.8rem; }
+
+  /* ===== コスト ===== */
+  .cost-box {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfeff 100%);
+    border: 2px solid var(--green-border);
+    border-radius: var(--radius);
     padding: 1.5rem;
+    text-align: center;
     margin: 1rem 0;
   }
-  .cost-highlight .amount {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--accent-green);
+  .cost-amount { font-size: 2.5rem; font-weight: 700; color: var(--green); }
+  .cost-label { color: var(--text-muted); font-size: 0.85rem; }
+
+  /* ===== 用語解説 ===== */
+  .glossary {
+    background: var(--cyan-light);
+    border: 1px solid var(--cyan-border);
+    border-radius: var(--radius);
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+    font-size: 0.88rem;
   }
-  .cost-highlight .period {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+  .glossary dt { font-weight: 700; color: var(--cyan); margin-top: 0.5rem; }
+  .glossary dd { color: var(--text-sub); margin-left: 1rem; }
+
+  /* ===== LLM 2段階カード ===== */
+  .llm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
   }
-  .tree { font-family: 'Fira Code', monospace; font-size: 0.85rem; line-height: 1.6; }
-  .tree .dir { color: var(--accent-blue); }
-  .tree .file { color: var(--text); }
-  .tree .comment { color: var(--text-muted); }
+  .llm-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    box-shadow: var(--shadow);
+  }
+  .llm-card h4 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .llm-card table { margin: 0.3rem 0; font-size: 0.82rem; }
+  .llm-card th, .llm-card td { padding: 0.3rem 0.5rem; }
+
   @media (max-width: 640px) {
-    body { padding: 1rem; }
     .pattern-grid { grid-template-columns: 1fr; }
-    .secret-list { grid-template-columns: 1fr; }
+    .secret-grid { grid-template-columns: 1fr; }
+    .llm-grid { grid-template-columns: 1fr; }
+    body { padding: 1rem 0.5rem; }
   }
 </style>
 </head>
 <body>
+<div class="container">
 
-<h1>Zenn 半自動パブリッシュパイプライン設計書</h1>
-<div class="meta">
-  <span>作成日: 2026-05-22</span>
-  <span>バージョン: v2（半自動設計）</span>
-  <span class="badge badge-orange">ドラフト</span>
+<h1>Zenn 半自動パブリッシュパイプライン</h1>
+<p class="subtitle">設計書 v2 | 作成日: 2026-05-22 | ステータス: ドラフト</p>
+<div class="badge-row">
+  <span class="badge badge-blue">GitHub Actions</span>
+  <span class="badge badge-purple">LLM自動生成</span>
+  <span class="badge badge-orange">人間承認</span>
+  <span class="badge badge-green">SNS自動投稿</span>
 </div>
 
-<!-- ===== 1. 目的 ===== -->
-<h2>1. 目的</h2>
-<div class="card">
-  自分のGitHubプロジェクト（NexusCore, Atelier, ReserveOptimizer, Orchestrix, ContextForge 等）とSSOTを定期巡回し、記事ネタを自動抽出&drarr;ドラフト生成まで自動化する。<br>
-  <strong>公開は人間の承認後</strong>に自動で行う。
+<!-- ===== 一言で ===== -->
+<div class="hero">
+  <div class="hero-big">AIが毎日記事を書いて、あなたは「OK」だけ言えば公開される仕組み</div>
+  <div class="hero-sub">スキャン → ドラフト生成 → 人間確認 → 公開+SNS告知</div>
 </div>
 
-<!-- ===== 2. パイプライン全体像 ===== -->
-<h2>2. パイプライン全体像</h2>
-<div class="flow-container">
-
-  <div class="flow-box flow-auto">
-    <div class="flow-label">Workflow A: DISCOVER（毎日 06:00 JST 自動実行）</div>
-    <ol>
-      <li><strong>スキャン</strong>: GitHub API で全リポジトリの最近の活動を取得</li>
-      <li><strong>ネタ抽出</strong>: LLMが活動ログから記事ネタを抽出</li>
-      <li><strong>ドラフト生成</strong>: LLMがZenn記事ドラフトを生成</li>
-      <li><strong>プッシュ</strong>: <code>published: false</code> でzennリポにpush</li>
-      <li><strong>通知</strong>: Discord Webhook で「ドラフト出来ました」と通知</li>
-      <li><strong>Issue作成</strong>: GitHub Issue にドラフト内容を貼付</li>
-    </ol>
-  </div>
-
-  <div class="flow-arrow">&darr; &darr; &darr; 人間が確認 &darr; &darr; &darr;</div>
-
-  <div class="flow-box flow-human">
-    <div class="flow-label">人間の判断</div>
-    <ul>
-      <li>GitHub Issue またはZennプレビューで内容確認</li>
-      <li>問題なければ Issue に <code>/approve</code> とコメント</li>
-      <li>却下なら Issue を Close</li>
-    </ul>
-  </div>
-
-  <div class="flow-arrow">&darr; /approve コメントで自動トリガー</div>
-
-  <div class="flow-box flow-auto">
-    <div class="flow-label">Workflow B: PUBLISH（承認後 自動実行）</div>
-    <ol>
-      <li>記事を <code>published: true</code> に変更</li>
-      <li>git push &rarr; Zennが自動公開を検知</li>
-      <li>2分待機（Zenn処理待ち）</li>
-      <li>BulkPublish API でSNS告知（X, LinkedIn, Threads等）</li>
-      <li>Issue を Close + Discord通知「公開完了」</li>
-    </ol>
-  </div>
-
+<!-- ===== 比喩 ===== -->
+<div class="metaphor">
+  <div class="metaphor-title">例えるなら...</div>
+  AIが「取材記者」→ あなたは「編集長」<br>
+  記者が毎日ネタを探して原稿を書き、編集長が「掲載OK」を出したら新聞が刷られてSNSでも告知される。そんな仕組みです。
 </div>
 
-<!-- ===== 3. ファイル構成 ===== -->
-<h2>3. ファイル構成</h2>
-<pre class="tree"><span class="dir">zenn/</span>                                    <span class="comment"># 既存リポジトリ</span>
-├── <span class="dir">.github/</span>
-│   └── <span class="dir">workflows/</span>
-│       ├── <span class="file">discover.yml</span>                 <span class="comment"># Workflow A: ネタ発見+ドラフト生成</span>
-│       └── <span class="file">publish.yml</span>                  <span class="comment"># Workflow B: 承認後の公開+SNS投稿</span>
-├── <span class="dir">scripts/</span>
-│   ├── <span class="file">scanner.py</span>                       <span class="comment"># リポジトリスキャン</span>
-│   ├── <span class="file">generator.py</span>                     <span class="comment"># LLM記事生成</span>
-│   ├── <span class="file">notifier.py</span>                      <span class="comment"># Discord通知</span>
-│   ├── <span class="file">publisher.py</span>                     <span class="comment"># 承認→公開処理</span>
-│   ├── <span class="file">sns_poster.py</span>                    <span class="comment"># SNS告知投稿</span>
-│   ├── <span class="file">requirements.txt</span>                 <span class="comment"># Python依存関係</span>
-│   └── <span class="file">topic_history.json</span>               <span class="comment"># 過去のネタ履歴（重複防止）</span>
-└── <span class="dir">articles/</span>                            <span class="comment"># 記事ディレクトリ</span></pre>
+<!-- ===== 用語 ===== -->
+<dl class="glossary">
+  <dt>GitHub Actions（ギットハブ アクション）</dt>
+  <dd>GitHub上でプログラムを自動実行する仕組み。タイマー設定で毎日決まった時間に動かせる。</dd>
+  <dt>Workflow（ワークフロー）</dt>
+  <dd>「何を・どんな順番で実行するか」を書いた設定ファイルのこと。</dd>
+  <dt>Discord Webhook（ディスコード ウェブフック）</dt>
+  <dd>Discordのチャットに自動でメッセージを送る仕組み。</dd>
+  <dt>frontmatter（フロントマター）</dt>
+  <dd>記事ファイルの先頭にある <code>published: true/false</code> などの設定部分。</dd>
+  <dt>slug（スラッグ）</dt>
+  <dd>記事のURLになるファイル名部分。<code>ai-agent-self-healing-loop</code> など。</dd>
+</dl>
 
-<!-- ===== 4. Workflow A ===== -->
-<h2>4. Workflow A: DISCOVER（ネタ発見+ドラフト生成）</h2>
+<!-- ===== 全体像ダイアグラム ===== -->
+<h2>パイプライン全体像</h2>
 
-<h3>トリガー</h3>
-<div class="card">
-  <span class="badge badge-green">cron</span> 毎日 06:00 JST
-  <span class="badge badge-blue">手動</span> workflow_dispatch
+<div class="diagram-wrap">
+<svg viewBox="0 0 760 520" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Hiragino Sans, sans-serif">
+  <!-- Workflow A -->
+  <rect x="20" y="10" width="720" height="195" rx="16" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="2"/>
+  <rect x="20" y="10" width="720" height="36" rx="16" fill="#22c55e"/>
+  <rect x="20" y="30" width="720" height="16" fill="#22c55e"/>
+  <text x="380" y="34" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Workflow A: DISCOVER（毎日06:00 自動実行）</text>
+
+  <!-- Step boxes -->
+  <rect x="40" y="58" width="140" height="56" rx="10" fill="#fff" stroke="#bbf7d0" stroke-width="1.5"/>
+  <text x="110" y="80" text-anchor="middle" fill="#22c55e" font-size="20">&#x1F50D;</text>
+  <text x="110" y="100" text-anchor="middle" fill="#1a1d23" font-size="12" font-weight="600">1. スキャン</text>
+
+  <text x="192" y="90" fill="#22c55e" font-size="18">&#x27A1;</text>
+
+  <rect x="210" y="58" width="140" height="56" rx="10" fill="#fff" stroke="#bbf7d0" stroke-width="1.5"/>
+  <text x="280" y="80" text-anchor="middle" fill="#22c55e" font-size="20">&#x1F4A1;</text>
+  <text x="280" y="100" text-anchor="middle" fill="#1a1d23" font-size="12" font-weight="600">2. ネタ抽出</text>
+
+  <text x="362" y="90" fill="#22c55e" font-size="18">&#x27A1;</text>
+
+  <rect x="380" y="58" width="140" height="56" rx="10" fill="#fff" stroke="#bbf7d0" stroke-width="1.5"/>
+  <text x="450" y="80" text-anchor="middle" fill="#22c55e" font-size="20">&#x1F4DD;</text>
+  <text x="450" y="100" text-anchor="middle" fill="#1a1d23" font-size="12" font-weight="600">3. 記事生成</text>
+
+  <text x="532" y="90" fill="#22c55e" font-size="18">&#x27A1;</text>
+
+  <rect x="550" y="58" width="170" height="56" rx="10" fill="#fff" stroke="#bbf7d0" stroke-width="1.5"/>
+  <text x="635" y="80" text-anchor="middle" fill="#22c55e" font-size="20">&#x1F4E8;</text>
+  <text x="635" y="100" text-anchor="middle" fill="#1a1d23" font-size="12" font-weight="600">4. 通知+Issue作成</text>
+
+  <!-- Sub text -->
+  <text x="110" y="130" text-anchor="middle" fill="#555a65" font-size="10">GitHub APIで</text>
+  <text x="110" y="143" text-anchor="middle" fill="#555a65" font-size="10">リポジトリを巡回</text>
+  <text x="280" y="130" text-anchor="middle" fill="#555a65" font-size="10">LLMが活動から</text>
+  <text x="280" y="143" text-anchor="middle" fill="#555a65" font-size="10">記事ネタを発掘</text>
+  <text x="450" y="130" text-anchor="middle" fill="#555a65" font-size="10">LLMがZenn形式で</text>
+  <text x="450" y="143" text-anchor="middle" fill="#555a65" font-size="10">ドラフトを執筆</text>
+  <text x="635" y="130" text-anchor="middle" fill="#555a65" font-size="10">Discord通知＋</text>
+  <text x="635" y="143" text-anchor="middle" fill="#555a65" font-size="10">GitHub Issue作成</text>
+
+  <text x="110" y="170" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="600">GLM-5.1（安い）</text>
+  <text x="280" y="170" text-anchor="middle" fill="#8b5cf6" font-size="10" font-weight="600">GLM-5.1（安い）</text>
+  <text x="450" y="170" text-anchor="middle" fill="#3b82f6" font-size="10" font-weight="600">Claude（高品質）</text>
+  <text x="635" y="170" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="600">Webhook</text>
+
+  <!-- Arrow down -->
+  <text x="380" y="230" text-anchor="middle" fill="#8d919a" font-size="28">&#x2B07;</text>
+  <rect x="280" y="218" width="200" height="22" rx="11" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5"/>
+  <text x="380" y="234" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="700">&#x1F464; 人間が確認 &#x1F464;</text>
+
+  <!-- Human box -->
+  <rect x="140" y="260" width="480" height="80" rx="16" fill="#fffbeb" stroke="#fde68a" stroke-width="2.5"/>
+  <text x="380" y="288" text-anchor="middle" fill="#1a1d23" font-size="14" font-weight="700">&#x1F9E0; 人間の判断（3パターン）</text>
+  <text x="380" y="315" text-anchor="middle" fill="#555a65" font-size="12">&#x2705; そのままOK = <code>/approve</code>　&#x270F;&#xFE0F; 修正したい = 編集後OK　&#x274C; 却下 = IssueをClose</text>
+
+  <!-- Arrow down -->
+  <text x="380" y="365" text-anchor="middle" fill="#8d919a" font-size="28">&#x2B07;</text>
+  <rect x="250" y="353" width="260" height="22" rx="11" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="380" y="369" text-anchor="middle" fill="#3b82f6" font-size="11" font-weight="700">/approve で自動トリガー</text>
+
+  <!-- Workflow B -->
+  <rect x="20" y="390" width="720" height="120" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/>
+  <rect x="20" y="390" width="720" height="36" rx="16" fill="#3b82f6"/>
+  <rect x="20" y="410" width="720" height="16" fill="#3b82f6"/>
+  <text x="380" y="414" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Workflow B: PUBLISH（承認後 自動実行）</text>
+
+  <rect x="40" y="438" width="160" height="52" rx="10" fill="#fff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="120" y="460" text-anchor="middle" fill="#3b82f6" font-size="18">&#x1F4E4;</text>
+  <text x="120" y="478" text-anchor="middle" fill="#1a1d23" font-size="11" font-weight="600">1. Zenn公開</text>
+
+  <text x="212" y="468" fill="#3b82f6" font-size="16">&#x27A1;</text>
+
+  <rect x="230" y="438" width="130" height="52" rx="10" fill="#fff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="295" y="460" text-anchor="middle" fill="#3b82f6" font-size="18">&#x23F1;</text>
+  <text x="295" y="478" text-anchor="middle" fill="#1a1d23" font-size="11" font-weight="600">2. 2分待機</text>
+
+  <text x="372" y="468" fill="#3b82f6" font-size="16">&#x27A1;</text>
+
+  <rect x="390" y="438" width="160" height="52" rx="10" fill="#fff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="470" y="460" text-anchor="middle" fill="#3b82f6" font-size="18">&#x1F4F2;</text>
+  <text x="470" y="478" text-anchor="middle" fill="#1a1d23" font-size="11" font-weight="600">3. SNS告知投稿</text>
+
+  <text x="562" y="468" fill="#3b82f6" font-size="16">&#x27A1;</text>
+
+  <rect x="580" y="438" width="140" height="52" rx="10" fill="#fff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="650" y="460" text-anchor="middle" fill="#3b82f6" font-size="18">&#x2705;</text>
+  <text x="650" y="478" text-anchor="middle" fill="#1a1d23" font-size="11" font-weight="600">4. 完了通知</text>
+
+  <text x="120" y="500" text-anchor="middle" fill="#555a65" font-size="10">published: true</text>
+  <text x="295" y="500" text-anchor="middle" fill="#555a65" font-size="10">Zenn処理待ち</text>
+  <text x="470" y="500" text-anchor="middle" fill="#555a65" font-size="10">X/LinkedIn/等</text>
+  <text x="650" y="500" text-anchor="middle" fill="#555a65" font-size="10">Issue Close</text>
+</svg>
 </div>
 
-<h3>Step 1: scanner.py — リポジトリスキャン</h3>
-<p>GitHub APIを使い、各リポジトリの最近の活動をJSONで収集します。</p>
-<pre><code>対象リポジトリ（fukukei23/）:
-  - NexusCore
-  - atelier-kyo-manager
-  - reserve-optimizer
-  - orchestrix
-  - contextforge
-  - obsidian-ssot（01_DECISIONS/ 配下）
-
-取得する情報:
-  - 過去7日間のコミット（メッセージ + 変更ファイル）
-  - 過去7日間のPR（タイトル + 本文）
-  - README.md の内容</code></pre>
-
-<h3>Step 2: generator.py — ネタ抽出+ドラフト生成</h3>
-<p><strong>2段階のLLM呼び出し</strong>でコストと品質をバランス:</p>
-
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1rem 0;">
-  <div class="card">
-    <h4 style="color:var(--accent-cyan);">呼び出し1: ネタ抽出</h4>
-    <span class="badge badge-green">軽量</span>
-    <table>
-      <tr><td>モデル</td><td>GLM-5.1</td></tr>
-      <tr><td>入力</td><td>スキャン結果 + topic_history.json</td></tr>
-      <tr><td>出力</td><td>記事候補リスト（3件）</td></tr>
-      <tr><td>コスト</td><td>~$0.002</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4 style="color:var(--accent-purple);">呼び出し2: 記事生成</h4>
-    <span class="badge badge-purple">品質重視</span>
-    <table>
-      <tr><td>モデル</td><td>Claude Sonnet</td></tr>
-      <tr><td>入力</td><td>ネタ + ソースコード + ドキュメント</td></tr>
-      <tr><td>出力</td><td>Zenn記事Markdown（published: false）</td></tr>
-      <tr><td>コスト</td><td>~$0.05</td></tr>
-    </table>
-  </div>
+<!-- ===== 人間の判断 ===== -->
+<h2>人間の判断（3パターン）</h2>
+<div class="metaphor">
+  <div class="metaphor-title">あなたがやること</div>
+  Discordに通知が来たら、GitHub Issueを開いて内容を確認するだけ。
 </div>
-
-<h3>Step 3: Discord通知 + GitHub Issue作成</h3>
-<div class="card" style="border-left: 4px solid var(--accent-purple);">
-  <strong>Discord Webhook に送信:</strong><br><br>
-  新しい記事ドラフトが出来ました<br><br>
-  <strong>タイトル:</strong> {title}<br>
-  <strong>リポジトリ:</strong> {repo}<br>
-  <strong>プレビュー:</strong> https://github.com/fukukei23/zenn/blob/main/articles/{slug}.md<br><br>
-  <code>/approve</code> &rarr; 公開OK &nbsp;|&nbsp; Issue Close &rarr; 却下 &nbsp;|&nbsp; 編集後 <code>/approve</code> &rarr; 修正後公開
-</div>
-
-<!-- ===== 5. Workflow B ===== -->
-<h2>5. Workflow B: PUBLISH（承認後の公開+SNS投稿）</h2>
-
-<h3>トリガー</h3>
-<div class="card">
-  Issueに <code>approved</code> ラベル付与 &nbsp;<strong>または</strong>&nbsp; <code>/approve</code> コメント
-</div>
-
-<h3>処理フロー</h3>
-<div class="step-grid">
-  <div class="step-num">1</div>
-  <div class="step-content">Issue本文から記事slugを特定 &rarr; <code>published: false</code> を <code>true</code> に変更</div>
-  <div class="step-num">2</div>
-  <div class="step-content">git commit & push &rarr; Zennが自動検知して公開</div>
-  <div class="step-num">3</div>
-  <div class="step-content">2分待機（Zenn処理待ち）</div>
-  <div class="step-num">4</div>
-  <div class="step-content">BulkPublish API でSNS告知（X, LinkedIn, Threads, Bluesky）</div>
-  <div class="step-num">5</div>
-  <div class="step-content">Issueに「公開完了」コメント &rarr; Close + Discord通知</div>
-</div>
-
-<!-- ===== 6. 重複防止 ===== -->
-<h2>6. topic_history.json（重複防止）</h2>
-<div class="card">
-  過去に生成したトピックを記録し、同じネタを重複して生成しないようにします。
-  <pre><code>{
-  "topics": [
-    { "date": "2026-05-21", "title": "マルチエージェントアーキテクチャの設計",
-      "slug": "multi-agent-orchestration-design", "source_repo": "NexusCore" },
-    { "date": "2026-05-21", "title": "自己修復ループ設計",
-      "slug": "ai-agent-self-healing-loop", "source_repo": "NexusCore" }
-  ]
-}</code></pre>
-</div>
-
-<!-- ===== 7. Secrets ===== -->
-<h2>7. GitHub Secrets</h2>
-<div class="secret-list">
-  <div class="secret-item">
-    <code>ANTHROPIC_API_KEY</code><br>
-    <span style="color:var(--text-muted);">記事生成用LLM（Claude Sonnet）</span>
-  </div>
-  <div class="secret-item">
-    <code>BULK_PUBLISH_API_KEY</code><br>
-    <span style="color:var(--text-muted);">SNS告知投稿</span>
-  </div>
-  <div class="secret-item">
-    <code>DISCORD_WEBHOOK_URL</code><br>
-    <span style="color:var(--text-muted);">Discord通知</span>
-  </div>
-  <div class="secret-item">
-    <code>PERSONAL_ACCESS_TOKEN</code><br>
-    <span style="color:var(--text-muted);">他リポジトリスキャン用</span>
-  </div>
-</div>
-
-<!-- ===== 9. 人間の判断 ===== -->
-<h2>8. 人間の判断ポイント</h2>
 <div class="pattern-grid">
-  <div class="pattern-card" style="border-top: 3px solid var(--accent-green);">
-    <h4 style="color:var(--accent-green);">パターン1: そのままOK</h4>
-    <p>Issueに <code>/approve</code> コメント</p>
-    <p style="color:var(--text-muted);font-size:0.85rem;">Workflow Bが自動で公開+SNS投稿</p>
+  <div class="pattern-card pattern-ok">
+    <div class="pattern-icon">&#x2705;</div>
+    <h4>そのままOK</h4>
+    <p>Issueに <code>/approve</code><br>とコメントするだけ</p>
+    <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--green);">公開+SNS投稿が自動で走る</p>
   </div>
-  <div class="pattern-card" style="border-top: 3px solid var(--accent-orange);">
-    <h4 style="color:var(--accent-orange);">パターン2: 修正したい</h4>
-    <p>GitHub上で記事ファイルを直接編集</p>
-    <p>編集後に <code>/approve</code> コメント</p>
+  <div class="pattern-card pattern-edit">
+    <div class="pattern-icon">&#x270F;&#xFE0F;</div>
+    <h4>修正したい</h4>
+    <p>GitHub上で記事を<br>直接編集してからOK</p>
+    <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--orange);">編集後に <code>/approve</code></p>
   </div>
-  <div class="pattern-card" style="border-top: 3px solid var(--accent-red);">
-    <h4 style="color:var(--accent-red);">パターン3: 却下</h4>
-    <p>IssueをClose</p>
-    <p style="color:var(--text-muted);font-size:0.85rem;">ドラフトは published: false のまま残る（無害）</p>
+  <div class="pattern-card pattern-ng">
+    <div class="pattern-icon">&#x1F6AB;</div>
+    <h4>却下</h4>
+    <p>IssueをCloseするだけ</p>
+    <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--red);">ドラフトは残るが公開されない</p>
   </div>
 </div>
 
-<!-- ===== 10. コスト ===== -->
-<h2>9. LLMコスト見積もり</h2>
-<div class="cost-highlight card">
-  <div class="amount">~$1.50<span style="font-size:1rem;color:var(--text-muted);"> / 月</span></div>
-  <div class="period">LLMコストのみ。GitHub Actions + BulkPublish は $0</div>
+<!-- ===== スキャン対象 ===== -->
+<h2>スキャン対象リポジトリ</h2>
+<div class="metaphor">
+  <div class="metaphor-title">AIが毎日見に行く場所</div>
+  あなたのGitHubリポジトリの「最近1週間の活動」をチェックして、記事になりそうなネタを探します。
 </div>
 <table>
-  <tr><th>処理</th><th>モデル</th><th>入力/出力</th><th>1回あたり</th></tr>
-  <tr><td>ネタ抽出</td><td>GLM-5.1</td><td>~2k in / ~500 out</td><td>~$0.002</td></tr>
-  <tr><td>記事生成</td><td>Claude Sonnet</td><td>~5k in / ~3k out</td><td>~$0.05</td></tr>
-  <tr><td colspan="3"><strong>1日あたり合計</strong></td><td><strong>~$0.05</strong></td></tr>
-  <tr><td colspan="3"><strong>月間（30日）</strong></td><td><strong>~$1.50</strong></td></tr>
+  <tr><th>リポジトリ</th><th>中身</th><th>どんなネタが見つかるか</th></tr>
+  <tr><td><strong>NexusCore</strong></td><td>AIエージェントフレームワーク</td><td>マルチエージェント設計、自己修復ループ等</td></tr>
+  <tr><td><strong>atelier-kyo-manager</strong></td><td>E-Cサイト自動化</td><td>スクレイピング、テスト自動化等</td></tr>
+  <tr><td><strong>reserve-optimizer</strong></td><td>予約最適化システム</td><td>Stripe連携、GAS運用等</td></tr>
+  <tr><td><strong>orchestrix</strong></td><td>タスク管理API</td><td>FastAPI設計、TDD実践等</td></tr>
+  <tr><td><strong>contextforge</strong></td><td>コンテキスト分析ツール</td><td>スコアリング、レポート生成等</td></tr>
 </table>
 
-<!-- ===== 11. 既存ドラフト ===== -->
-<h2>10. 既存ドラフト7本の扱い</h2>
+<!-- ===== LLM 2段階 ===== -->
+<h2>記事生成の仕組み（2段階）</h2>
+<div class="metaphor">
+  <div class="metaphor-title">なぜ2段階か</div>
+  まず安いAIで「ネタ探し」をして、良いネタが見つかったら高いAIで「記事執筆」する。コストを抑えつつ品質を確保する仕組みです。
+</div>
+<div class="llm-grid">
+  <div class="llm-card" style="border-color:var(--green-border);">
+    <h4 style="color:var(--green);">&#x1F4A1; 第1段階: ネタ抽出</h4>
+    <table>
+      <tr><td>AI</td><td><strong>GLM-5.1</strong>（安い）</td></tr>
+      <tr><td>入力</td><td>GitHub活動ログ</td></tr>
+      <tr><td>出力</td><td>記事候補3件</td></tr>
+      <tr><td>コスト</td><td><strong>~$0.002/回</strong></td></tr>
+    </table>
+  </div>
+  <div class="llm-card" style="border-color:var(--purple-border);">
+    <h4 style="color:var(--purple);">&#x1F4DD; 第2段階: 記事執筆</h4>
+    <table>
+      <tr><td>AI</td><td><strong>Claude Sonnet</strong>（高品質）</td></tr>
+      <tr><td>入力</td><td>ネタ+ソースコード</td></tr>
+      <tr><td>出力</td><td>Zenn記事Markdown</td></tr>
+      <tr><td>コスト</td><td><strong>~$0.05/回</strong></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== ファイル構成 ===== -->
+<h2>ファイル構成</h2>
+<pre><code>zenn/                           # Zenn記事リポジトリ（GitHub）
+├── .github/workflows/
+│   ├── discover.yml            # 毎日ネタを探してドラフトを書く
+│   └── publish.yml             # 承認されたら公開+SNS投稿
+├── scripts/
+│   ├── scanner.py              # GitHubリポジトリを巡回するプログラム
+│   ├── generator.py            # LLMで記事を書くプログラム
+│   ├── notifier.py             # Discordに通知するプログラム
+│   ├── publisher.py            # 記事を公開するプログラム
+│   ├── sns_poster.py           # SNSに投稿するプログラム
+│   ├── requirements.txt        # 必要なPythonライブラリ一覧
+│   └── topic_history.json      # 過去に書いたネタの履歴
+└── articles/                   # 記事ファイル</code></pre>
+
+<!-- ===== Secrets ===== -->
+<h2>必要なAPIキー（GitHub Secretsに登録）</h2>
+<div class="metaphor">
+  <div class="metaphor-title">APIキーとは？</div>
+  サービスを使うための「合言葉」です。GitHubの設定画面に安全に保管し、プログラムからのみ使います。
+</div>
+<div class="secret-grid">
+  <div class="secret-card">
+    <strong style="color:var(--blue);">&#x1F916; ANTHROPIC_API_KEY</strong><br>
+    <span style="color:var(--text-sub);font-size:0.85rem;">記事を書くAI（Claude）の合言葉</span>
+  </div>
+  <div class="secret-card">
+    <strong style="color:var(--purple);">&#x1F4F2; BULK_PUBLISH_API_KEY</strong><br>
+    <span style="color:var(--text-sub);font-size:0.85rem;">SNS投稿サービスの合言葉</span>
+  </div>
+  <div class="secret-card">
+    <strong style="color:var(--green);">&#x1F514; DISCORD_WEBHOOK_URL</strong><br>
+    <span style="color:var(--text-sub);font-size:0.85rem;">Discordに通知を送るURL</span>
+  </div>
+  <div class="secret-card">
+    <strong style="color:var(--orange);">&#x1F510; PERSONAL_ACCESS_TOKEN</strong><br>
+    <span style="color:var(--text-sub);font-size:0.85rem;">他リポジトリを読むための鍵</span>
+  </div>
+</div>
+
+<!-- ===== コスト ===== -->
+<h2>月間コスト</h2>
+<div class="cost-box">
+  <div class="cost-amount">~$1.50<span style="font-size:1rem;color:var(--text-muted);"> / 月</span></div>
+  <div class="cost-label">LLMコストのみ。GitHub Actions + SNS投稿は無料</div>
+</div>
+<table>
+  <tr><th>項目</th><th>コスト</th><th>理由</th></tr>
+  <tr><td>LLM（記事生成）</td><td><strong>~$1.50/月</strong></td><td>1日1記事 x ~$0.05</td></tr>
+  <tr><td>GitHub Actions</td><td><strong>$0</strong></td><td>パブリックリポは無料</td></tr>
+  <tr><td>SNS投稿（BulkPublish）</td><td><strong>$0</strong></td><td>無料枠（100回/日）内</td></tr>
+</table>
+
+<!-- ===== 既存ドラフト ===== -->
+<h2>既存の未公開記事7本</h2>
 <div class="card">
-  現在 <code>published: false</code> の7本は、パイプラインの対象外。<br>
-  <strong>公開方法:</strong> 手動で <code>published: true</code> に変更 &rarr; push &rarr; Workflow BがSNS告知。<br>
-  Workflow B に <code>workflow_dispatch</code> でslugを渡す手動実行モードも用意。
+  すでに書いてある7本のドラフトは、このパイプラインとは別に管理します。<br>
+  公開したい時は <code>published: true</code> に変更してpushするだけで、Workflow BがSNS告知を自動で行います。
 </div>
 
-<!-- ===== 12. トレードオフ ===== -->
-<h2>11. 設計上のトレードオフ</h2>
+<!-- ===== トレードオフ ===== -->
+<h2>設計の選択理由</h2>
 <table>
-  <tr><th>項目</th><th>選択</th><th>理由</th></tr>
-  <tr><td>承認方法</td><td>GitHub Issue <code>/approve</code></td><td>Zennリポと同一場所、Git履歴残る</td></tr>
-  <tr><td>通知方法</td><td>Discord Webhook</td><td>即時性が高い、スマホで確認可能</td></tr>
-  <tr><td>記事生成LLM</td><td>Claude Sonnet</td><td>日本語品質が高い</td></tr>
-  <tr><td>ネタ抽出LLM</td><td>GLM-5.1</td><td>コスト優先、分類タスクなら十分</td></tr>
-  <tr><td>スキャン範囲</td><td>過去7日間</td><td>1日だとネタ少ない、30日だと情報多すぎ</td></tr>
-  <tr><td>承認後のSNS</td><td>自動</td><td>人間がチェック済み、SNS投稿は機械的作業</td></tr>
+  <tr><th>何を決めたか</th><th>どうしたか</th><th>なぜ</th></tr>
+  <tr><td>承認方法</td><td>GitHub Issueにコメント</td><td>記録が残る、スマホからでもできる</td></tr>
+  <tr><td>通知方法</td><td>Discord</td><td>すぐ気付ける、スマホにプッシュ通知</td></tr>
+  <tr><td>記事を書くAI</td><td>Claude Sonnet</td><td>日本語の品質が高い</td></tr>
+  <tr><td>ネタを探すAI</td><td>GLM-5.1</td><td>安い、ネタ探しなら十分</td></tr>
+  <tr><td>過去何日分見るか</td><td>7日間</td><td>1日だと少ない、30日だと多すぎ</td></tr>
 </table>
 
-<!-- ===== 13. 制限事項 ===== -->
-<h2>12. 制限事項</h2>
-<ul style="margin:0.5rem 0 0 1.5rem;">
-  <li>記事生成の品質はLLM依存（ソースコードの文脈を取りきれない場合あり）</li>
-  <li>1日1ネタ抽出（複数ネタが必要な場合は手動で連続実行）</li>
-  <li>SNS投稿はテキストのみ（OGP画像はZennが自動生成）</li>
-  <li>BulkPublish無料枠: 100リクエスト/日</li>
-  <li>GitHub Actions: パブリックリポは無制限</li>
-</ul>
+<!-- ===== 制限事項 ===== -->
+<h2>制限事項</h2>
+<div class="card">
+  <ul>
+    <li>AIが書く記事の品質にはムラがあります（ソースコードの文脈を取りきれない場合あり）</li>
+    <li>1日1ネタまで（複数欲しい時は手動で連続実行）</li>
+    <li>SNS投稿はテキストのみ（画像はZennが自動生成）</li>
+    <li>BulkPublish無料枠: 100リクエスト/日（1日1投稿なら余裕）</li>
+    <li>GitHub Actions: パブリックリポジトリは無料で無制限</li>
+  </ul>
+</div>
 
-<!-- ===== 14. 将来拡張 ===== -->
-<h2>13. 将来拡張（今はやらない）</h2>
-<ul style="margin:0.5rem 0 0 1.5rem; color:var(--text-muted);">
-  <li>SSOT（obsidian-ssot）の01_DECISIONS/配下もスキャン対象に追加</li>
-  <li>ZennスクレイピングでPV数を取得&drarr;人気記事の傾向分析</li>
-  <li>複数ネタ候補から人間が選択できるUI</li>
-  <li>記事のA/Bテスト（タイトル・構成のバリエーション）</li>
-  <li>English翻訳版の自動生成（DEV.to等の英語圏投稿用）</li>
-</ul>
+<!-- ===== 将来 ===== -->
+<h2>将来のアイデア（今はやらない）</h2>
+<div class="card" style="color:var(--text-muted);">
+  <ul>
+    <li>Zennの読者数を自動取得して、人気記事の傾向を分析</li>
+    <li>複数のネタ候補から選べるUI</li>
+    <li>英語翻訳版を自動生成（DEV.to等の海外向け投稿）</li>
+    <li>タイトルのA/Bテスト（どっちがクリックされやすいか）</li>
+  </ul>
+</div>
 
+</div>
 </body>
 </html>
