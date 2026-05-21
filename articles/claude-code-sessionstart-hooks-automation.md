@@ -3,7 +3,7 @@ title: "SessionStartフックでClaude Code CLIを自動構成する実践"
 emoji: "⚙️"
 type: "tech"
 topics: ["claudecode", "cli", "automation", "hooks"]
-published: false
+published: true
 ---
 
 ## はじめに

@@ -3,7 +3,7 @@ title: "LLMのハルシネーションを構造的に防ぐプロンプト設計
 emoji: "🔍"
 type: "tech"
 topics: ["ai", "llm", "codereview", "promptengineering"]
-published: false
+published: true
 ---
 
 ## はじめに
