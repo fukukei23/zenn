@@ -3,7 +3,7 @@ title: "コードを書かずに20個のプロジェクトを作った話（Vibe
 emoji: "🚀"
 type: "tech"
 topics: ["ai", "vibecoding", "llm", "personaldevelopment"]
-published: false
+published: true
 ---
 
 ## はじめに
