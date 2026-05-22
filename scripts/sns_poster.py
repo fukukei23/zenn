@@ -44,12 +44,22 @@ def main():
             print("No connected channels found in BulkPublish")
             sys.exit(0)
 
+        # X (Twitter) requires BulkPublish Pro plan — skip it, use tweetly instead
+        skip_platforms = {"x", "twitter"}
         channel_list = []
         for ch in channels:
+            platform = ch.get("platform", "").lower()
+            if platform in skip_platforms:
+                print(f"Skipping {platform} (use tweetly for X)")
+                continue
             channel_list.append({
                 "channelId": ch.get("id") or ch.get("channelId"),
                 "platform": ch.get("platform"),
             })
+
+        if not channel_list:
+            print("No channels after filtering (only X was connected)")
+            sys.exit(0)
 
         print(f"Posting to {len(channel_list)} channels: {[c['platform'] for c in channel_list]}")
 
