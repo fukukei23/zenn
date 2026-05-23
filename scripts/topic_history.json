@@ -5,6 +5,12 @@
       "title": "Pythonテストカバレッジ95%越え：NexusCoreで実践したフォールバック経路のテスト技法",
       "slug": "python-95-nexuscore",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-05-23",
+      "title": "【pytest】FastAPIの例外ハンドラを95%カバレッジにする具体的な書き方",
+      "slug": "pytest-fastapi-95",
+      "source_repo": "NexusCore"
     }
   ]
 }
