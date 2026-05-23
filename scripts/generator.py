@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Zenn article drafts using 2-stage LLM pipeline."""
+"""Generate Zenn article drafts using 2-stage LLM pipeline (GLM + MiniMax)."""
 
 import json
 import os
@@ -7,10 +7,12 @@ import re
 import sys
 from datetime import datetime
 
-import anthropic
+from openai import OpenAI
 
-TOPIC_MODEL = "claude-haiku-4-5-20251001"
-ARTICLE_MODEL = "claude-sonnet-4-6"
+GLM_BASE_URL = "https://api.z.ai/api/coding/paas/v4"
+MINIMAX_BASE_URL = "https://api.minimax.chat/v1/text/chatcompletion_v2"
+TOPIC_MODEL = "MiniMax-Text-01"
+ARTICLE_MODEL = "GLM-5.1"
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -34,7 +36,16 @@ def save_topic_history(history):
     save_json(history, os.path.join(SCRIPTS_DIR, "topic_history.json"))
 
 
-def extract_topics(client, scan_results, past_titles):
+def chat(client, model, prompt, max_tokens=4000):
+    response = client.chat.completions.create(
+        model=model,
+        max_tokens=max_tokens,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return response.choices[0].message.content
+
+
+def extract_topics(minimax_client, scan_results, past_titles):
     scan_summary = json.dumps(scan_results, ensure_ascii=False, indent=2)
     if len(scan_summary) > 8000:
         scan_summary = scan_summary[:8000] + "\n... (truncated)"
@@ -58,20 +69,14 @@ def extract_topics(client, scan_results, past_titles):
 出力形式（JSON配列のみ、説明文は不要）:
 [{{"title": "記事タイトル", "summary": "2-3行の概要", "repo": "リポジトリ名", "tags": ["tag1", "tag2"]}}]"""
 
-    response = client.messages.create(
-        model=TOPIC_MODEL,
-        max_tokens=1000,
-        messages=[{"role": "user", "content": prompt}],
-    )
-
-    text = response.content[0].text
+    text = chat(minimax_client, TOPIC_MODEL, prompt, max_tokens=1000)
     match = re.search(r"\[.*\]", text, re.DOTALL)
     if match:
         return json.loads(match.group())
     return []
 
 
-def generate_article(client, topic, scan_results):
+def generate_article(glm_client, topic, scan_results):
     repo_data = next(
         (r for r in scan_results if r["repo"] == topic.get("repo")),
         scan_results[0] if scan_results else {},
@@ -98,13 +103,7 @@ def generate_article(client, topic, scan_results):
 - 2000-3000文字程度
 - 実務経験に基づく具体的な内容（抽象論だけにしない）"""
 
-    response = client.messages.create(
-        model=ARTICLE_MODEL,
-        max_tokens=8000,
-        messages=[{"role": "user", "content": prompt}],
-    )
-
-    return response.content[0].text
+    return chat(glm_client, ARTICLE_MODEL, prompt, max_tokens=8000)
 
 
 def slug_from_title(title):
@@ -132,7 +131,14 @@ published: false
 
 
 def main():
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    glm_client = OpenAI(
+        api_key=os.environ["GLM_API_KEY"],
+        base_url=GLM_BASE_URL,
+    )
+    minimax_client = OpenAI(
+        api_key=os.environ["MINIMAX_API_KEY"],
+        base_url=MINIMAX_BASE_URL,
+    )
 
     scan_path = os.path.join(SCRIPTS_DIR, "..", "scan_results.json")
     skip_flag = os.path.join(SCRIPTS_DIR, "..", "skip.flag")
@@ -148,8 +154,8 @@ def main():
     history = load_topic_history()
     past_titles = [t["title"] for t in history.get("topics", [])]
 
-    print("Stage 1: Extracting topics...")
-    topics = extract_topics(client, scan_results, past_titles)
+    print("Stage 1: Extracting topics (MiniMax)...")
+    topics = extract_topics(minimax_client, scan_results, past_titles)
     if not topics:
         print("No topics found. Exiting.")
         sys.exit(0)
@@ -158,8 +164,8 @@ def main():
         print(f"  [{i+1}] {t['title']} ({t.get('repo', '?')})")
 
     topic = topics[0]
-    print(f"\nStage 2: Generating article → {topic['title']}")
-    article = generate_article(client, topic, scan_results)
+    print(f"\nStage 2: Generating article (GLM) → {topic['title']}")
+    article = generate_article(glm_client, topic, scan_results)
 
     tags = topic.get("tags", ["ai", "automation"])
     article = ensure_frontmatter(article, topic["title"], tags)
