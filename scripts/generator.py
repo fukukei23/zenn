@@ -10,8 +10,8 @@ from datetime import datetime
 from openai import OpenAI
 
 GLM_BASE_URL = "https://api.z.ai/api/coding/paas/v4"
-MINIMAX_BASE_URL = "https://api.minimax.chat/v1/text/chatcompletion_v2"
-TOPIC_MODEL = "MiniMax-Text-01"
+MINIMAX_BASE_URL = "https://api.minimax.io/v1"
+TOPIC_MODEL = "MiniMax-M2.7"
 ARTICLE_MODEL = "GLM-5.1"
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 
