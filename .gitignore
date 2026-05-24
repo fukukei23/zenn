@@ -35,3 +35,4 @@ logs/
 # Secrets
 .secrets.env
 credentials.json
+node_modules/

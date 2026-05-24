@@ -1,0 +1,26 @@
+{
+  "name": "zenn",
+  "version": "1.0.0",
+  "description": "> This repository manages technical articles for Zenn, a Japanese publishing platform for engineers. Pushing to the `master` branch triggers automatic deployment, making articles live at [zenn.dev/fukukei23](https://zenn.dev/fukukei23).",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fukukei23/zenn.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fukukei23/zenn/issues"
+  },
+  "homepage": "https://github.com/fukukei23/zenn#readme",
+  "dependencies": {
+    "zenn-cli": "^0.4.8"
+  }
+}
