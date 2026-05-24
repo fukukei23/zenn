@@ -11,6 +11,12 @@
       "title": "【pytest】FastAPIの例外ハンドラを95%カバレッジにする具体的な書き方",
       "slug": "pytest-fastapi-95",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-05-24",
+      "title": "SQLAlchemyモデルのgomock不用なテスト術：SimpleNamespaceで95%カバレッジ",
+      "slug": "sqlalchemy-gomock-simplenamespace-95",
+      "source_repo": "atelier-kyo-manager"
     }
   ]
 }
