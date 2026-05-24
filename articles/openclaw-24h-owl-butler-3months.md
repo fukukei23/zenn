@@ -57,7 +57,7 @@ Internet → Caddy (TLS + BasicAuth) → OpenClaw Gateway (Docker, 127.0.0.1:187
 
 **VPS**: 仮想専用サーバー。OSはDebian 12 bookworm。月額数千円のものを使用。
 
-**ドメイン**: `flopenclaw.com` を設定。
+**ドメイン**: 独自ドメイン（例: `your-openclaw.example.com`）を設定。
 
 ### docker-compose.yml の要点
 
@@ -81,7 +81,7 @@ services:
 ### Caddyfile
 
 ```
-flopenclaw.com {
+your-openclaw.example.com {
     basicauth * {
         {env.BASIC_AUTH_USER} {env.BASIC_AUTH_HASH}
     }

@@ -120,7 +120,7 @@ claude-session ssot ~/projects/obsidian-ssot
 
 ```bash
 # Termux で SSH接続
-ssh yn4416@$(hostname -I | awk '{print $1}')
+ssh your_username@$(hostname -I | awk '{print $1}')
 
 # tmuxセッションにアタッチ
 tmux attach -t nexuscore

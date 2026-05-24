@@ -96,7 +96,7 @@ services:
 ## Step 3: Caddy設定（TLS + BasicAuth）
 
 ```
-flopenclaw.com {
+your-openclaw.example.com {
     encode gzip
     log {
         output file /var/log/caddy/access.log
@@ -162,7 +162,7 @@ docker compose up -d
 docker compose logs -f gateway
 
 # ヘルスチェック
-curl -u deployer:パスワード https://flopenclaw.com/status
+curl -u deployer:パスワード https://your-openclaw.example.com/status
 # → {"status":"ok"} が返れば成功
 ```
 
