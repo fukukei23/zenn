@@ -1,7 +1,7 @@
 # Zenn記事インデックス（公開優先度付き）
 
 > 最終更新: 2026-05-24
-> 全記事数: 43本（既存公開: 12本 / 新規ドラフト: 20本 / その他: 11本）
+> 全記事数: 46本（既存公開: 12本 / 新規ドラフト: 23本 / その他: 11本）
 
 ## 公開優先度（S > A > B > C）
 
@@ -13,37 +13,40 @@
 | 2 | `flask-resale-management-solo.md` | Flask物販管理システムを1人で作った話 | 🆕 draft |
 | 3 | `context-engineering-47kb-tool.md` | Context Engineering入門: 47KBのツールでLLM入力を最適化 | 🆕 draft |
 | 4 | `llm-15b-tokens-monthly-operations.md` | 月間15億トークンをGLM APIで捌くLLMルーティング実運用3ヶ月目 | 🆕 draft |
+| 5 | `openclaw-24h-owl-butler-3months.md` | 公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録 | 🆕 draft |
+| 6 | `openclaw-glm5-cost-optimization-24h.md` | OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用 | 🆕 draft |
+| 7 | `claude-code-openclaw-dual-wielding.md` | Claude Code + OpenClaw 二刀流：コーディングと24時間執事の両立 | 🆕 draft |
 
 ### Aランク（Sランク公開後に順次）
 
 | 公開順 | ファイル名 | タイトル | 状態 |
 |--------|-----------|---------|------|
-| 5 | `linebot-stripe-cloudflare-reservation.md` | LINE Bot × Stripe × Cloudflare Workers予約システム | 🆕 draft |
-| 6 | `mcp-15-servers-cleanup-criteria.md` | 15個MCPサーバーの断捨離基準 | 🆕 draft |
-| 7 | `mcp-15-servers-management-guide.md` | 15個MCPサーバーを管理する方法 | 🆕 draft |
-| 8 | `wsl2-tmux-claude-code-always-on.md` | WSL2 + tmuxでClaude Code CLI常時稼働 | 🆕 draft |
+| 8 | `linebot-stripe-cloudflare-reservation.md` | LINE Bot × Stripe × Cloudflare Workers予約システム | 🆕 draft |
+| 9 | `mcp-15-servers-cleanup-criteria.md` | 15個MCPサーバーの断捨離基準 | 🆕 draft |
+| 10 | `mcp-15-servers-management-guide.md` | 15個MCPサーバーを管理する方法 | 🆕 draft |
+| 11 | `wsl2-tmux-claude-code-always-on.md` | WSL2 + tmuxでClaude Code CLI常時稼働 | 🆕 draft |
 
 ### Bランク（ロングテール狙い）
 
 | 公開順 | ファイル名 | タイトル | 状態 |
 |--------|-----------|---------|------|
-| 9 | `stride-threat-modeling-personal-projects.md` | 個人開発でSTRIDE脅威モデリング | 🆕 draft |
-| 10 | `429-rate-limit-incident-3days.md` | 429エラーと戦った3日間 | 🆕 draft |
-| 11 | `claude-code-secret-management-incident.md` | シークレット管理でAPIキー露出を防ぐ | 🆕 draft |
-| 12 | `zenn-pipeline-glm-minimax-automation.md` | Zenn記事パイプラインをGLM+MiniMaxで構築 | 🆕 draft |
+| 12 | `stride-threat-modeling-personal-projects.md` | 個人開発でSTRIDE脅威モデリング | 🆕 draft |
+| 13 | `429-rate-limit-incident-3days.md` | 429エラーと戦った3日間 | 🆕 draft |
+| 14 | `claude-code-secret-management-incident.md` | シークレット管理でAPIキー露出を防ぐ | 🆕 draft |
+| 15 | `zenn-pipeline-glm-minimax-automation.md` | Zenn記事パイプラインをGLM+MiniMaxで構築 | 🆕 draft |
 
 ### Cランク（余裕があれば）
 
 | 公開順 | ファイル名 | タイトル | 状態 |
 |--------|-----------|---------|------|
-| 13 | `ai-code-review-hallucination-verification.md` | AIコードレビューの幻覚検証（v2→v3） | 🆕 draft |
-| 14 | `ssot-300-decision-logs-lessons.md` | 300件意思決定ログから学ぶSSOT運用 | 🆕 draft |
-| 15 | `test-coverage-zero-to-76.md` | テストカバレッジ0%→76テスト | 🆕 draft |
-| 16 | `webhook-hmac-timing-safe-implementation.md` | Webhook署名検証タイミングセーフ実装 | 🆕 draft |
-| 17 | `claude-code-claude-md-3-layer-design.md` | Claude Code設定3層設計 | 🆕 draft |
-| 18 | `claude-code-backlog-management-hooks.md` | バックログ管理でタスク忘れ防止 | 🆕 draft |
-| 19 | `selenium-to-playwright-migration-scraping.md` | Selenium→Playwright移行 | 🆕 draft |
-| 20 | `python-reading-guide-interactive-learning.md` | Python読解力インタラクティブ教材 | 🆕 draft |
+| 16 | `ai-code-review-hallucination-verification.md` | AIコードレビューの幻覚検証（v2→v3） | 🆕 draft |
+| 17 | `ssot-300-decision-logs-lessons.md` | 300件意思決定ログから学ぶSSOT運用 | 🆕 draft |
+| 18 | `test-coverage-zero-to-76.md` | テストカバレッジ0%→76テスト | 🆕 draft |
+| 19 | `webhook-hmac-timing-safe-implementation.md` | Webhook署名検証タイミングセーフ実装 | 🆕 draft |
+| 20 | `claude-code-claude-md-3-layer-design.md` | Claude Code設定3層設計 | 🆕 draft |
+| 21 | `claude-code-backlog-management-hooks.md` | バックログ管理でタスク忘れ防止 | 🆕 draft |
+| 22 | `selenium-to-playwright-migration-scraping.md` | Selenium→Playwright移行 | 🆕 draft |
+| 23 | `python-reading-guide-interactive-learning.md` | Python読解力インタラクティブ教材 | 🆕 draft |
 
 ## 既存公開済み（12本）
 
