@@ -32,6 +32,23 @@ def verify(signature, expected):
 ...
 ```
 
+## Webhook署名検証フロー
+
+```mermaid
+sequenceDiagram
+    participant 送信側 as 送信側サーバー
+    participant 受信側 as 受信側サーバー
+    送信側->>送信側: ペイロード + 秘密鍵でHMAC生成
+    送信側->>受信側: ペイロード + 署名を送信
+    受信側->>受信側: 同じ秘密鍵でHMAC計算
+    受信側->>受信側: timing-safe比較
+    alt 署名一致
+        受信側-->>送信側: 200 OK 処理成功
+    else 署名不一致
+        受信側-->>送信側: 401 Unauthorized 拒否
+    end
+```
+
 ## 実装: Google Apps Script（JavaScript）
 
 ```javascript

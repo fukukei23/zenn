@@ -16,18 +16,13 @@ published: false
 
 ## パイプライン構成
 
-```
-GitHub Actions（週次 or 手動トリガー）
-  ↓
-1. トピック抽出（MiniMax-M2.7）
-  ↓
-2. 記事生成（GLM-5.1）
-  ↓
-3. Zenn用Markdown変換
-  ↓
-4. Discord通知
-  ↓
-5. GitHub Issue自動作成
+```mermaid
+flowchart LR
+    A[GitHub Actions<br/>週次/手動トリガー] --> B[MiniMax-M2.7<br/>トピック抽出]
+    B --> C[GLM-5.1<br/>記事生成]
+    C --> D[Zenn用<br/>Markdown変換]
+    D --> E[GitHub<br/>push & Issue作成]
+    E --> F[Discord<br/>通知]
 ```
 
 ## Anthropic → OpenAI SDK移行

@@ -27,6 +27,18 @@ Microsoftが提唱した脅威分類フレームワーク:
 | **D**enial of Service | サービス妨害 | レート制限なしのエンドポイント |
 | **E**levation of Privilege | 権限昇格 | 管理者機能への不正アクセス |
 
+## STRIDE脅威分類と対策マッピング
+
+```mermaid
+flowchart LR
+    S["S: なりすまし<br/>Spoofing"] --> S1["Webhook署名検証<br/>HMAC-SHA256"]
+    T["T: データ改ざん<br/>Tampering"] --> T1["入力バリデーション<br/>SQLパラメータ化"]
+    R["R: 否認<br/>Repudiation"] --> R1["ログ監査<br/>ADR記録"]
+    I["I: 情報漏洩<br/>Info Disclosure"] --> I1["シークレット管理<br/>~/.secrets.env集約"]
+    D["D: サービス妨害<br/>Denial of Service"] --> D1["レート制限<br/>Flask-Limiter"]
+    E["E: 権限昇格<br/>Elevation of Privilege"] --> E1["認証・認可<br/>MFA / RBAC"]
+```
+
 ## 実践1: atelier-kyo-manager（物販管理）
 
 ### システム概要

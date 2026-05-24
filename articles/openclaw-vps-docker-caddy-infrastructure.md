@@ -35,7 +35,20 @@ Internet（外部からのアクセス）
  +--------------------+
 ```
 
-**ポイント**: Gatewayを直接インターネットに晒さない。Caddyが唯一の入口。
+```mermaid
+flowchart TD
+    Internet((Internet))
+    Caddy["Caddy コンテナ<br/>TLS暗号化 + BasicAuth<br/>ドメイン: fopenclaw.com"]
+    Gateway["OpenClaw Gateway コンテナ<br/>AIエージェント本体<br/>24時間常時稼働"]
+    LLM["LLM Provider API<br/>GLM-5 / GLM-4.7 / GPT-5.1"]
+
+    Internet -->|"HTTPS 443"| Caddy
+    Caddy -->|"127.0.0.1:18789<br/>ループバックのみ"| Gateway
+    Gateway -->|"API呼び出し"| LLM
+
+    style Caddy fill:#fff3e0,stroke:#ff9800
+    style Gateway fill:#e3f2fd,stroke:#2196f3
+```
 
 ## Step 1: VPS初期設定
 
@@ -214,6 +227,28 @@ RUN apt-get update && apt-get install -y chromium
 5. **`.env`で秘密管理**: APIキーはGitに含めない
 
 OpenClawの本番運用は「Docker起動」だけでなく、この5つのセキュリティレイヤーを積むことで安心して24時間稼働させられる。
+
+```mermaid
+flowchart TD
+    Internet((Internet<br/>外部からのアクセス))
+    UFW["Layer 1: UFW ファイアウォール<br/>80/443のみ許可<br/>18789はdeny"]
+    CaddyTLS["Layer 2: Caddy TLS<br/>Let's Encrypt自動取得<br/>通信暗号化"]
+    BasicAuth["Layer 3: BasicAuth<br/>ID/パスワード認証"]
+    Localhost["Layer 4: localhostバインド<br/>127.0.0.1:18789<br/>外部から直接アクセス不可"]
+    Gateway["Layer 5: Gateway本体<br/>trustedProxies設定<br/>Dockerネットワークのみ信頼"]
+
+    Internet --> UFW
+    UFW --> CaddyTLS
+    CaddyTLS --> BasicAuth
+    BasicAuth --> Localhost
+    Localhost --> Gateway
+
+    style UFW fill:#ffebee,stroke:#f44336
+    style CaddyTLS fill:#fff3e0,stroke:#ff9800
+    style BasicAuth fill:#fff9c4,stroke:#fbc02d
+    style Localhost fill:#e8f5e9,stroke:#4caf50
+    style Gateway fill:#e3f2fd,stroke:#2196f3
+```
 
 ---
 

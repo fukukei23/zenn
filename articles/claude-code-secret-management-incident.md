@@ -60,6 +60,28 @@ grep -E "^[A-Z_]+=" ~/.secrets.env | sed "s/=.*/=<REDACTED>/"
 echo "len=${#MINIMAX_API_KEY}"
 ```
 
+## シークレット漏洩から検出・修正までの流れ
+
+```mermaid
+sequenceDiagram
+    participant User as ユーザー
+    participant Claude as Claude Code
+    participant Hook as PreToolUseフック
+    participant File as ~/.secrets.env
+
+    User->>Claude: APIキー確認を指示
+    Claude->>Hook: cat ~/.secrets.env を実行
+    Hook->>Hook: 危険コマンド判定
+    Hook-->>Claude: ブロック（実行拒否）
+    Claude-->>User: 安全な確認方法を提案
+    User->>Claude: grep + sed でキー名のみ確認
+    Claude->>Hook: 安全パターンを判定
+    Hook-->>Claude: 許可
+    Claude->>File: キー名一覧取得
+    File-->>Claude: KEY_NAME=<REDACTED>
+    Claude-->>User: キー名一覧を表示（値は伏せ）
+```
+
 ## 3層防御の実装
 
 ### 第1層: PreToolUseフック（技術的強制）

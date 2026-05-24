@@ -49,6 +49,18 @@ OpenClawはまさにこの用途に合っていました。
 Internet → Caddy (TLS + BasicAuth) → OpenClaw Gateway (Docker, 127.0.0.1:18789) → LLM API
 ```
 
+```mermaid
+flowchart LR
+    Internet((Internet))
+    Caddy[Caddy<br/>TLS + BasicAuth]
+    Gateway[OpenClaw Gateway<br/>Docker 127.0.0.1:18789]
+    LLM[LLM API<br/>GLM-5 / GLM-4.7 / GPT-5.1]
+
+    Internet -->|HTTPS| Caddy
+    Caddy -->|認証後のみ| Gateway
+    Gateway -->|API呼び出し| LLM
+```
+
 ### 各コンポーネントの役割
 
 **Caddy**: Webサーバー兼リバースプロキシ。TLS（通信の暗号化）終端とBasicAuth（ID/パスワード認証）を担当します。Gatewayを直接インターネットに晒さないための盾です。
@@ -155,7 +167,20 @@ OpenClawには「Heartbeat」という定期実行の仕組みがあります。
 | **第2層** | 5分 | 設定ファイルヘルスチェック | 変更検知・差分通知 |
 | **第3層** | 1分 | ファイル変更監視 | アラートファイル検知→即時通知 |
 
-### 静穏時間の設定
+```mermaid
+flowchart TD
+    subgraph "ハートビート3層設計"
+        L1["第1層: 30分間隔<br/>Discord会話スキャン<br/>TODO抽出・マネタイズ検出"]
+        L2["第2層: 5分間隔<br/>設定ファイルヘルスチェック<br/>変更検知・差分通知"]
+        L3["第3層: 1分間隔<br/>ファイル変更監視<br/>アラート→即時通知"]
+    end
+
+    L1 -->|"夜間22:00-06:00はスキップ"| Night["静穏モード"]
+    L2 --> Night
+    L3 -->|"緊急時は常時監視"| Alert["@everyone 即時通知"]
+    L1 --> Report["@here またはメンションなし"]
+    L2 --> Report
+```
 
 夜間（22:00-06:00 JST）はスキャンをスキップします。深夜に通知が来ても対応できないので、朝起きた時にまとめて確認できるようにしています。
 
@@ -216,6 +241,23 @@ OpenClawはセッションをまたいで記憶を保持する仕組みを持っ
 | **2. SHARED** | `memory/SHARED.md` | 全チャンネル共通の重要事項 | インフラ状態・API仕様等 |
 | **3. チャンネル別アーカイブ** | `memory/channels/*.md` | チャンネルごとの重要会話 | Discordチャンネル別のログ |
 | **4. 長期記憶** | `メモリ.md` | キュレーションされた本質的な記憶 | 私の好み・重要な決定事項 |
+
+```mermaid
+flowchart TD
+    subgraph "メモリ4層システム"
+        M1["1. 日次ログ<br/>memory/YYYY-MM-DD.md<br/>その日の出来事"]
+        M2["2. SHARED<br/>memory/SHARED.md<br/>全チャンネル共通の重要事項"]
+        M3["3. チャンネル別アーカイブ<br/>memory/channels/*.md<br/>チャンネルごとの重要会話"]
+        M4["4. 長期記憶<br/>メモリ.md<br/>キュレーションされた本質的記憶"]
+    end
+
+    M1 -->|"重要事項を抽出"| M2
+    M1 -->|"チャンネル別に整理"| M3
+    M2 -->|"本質的な情報をキュレーション"| M4
+    M3 --> M4
+
+    style M4 fill:#e8f5e9,stroke:#4caf50
+```
 
 **セキュリティ上の工夫**: 長期記憶（メモリ.md）はメインセッションのみ読み込ませます。Discord等の外部チャンネルからは読まない設定にしています。チャット経由で個人情報にアクセスされるリスクを防ぐためです。
 

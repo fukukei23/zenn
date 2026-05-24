@@ -95,6 +95,28 @@ AI開発で最も大きいのはAPIコストです。1ヶ月で **15億トーク
 
 Mutation Testing（変異テスト）も導入し、テストの質も客観的に測定しました。
 
+## リポジトリカテゴリ分類
+
+```mermaid
+flowchart TD
+    A[20+ リポジトリ] --> B[AI/エージェント]
+    A --> C[自動化/パイプライン]
+    A --> D[インフラ/ツール]
+    A --> E[学習/実験]
+
+    B --> B1[NexusCore<br/>AIエージェントFW]
+    B --> B2[contextforge<br/>Context Engineering]
+
+    C --> C1[zenn-pipeline<br/>記事生成]
+    C --> C2[atelier-kyo-manager<br/>物販管理]
+
+    D --> D1[obsidian-ssot<br/>知識ベース]
+    D --> D2[claude-code-hooks<br/>自動化基盤]
+
+    E --> E1[LINE Bot<br/>予約システム]
+    E --> E2[スクレイピング<br/>価格監視]
+```
+
 ## 1年の成果（客観データ）
 
 | 指標 | 数値 |

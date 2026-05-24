@@ -26,6 +26,26 @@ atelier-kyo-manager（Flask App Factory）
   └── Utils（20+モジュール）
 ```
 
+## システムアーキテクチャ
+
+```mermaid
+flowchart LR
+    A[Flask App Factory] --> B[Blueprint層]
+    B --> B1[analytics]
+    B --> B2[orders]
+    B --> B3[products]
+    A --> C[Service層]
+    C --> C1[pipeline]
+    C --> C2[chatbot / LLM]
+    C --> C3[price_scraper]
+    A --> D[(SQLite / PostgreSQL)]
+    E[LINE Bot] --> B
+    F[Playwright<br/>スクレイピング] --> C3
+    G[Stripe Webhook] --> B
+    H[倉庫Webhook] --> B
+    C2 --> I[GLM-5.1 / MiniMax]
+```
+
 ## 主要機能の設計思想
 
 ### 1. 出品パイプライン自動化
@@ -136,6 +156,27 @@ Forward2me（転送倉庫）の荷物受領イベントをWebhookで受信:
 決済方法・発送状況・キャンセル有無で期限が変わる。→ ステートマシンで一元管理。
 
 ## 成果
+
+### 予約〜決済フロー
+
+```mermaid
+sequenceDiagram
+    participant U as ユーザー
+    participant L as LINE Bot
+    participant S as Stripe
+    participant W as Webhook
+    participant DB as データベース
+
+    U->>L: 予約リクエスト
+    L->>DB: 注文作成（pending）
+    L->>U: 決済リンク送信
+    U->>S: カード決済実行
+    S->>W: checkout.session.completed
+    W->>W: 署名検証（HMAC-SHA256）
+    W->>DB: ステータス更新（payment_done）
+    DB-->>L: 更新通知
+    L->>U: 決済完了通知
+```
 
 - 出品作業時間: 手動2時間 → 自動15分
 - 価格監視: 手動確認 → 自動スクレイピング（1日3回）

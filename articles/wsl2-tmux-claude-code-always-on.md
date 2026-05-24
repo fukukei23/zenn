@@ -23,6 +23,22 @@ Windows 11
             └── Claude Code セッション3（プロジェクトC）
 ```
 
+## WSL2 + tmux + Claude Code 起動フロー
+
+```mermaid
+flowchart TD
+    A[Windows起動] --> B[WSL2 Ubuntu起動]
+    B --> C{tmuxセッション存在?}
+    C -- あり --> D[既存セッションにアタッチ]
+    C -- なし --> E[tmuxセッション新規作成]
+    E --> F[Claude Code起動]
+    F --> G[SessionStartフック実行]
+    G --> H[SSOT日記・バックログ自動読込]
+    D --> I[セッション復帰]
+    H --> I
+    I --> J[作業開始]
+```
+
 ## Step 1: WSL2のセットアップ
 
 ### インストール

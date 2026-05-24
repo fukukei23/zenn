@@ -120,6 +120,15 @@ Before doing anything else:
 
 AIの「日記・手帳」です。セッションをまたいで覚えておくべきことを書きます。4層構造で管理しています。
 
+```mermaid
+flowchart TD
+    A[日次ログ<br>memory/YYYY-MM-DD.md] -->|重要事項を抽出| B[SHARED<br>memory/SHARED.md]
+    B -->|チャンネル別に整理| C[チャンネル別記憶<br>memory/channels/*.md]
+    C -->|本質的な情報を昇華| D[長期記憶<br>メモリ.md]
+    D -->|セッション開始時に読込| E[AIが記憶を復元]
+    E -->|また日々の活動を記録| A
+```
+
 | 層 | ファイル | 役割 |
 |---|---|---|
 | 日次ログ | memory/YYYY-MM-DD.md | その日の出来事（raw） |

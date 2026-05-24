@@ -101,15 +101,39 @@ export default {
 
 **最小転送**: Workersは受信したパラメータをURLエンコードしてGASに転送。ペイロードの再構築を最小化。
 
-### 4. 決済フロー
+### 4. 予約・決済フロー
 
-```
-LINE Bot「予約確定」ボタン
-  → Stripe Checkout Session 作成
-  → 決済URL を LINE で送信
-  → ユーザーがカード入力
-  → Stripe Webhook で決済完了通知受信
-  → Google Sheets のステータス更新
+```mermaid
+sequenceDiagram
+    participant User as ユーザー
+    participant LINE as LINE Bot
+    participant CF as Cloudflare Workers
+    participant GAS as GAS Web App
+    participant Stripe as Stripe
+    participant Sheet as Google Sheets
+
+    User->>LINE: 予約希望を送信
+    LINE->>CF: Webhook転送
+    CF->>GAS: リクエスト転送
+    GAS->>Sheet: 空き枠確認
+    Sheet-->>GAS: 空き情報
+    GAS-->>CF: 予約候補
+    CF-->>LINE: 確認メッセージ
+    LINE-->>User: 日時選択
+    User->>LINE: 予約確定
+    LINE->>CF: Webhook転送
+    CF->>GAS: 決済リクエスト
+    GAS->>Stripe: Checkout Session作成
+    Stripe-->>GAS: 決済URL返却
+    GAS-->>LINE: 決済URL送信
+    LINE-->>User: 決済URL表示
+    User->>Stripe: カード入力・決済
+    Stripe->>CF: Webhook（決済完了）
+    CF->>GAS: 完了通知転送
+    GAS->>Sheet: ステータス更新
+    GAS-->>CF: 処理完了
+    CF-->>LINE: 予約確定メッセージ
+    LINE-->>User: 予約完了通知
 ```
 
 **Stripe Checkout** を使用する理由: カード情報を自システムに一切持たない。PCI DSSの対象外。
