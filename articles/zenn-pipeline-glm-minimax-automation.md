@@ -2,7 +2,7 @@
 title: "Zenn記事半自動パイプラインをGLM+MiniMaxで構築した話"
 emoji: "📝"
 type: "tech"
-topics: ["zenn", "ai", "githubactions", "glm"]
+topics: ["ai", "automation", "github", "llm"]
 published: false
 ---
 
@@ -107,7 +107,7 @@ def to_zenn_format(article: str, topic: str) -> str:
 title: "{topic}"
 emoji: "📝"
 type: "tech"
-topics: ["ai", "llm"]
+topics: ["ai", "automation", "github", "llm"]
 published: false
 ---
 
@@ -181,6 +181,12 @@ DISCORD_WEBHOOK_URL
 1. **OpenAI SDKでマルチプロバイダー対応** — GLMもMiniMaxも同じSDKで呼び出し可能
 2. **タスク別モデル使い分け** — 抽出はMiniMax（低コスト）、生成はGLM（高品質）
 3. **サブスク活用で実質ゼロコスト** — API従量課金より圧倒的に安い
+
+## 関連記事
+
+- [AIコードレビューの幻覚を3LLM合意で検証](./ai-code-review-hallucination-verification) — マルチLLM活用の別事例
+- [公務員が20リポジトリで生き残る戦略](./civilservant-20repos-survival) — LLMルーティングを支える開発戦略
+- [SSOT300件の意思決定ログから学んだ教訓](./ssot-300-decision-logs-lessons) — 記事生成パイプラインの記録運用
 
 ---
 

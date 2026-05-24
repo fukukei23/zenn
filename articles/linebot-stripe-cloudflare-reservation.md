@@ -2,7 +2,7 @@
 title: "LINE Bot × Stripe × Cloudflare Workers で予約システムを2週間で作った話"
 emoji: "📅"
 type: "tech"
-topics: ["linebot", "stripe", "cloudflareworkers", "gas", "typescript"]
+topics: ["typescript", "stripe", "api", "automation"]
 published: false
 ---
 
@@ -194,6 +194,12 @@ function doGet(e) {
 ## コード
 
 https://github.com/fukukei23/reserve-optimizer
+
+## 関連記事
+
+- [Webhook署名検証をタイミングセーフに実装する](./webhook-hmac-timing-safe-implementation) — LINE/Stripe署名検証の詳細実装
+- [STRIDE脅威モデリングを個人開発に導入](./stride-threat-modeling-personal-projects) — 予約システムの脅威分析手法
+- [Flask物販管理を一人で構築した全記録](./flask-resale-management-solo) — 同じ個人開発プロダクトの別事例
 
 ---
 

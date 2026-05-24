@@ -2,7 +2,7 @@
 title: "WSL2 + tmuxでClaude Code CLIを常時稼働させる環境構築"
 emoji: "🖥️"
 type: "tech"
-topics: ["wsl2", "tmux", "claudecode", "linux"]
+topics: ["wsl", "linux", "claude", "cli"]
 published: false
 ---
 
@@ -279,6 +279,12 @@ tmux send-keys -t session_name "claude" Enter
 | コスト管理 | LLMルーティングプロキシ |
 
 この環境で、私は毎日5〜10のClaude Codeセッションを同時稼働させています。
+
+## 関連記事
+
+- [Claude Code設定の3層設計 — CLAUDE.mdをどう分割するか](./claude-code-claude-md-3-layer-design) — 環境設定の階層化で破綻を防ぐ
+- [Claude Codeバックログ管理をHooksで自動化](./claude-code-backlog-management-hooks) — セッション開始時のタスク自動読み込み
+- [MCPサーバー15個の管理方法とトラブル対応](./mcp-15-servers-management-guide) — MCP設定のGit管理と運用ノウハウ
 
 ---
 

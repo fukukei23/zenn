@@ -2,7 +2,7 @@
 title: "OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み"
 emoji: "💓"
 type: "tech"
-topics: ["openclaw", "automation", "cron", "ai"]
+topics: ["openclaw", "automation", "linux", "ai"]
 published: false
 ---
 
@@ -205,6 +205,14 @@ flowchart TD
 5. **サイレントOKを活用する** — アラートがない時は何も通知しない
 
 Heartbeatは「AIにシゴトを与える」仕組みです。設計次第で24時間の監視体制を月額数千円で実現できます。
+
+## 関連記事
+
+- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — Heartbeatを支える運用全体の概要
+- [OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用](./openclaw-glm5-cost-optimization-24h) — 各Heartbeat層のコスト試算詳細
+- [Claude Code + OpenClaw 二刀流](./claude-code-openclaw-dual-wielding) — 1日のワークフローにおけるHeartbeatの位置づけ
+- [AIエージェントにソウルを与える：OpenClawのカスタマイズ徹底解説](./openclaw-soul-memory-customization) — Heartbeatが更新するメモリシステムの設計
+- [VPS + Docker + Caddy + OpenClaw：インフラ構築](./openclaw-vps-docker-caddy-infrastructure) — Heartbeatが動くVPSインフラの構築手順
 
 ---
 

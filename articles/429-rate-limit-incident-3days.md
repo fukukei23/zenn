@@ -2,7 +2,7 @@
 title: "Claude Code + GLM API + レートプロキシで429エラーと戦った3日間"
 emoji: "🔥"
 type: "tech"
-topics: ["ai", "api", "glm", "ratelimit", "proxy"]
+topics: ["ai", "api", "llm", "automation"]
 published: false
 ---
 
@@ -166,6 +166,13 @@ pkill -f glm_rate_proxy  # プロキシを止めるだけ
 - [x] MiniMax成功時のトラッカー更新
 - [x] プロキシバイパス手段の文書化
 - [x] インシデント記録のSSOT保存
+
+## 関連記事
+
+- [月間15億トークンをGLM APIで捌くLLMルーティングの実運用](./llm-15b-tokens-monthly-operations) — インシデントが起きたレートプロキシの全体設計
+- [OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用](./openclaw-glm5-cost-optimization-24h) — 429対策の元となるコスト管理ルール
+- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — 影響を受けたOpenClaw運用の全体像
+- [OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み](./openclaw-heartbeat-cron-automation) — 429時のHeartbeat継続性とフォールバック設計
 
 ---
 

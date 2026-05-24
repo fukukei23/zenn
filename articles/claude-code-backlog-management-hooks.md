@@ -2,7 +2,7 @@
 title: "Claude Codeのバックログ管理: セッションまたぎのタスク忘れを防ぐ仕組み"
 emoji: "📋"
 type: "tech"
-topics: ["claudecode", "hooks", "taskmanagement"]
+topics: ["claude", "automation", "git", "personaldevelopment"]
 published: false
 ---
 
@@ -126,6 +126,13 @@ fi
 2. **SessionStart hook** で自動読み込み
 3. **PostToolUse hook** で自動アーカイブ
 4. **記録ルール** で追記タイミングを明確化
+
+## 関連記事
+
+- [Claude Code設定の3層設計 — CLAUDE.mdをどう分割するか](./claude-code-claude-md-3-layer-design) — グローバル/プロジェクト/ディレクトリの使い分け
+- [シークレット管理インシデントから学ぶClaude Code安全運用](./claude-code-secret-management-incident) — APIキー漏洩防止の多層防御
+- [WSL2 + tmuxでClaude Codeを常時稼働](./wsl2-tmux-claude-code-always-on) — 開発環境の常時稼働構成
+- [SSOT300件の意思決定ログから学んだ教訓](./ssot-300-decision-logs-lessons) — 記録運用の実践知
 
 ---
 

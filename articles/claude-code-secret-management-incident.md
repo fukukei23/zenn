@@ -2,7 +2,7 @@
 title: "Claude Codeのシークレット管理でAPIキー露出インシデントを防ぐ話"
 emoji: "🔐"
 type: "tech"
-topics: ["claudecode", "security", "api", "secrets"]
+topics: ["claude", "security", "api", "beginners"]
 published: false
 ---
 
@@ -200,6 +200,13 @@ settings.json側は `env` セクションに値を書かない:
 | secrets.env集約 | キーの単一管理 | 環境変数注入 |
 
 **APIキーの値を絶対に会話・ファイルに書き込まない**——これが唯一の安全なルールです。
+
+## 関連記事
+
+- [Claude Code設定の3層設計 — CLAUDE.mdをどう分割するか](./claude-code-claude-md-3-layer-design) — グローバル/プロジェクト/ディレクトリの使い分け
+- [Claude Codeバックログ管理をHooksで自動化](./claude-code-backlog-management-hooks) — タスク管理の自動化で認知負荷を下げる
+- [Webhook署名検証をタイミングセーフに実装する](./webhook-hmac-timing-safe-implementation) — HMAC検証の正しい実装方法
+- [STRIDE脅威モデリングを個人開発に導入](./stride-threat-modeling-personal-projects) — 個人プロジェクトのセキュリティ分析
 
 ---
 

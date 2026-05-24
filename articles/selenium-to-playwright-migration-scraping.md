@@ -2,7 +2,7 @@
 title: "Selenium→Playwright移行でスクレイピングが安定した話"
 emoji: "🔄"
 type: "tech"
-topics: ["playwright", "scraping", "python", "selenium"]
+topics: ["playwright", "scraping", "python", "selenium", "testing"]
 published: false
 ---
 
@@ -154,6 +154,12 @@ page.locator(".price").text_content()  # 出現まで自動待機
 4. **コードがシンプル** — 待機処理が不要で30%削減
 
 新規プロジェクトなら **最初からPlaywright** がおすすめです。
+
+## 関連記事
+
+- [Flask物販管理を一人で構築した全記録](./flask-resale-management-solo) — スクレイピングを活用する物販管理プロダクト
+- [テストカバレッジ0%→76%の道のり](./test-coverage-zero-to-76) — Playwrightテスト導入の基礎
+- [Context Engineering入門 — 47KBの正体と対策](./context-engineering-47kb-tool) — ツール選定の判断基準
 
 ---
 

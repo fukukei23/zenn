@@ -2,7 +2,7 @@
 title: "AIコードレビュープロンプトの幻覚を検証した話（v2→v3の改善）"
 emoji: "👀"
 type: "tech"
-topics: ["ai", "codereview", "prompt", "llm"]
+topics: ["ai", "llm", "testing", "beginners"]
 published: false
 ---
 
@@ -111,6 +111,12 @@ v3: 5件指摘（0件幻覚、5件実バグ）← 2件の実バグを見逃し
 2. **3LLM合意判定で精度向上** — 2/3以上の合意のみ採用
 3. **確信度の自己評価が有効** — プロンプトで確信度を要求
 4. **短いコード単位でレビュー** — 50行以下が最適
+
+## 関連記事
+
+- [Zenn記事パイプラインをGLM + MiniMaxで自動化](./zenn-pipeline-glm-minimax-automation) — マルチLLM運用のコスト最適化
+- [テストカバレッジ0%→76%の道のり](./test-coverage-zero-to-76) — AIレビュー対象のコード品質向上
+- [公務員が20リポジトリで生き残る戦略](./civilservant-20repos-survival) — AIを活用した個人開発の全体像
 
 ---
 

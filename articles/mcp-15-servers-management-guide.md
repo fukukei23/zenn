@@ -2,7 +2,7 @@
 title: "Claude Codeで15個MCPサーバーを管理する方法（選定・運用・トラブル対応）"
 emoji: "🔧"
 type: "tech"
-topics: ["claudecode", "mcp", "ai", "devtools"]
+topics: ["claude", "mcp", "ai", "webdev"]
 published: false
 ---
 
@@ -199,6 +199,12 @@ tweetly        ▏ 2+
 4. **トラブル**: 直接起動でエラー確認、不要なMCPは無効化
 
 MCPは強力なツールですが、**「入れているだけ」では逆効果**。定期的なメンテナンスが大切です。
+
+## 関連記事
+
+- [MCPサーバー15個の断捨離基準](./mcp-15-servers-cleanup-criteria) — 使用頻度分析でMCPを厳選する手法
+- [Context Engineering入門 — 47KBの正体と対策](./context-engineering-47kb-tool) — コンテキスト消費の可視化
+- [Claude Code設定の3層設計 — CLAUDE.mdをどう分割するか](./claude-code-claude-md-3-layer-design) — MCP設定の配置先としてのCLAUDE.md設計
 
 ---
 

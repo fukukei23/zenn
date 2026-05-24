@@ -2,7 +2,7 @@
 title: "月間15億トークンをGLM APIで捌くLLMルーティングの実運用（3ヶ月目）"
 emoji: "📊"
 type: "tech"
-topics: ["ai", "llm", "glm", "cost", "routing"]
+topics: ["ai", "llm", "api", "automation"]
 published: false
 ---
 
@@ -207,6 +207,13 @@ pkill -f glm_rate_proxy    # プロキシを止めるだけ
 4. **フォールバック設計** で開発が止まらない
 
 15億トークン/月を$380で捌けるのは、サブスク型LLM + 自前ルーティングの組み合わせだからこそです。
+
+## 関連記事
+
+- [429エラーと戦った3日間](./429-rate-limit-incident-3days) — レートプロキシのバグによる429インシデントの詳細
+- [OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用](./openclaw-glm5-cost-optimization-24h) — LLMモデル使い分けのコスト詳細
+- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — ルーティング先で動くOpenClaw運用の全貌
+- [OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み](./openclaw-heartbeat-cron-automation) — ルーティングで制御するHeartbeatのコスト管理
 
 ---
 

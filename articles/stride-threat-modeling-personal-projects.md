@@ -2,7 +2,7 @@
 title: "個人開発でSTRIDE脅威モデリングをやってみた（3プロジェクト実践）"
 emoji: "🔒"
 type: "tech"
-topics: ["security", "threatmodeling", "python", "flask"]
+topics: ["security", "python", "flask", "beginners"]
 published: false
 ---
 
@@ -180,6 +180,12 @@ response = llm.chat(
 
 - [Microsoft STRIDE](https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats)
 - [ADRガイドライン](https://adr.github.io/)
+
+## 関連記事
+
+- [シークレット管理インシデントから学ぶClaude Code安全運用](./claude-code-secret-management-incident) — APIキー管理の多層防御
+- [Webhook署名検証をタイミングセーフに実装する](./webhook-hmac-timing-safe-implementation) — 認証バイパス対策の実装詳細
+- [LINE Bot × Stripe × Cloudflareで予約システム構築](./linebot-stripe-cloudflare-reservation) — STRIDE分析の実践対象
 
 ---
 

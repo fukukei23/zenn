@@ -2,7 +2,7 @@
 title: "300件の意思決定ログから学ぶSSOT運用1年目の知見"
 emoji: "📚"
 type: "tech"
-topics: ["obsidian", "ssot", "documentation", "knowledge"]
+topics: ["obsidian", "github", "personaldevelopment", "beginners"]
 published: false
 ---
 
@@ -108,6 +108,13 @@ Step 4: バックログの更新（未解決問題がある場合）
 3. **相互リンク** — 作成時に書く、後から一括は辛い
 4. **バックログ** — 忘れタスクを防止
 5. **日本語フォルダ名** — 直感的な理解を優先
+
+## 関連記事
+
+- [Claude Codeバックログ管理をHooksで自動化](./claude-code-backlog-management-hooks) — SSOT運用を支えるタスク管理
+- [公務員が20リポジトリで生き残る戦略](./civilservant-20repos-survival) — SSOTで管理する20プロジェクトの全体像
+- [Claude Code設定の3層設計 — CLAUDE.mdをどう分割するか](./claude-code-claude-md-3-layer-design) — SSOTと連携するCLAUDE.md設計
+- [Context Engineering入門 — 47KBの正体と対策](./context-engineering-47kb-tool) — SSOT肥大化の分析視点
 
 ---
 

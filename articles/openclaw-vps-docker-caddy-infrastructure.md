@@ -2,7 +2,7 @@
 title: "VPS + Docker + Caddy + OpenClaw：自宅AIアシスタントのインフラ構築"
 emoji: "🏠"
 type: "tech"
-topics: ["openclaw", "docker", "caddy", "vps", "infra"]
+topics: ["openclaw", "docker", "linux", "security"]
 published: false
 ---
 
@@ -249,6 +249,14 @@ flowchart TD
     style Localhost fill:#e8f5e9,stroke:#4caf50
     style Gateway fill:#e3f2fd,stroke:#2196f3
 ```
+
+## 関連記事
+
+- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — このインフラの上で動く運用の全貌
+- [OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用](./openclaw-glm5-cost-optimization-24h) — インフラコストとAPIコストの全体像
+- [Claude Code + OpenClaw 二刀流](./claude-code-openclaw-dual-wielding) — VPS（本番）とローカル（開発）の二台運用
+- [AIエージェントにソウルを与える：OpenClawのカスタマイズ徹底解説](./openclaw-soul-memory-customization) — インフラ上で動くAIの性格・記憶設計
+- [OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み](./openclaw-heartbeat-cron-automation) — VPS上で定期実行するHeartbeat詳細
 
 ---
 

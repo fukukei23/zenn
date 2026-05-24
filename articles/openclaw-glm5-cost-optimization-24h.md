@@ -2,7 +2,7 @@
 title: "OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用"
 emoji: "💰"
 type: "tech"
-topics: ["openclaw", "glm", "cost", "ai", "automation"]
+topics: ["openclaw", "ai", "automation", "llm"]
 published: false
 ---
 
@@ -136,6 +136,14 @@ VPS代（~$5/月）はAPI料金に比べれば微々たるもの。
 - コスト管理を「ルール化」してAI自身に計算させるのがポイント
 - GLM-5(達人)とGLM-4.7(早人)の使い分けが最大の節約
 - OpenClaw + GLMの組み合わせは、コスト重視の個人運用に最適
+
+## 関連記事
+
+- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — OpenClaw運用全体の概要と成果
+- [Claude Code + OpenClaw 二刀流](./claude-code-openclaw-dual-wielding) — 開発と24時間執事の使い分け
+- [AIエージェントにソウルを与える：OpenClawのカスタマイズ徹底解説](./openclaw-soul-memory-customization) — 性格・記憶・セッション設計の詳細
+- [OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み](./openclaw-heartbeat-cron-automation) — 3層Heartbeatとコスト管理ルール
+- [月間15億トークンをGLM APIで捌くLLMルーティングの実運用](./llm-15b-tokens-monthly-operations) — 3層ルーティングと$380運用の全貌
 
 ---
 

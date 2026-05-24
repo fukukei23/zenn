@@ -2,7 +2,7 @@
 title: "15個MCPサーバーを運用して分かった不要なものと必要なもの"
 emoji: "🔌"
 type: "tech"
-topics: ["claudecode", "mcp", "ai", "tools"]
+topics: ["claude", "mcp", "ai", "beginners"]
 published: false
 ---
 
@@ -169,6 +169,12 @@ git commit -m "MCP断捨離: 15→10個に削減"
 2. **使用頻度を計測してから判断** — 感覚ではなく数字で
 3. **代替手段を確認** — CLIコマンドで済むならMCPは不要
 4. **設定をGit管理** — 変更履歴で rollback 可能に
+
+## 関連記事
+
+- [MCPサーバー15個の管理方法とトラブル対応](./mcp-15-servers-management-guide) — 選定・設定・運用の実践ガイド
+- [Context Engineering入門 — 47KBの正体と対策](./context-engineering-47kb-tool) — コンテキスト消費の分析と最適化
+- [WSL2 + tmuxでClaude Codeを常時稼働](./wsl2-tmux-claude-code-always-on) — MCPを含む開発環境の全体構成
 
 ---
 

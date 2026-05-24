@@ -2,7 +2,7 @@
 title: "コード読めない公務員が1年で20リポジトリ作った生存戦略"
 emoji: "🏛️"
 type: "tech"
-topics: ["ai", "career", "llm", "claudecode", "python"]
+topics: ["ai", "llm", "claude", "python", "personaldevelopment"]
 published: false
 ---
 
@@ -162,6 +162,12 @@ flowchart TD
 公務員という仕事で培った「要件整理」「記録」「確認」のスキルは、AI開発で**強力な武器**になります。
 
 IT企業への就職→数年後の独立を目指して、現在も毎日開発を続けています。
+
+## 関連記事
+
+- [Flask物販管理を一人で構築した全記録](./flask-resale-management-solo) — 個人開発の具体的なプロダクト例
+- [SSOT300件の意思決定ログから学んだ教訓](./ssot-300-decision-logs-lessons) — 全リポジトリ横断の記録運用
+- [テストカバレッジ0%→76%の道のり](./test-coverage-zero-to-76) — 素人からテスト習慣を身につける過程
 
 ---
 

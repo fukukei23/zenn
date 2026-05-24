@@ -2,7 +2,7 @@
 title: "AIエージェントにソウル（魂）を与える：OpenClawのカスタマイズ徹底解説"
 emoji: "🦉"
 type: "tech"
-topics: ["openclaw", "ai", "promptengineering", "automation"]
+topics: ["openclaw", "ai", "automation", "beginners"]
 published: false
 ---
 
@@ -160,6 +160,14 @@ flowchart TD
 5. **セキュリティは明文化** — 何を読んでいいか・いけないかをルール化
 
 OpenClawは「設定ファイルを書く＝AIを育てる」という体験です。Markdownで書くだけで、AIが自分の相棒になっていきます。
+
+## 関連記事
+
+- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — ソウル設計の背景となる全体運用記録
+- [OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用](./openclaw-glm5-cost-optimization-24h) — コスト計算ルールと閾値の詳細
+- [Claude Code + OpenClaw 二刀流](./claude-code-openclaw-dual-wielding) — CLAUDE.mdとソウル.mdの比較
+- [VPS + Docker + Caddy + OpenClaw：インフラ構築](./openclaw-vps-docker-caddy-infrastructure) — 設定ファイルを動かすインフラ基盤
+- [OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み](./openclaw-heartbeat-cron-automation) — ハートビート.mdに書く定期タスクの設計
 
 ---
 

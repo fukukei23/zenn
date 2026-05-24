@@ -2,7 +2,7 @@
 title: "Flask物販管理システムを1人で作った話（BUYMA × Buyandship）"
 emoji: "🛍️"
 type: "tech"
-topics: ["python", "flask", "ai", "scraping", "stripe"]
+topics: ["python", "flask", "ai", "scraping", "automation"]
 published: false
 ---
 
@@ -186,6 +186,12 @@ sequenceDiagram
 ## コード
 
 https://github.com/fukukei23/atelier-kyo-manager
+
+## 関連記事
+
+- [Selenium → Playwright移行でスクレイピングを安定化](./selenium-to-playwright-migration-scraping) — 価格監視スクレイピングの改善手法
+- [LINE Bot × Stripe × Cloudflareで予約システム構築](./linebot-stripe-cloudflare-reservation) — 物販管理の延長線にある予約管理
+- [公務員が20リポジトリで生き残る戦略](./civilservant-20repos-survival) — 個人開発全体のポートフォリオ戦略
 
 ---
 

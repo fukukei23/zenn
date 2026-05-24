@@ -2,7 +2,7 @@
 title: "Webhook署名検証をタイミングセーフ比較で実装した話"
 emoji: "🔏"
 type: "tech"
-topics: ["security", "webhook", "hmac", "gas"]
+topics: ["security", "python", "api", "webdev"]
 published: false
 ---
 
@@ -159,6 +159,12 @@ def test_webhook_timing_safe():
 | 汎用 | Python | hmac.compare_digest |
 
 **`===` ではなく、必ずタイミングセーフ比較を使いましょう。**
+
+## 関連記事
+
+- [LINE Bot × Stripe × Cloudflareで予約システム構築](./linebot-stripe-cloudflare-reservation) — Webhook署名検証の実践プロダクト
+- [STRIDE脅威モデリングを個人開発に導入](./stride-threat-modeling-personal-projects) — 認証・認可の脅威分析
+- [シークレット管理インシデントから学ぶClaude Code安全運用](./claude-code-secret-management-incident) — セキュリティインシデントの教訓
 
 ---
 

@@ -2,7 +2,7 @@
 title: "個人開発のテストカバレッジを0%→76テストに上げた地道な作業記録"
 emoji: "🧪"
 type: "tech"
-topics: ["python", "testing", "tdd", "flask"]
+topics: ["python", "testing", "flask", "beginners"]
 published: false
 ---
 
@@ -142,6 +142,12 @@ survived 218件 → 全て等価ミュータント（実質100%）
 4. **Mutation Testing** でテストの品質も検証
 
 0%からでも始めれば確実に上がります。
+
+## 関連記事
+
+- [AIコードレビューの幻覚を3LLM合意で検証](./ai-code-review-hallucination-verification) — テスト品質を別角度から検証
+- [公務員が20リポジトリで生き残る戦略](./civilservant-20repos-survival) — テスト習慣を身につけた開発プロセス
+- [Python読解力教材をインタラクティブに作る](./python-reading-guide-interactive-learning) — テストで学ぶPython読解
 
 ---
 

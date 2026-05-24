@@ -2,7 +2,7 @@
 title: "Claude Code設定ファイルの3層設計（グローバル/プロジェクト/ディレクトリ）"
 emoji: "📐"
 type: "tech"
-topics: ["claudecode", "settings", "configuration"]
+topics: ["claude", "git", "beginners", "personaldevelopment"]
 published: false
 ---
 
@@ -143,6 +143,13 @@ tests/CLAUDE.md
 | Layer 1 | 全プロジェクト | 環境・LLMポリシー・セキュリティ |
 | Layer 2 | リポジトリ | プロジェクト概要・規約・構造 |
 | Layer 3 | ディレクトリ | ディレクトリ特有の制約（最小限） |
+
+## 関連記事
+
+- [シークレット管理インシデントから学ぶClaude Code安全運用](./claude-code-secret-management-incident) — APIキー漏洩防止の多層防御
+- [Claude Codeバックログ管理をHooksで自動化](./claude-code-backlog-management-hooks) — タスクの自動読み込み・アーカイブ
+- [WSL2 + tmuxでClaude Codeを常時稼働](./wsl2-tmux-claude-code-always-on) — 開発環境の常時稼働構成
+- [Context Engineering入門 — 47KBの正体と対策](./context-engineering-47kb-tool) — コンテキスト最適化の基礎
 
 ---
 

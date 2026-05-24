@@ -2,7 +2,7 @@
 title: "Claude Code + OpenClaw 二刀流：コーディングと24時間執事の両立"
 emoji: "⚔️"
 type: "tech"
-topics: ["claudecode", "openclaw", "ai", "devtools", "automation"]
+topics: ["claude", "openclaw", "ai", "automation"]
 published: false
 ---
 
@@ -212,6 +212,14 @@ flowchart TD
 - LLMルーティング、設定ファイルの思想、スキルシステムは共通の概念
 - 「使い分ける」だけでなく「連携させる」のがポイント
 - どちらもMarkdownでAIに指示する「テキストベースのAI制御」という共通の哲学がある
+
+## 関連記事
+
+- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — OpenClaw運用全体の概要
+- [OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用](./openclaw-glm5-cost-optimization-24h) — 3モデル使い分けとコスト計算
+- [AIエージェントにソウルを与える：OpenClawのカスタマイズ徹底解説](./openclaw-soul-memory-customization) — CLAUDE.mdとソウル.mdの比較も掲載
+- [VPS + Docker + Caddy + OpenClaw：インフラ構築](./openclaw-vps-docker-caddy-infrastructure) — 二刀流の基盤となるVPS構築手順
+- [OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み](./openclaw-heartbeat-cron-automation) — 1日のワークフローを支えるHeartbeat詳細
 
 ---
 
