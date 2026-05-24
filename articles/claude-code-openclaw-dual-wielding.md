@@ -220,6 +220,8 @@ flowchart TD
 - [AIエージェントにソウルを与える：OpenClawのカスタマイズ徹底解説](./openclaw-soul-memory-customization) — CLAUDE.mdとソウル.mdの比較も掲載
 - [VPS + Docker + Caddy + OpenClaw：インフラ構築](./openclaw-vps-docker-caddy-infrastructure) — 二刀流の基盤となるVPS構築手順
 - [OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み](./openclaw-heartbeat-cron-automation) — 1日のワークフローを支えるHeartbeat詳細
+- [OpenClawの59体専門エージェントを動かす方法](./openclaw-59-specialist-agents) — agency-agentsの活用
+- [OpenClaw × Discord：AI執事にチャット監視をさせる](./openclaw-discord-yotsuba-chat-monitor) — yotsuba botの構成
 
 ---
 

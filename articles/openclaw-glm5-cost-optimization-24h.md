@@ -144,6 +144,8 @@ VPS代（~$5/月）はAPI料金に比べれば微々たるもの。
 - [AIエージェントにソウルを与える：OpenClawのカスタマイズ徹底解説](./openclaw-soul-memory-customization) — 性格・記憶・セッション設計の詳細
 - [OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み](./openclaw-heartbeat-cron-automation) — 3層Heartbeatとコスト管理ルール
 - [月間15億トークンをGLM APIで捌くLLMルーティングの実運用](./llm-15b-tokens-monthly-operations) — 3層ルーティングと$380運用の全貌
+- [OpenClawの59体専門エージェントを動かす方法](./openclaw-59-specialist-agents) — agency-agentsの活用
+- [OpenClaw × Discord：AI執事にチャット監視をさせる](./openclaw-discord-yotsuba-chat-monitor) — yotsuba botの構成
 
 ---
 
