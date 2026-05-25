@@ -29,12 +29,13 @@ obsidian-ssot/
 
 ## 3層リンク構造
 
-```
-日記（10_DAILY/）
-  ↕ 相互リンク
-意思決定ログ（01_DECISIONS/）
-  ↕ 相互リンク
-リポジトリ（GitHub CLAUDE.md）
+```mermaid
+flowchart TB
+    D["日記（10_DAILY/）"]
+    DEC["意思決定ログ（01_DECISIONS/）"]
+    R["リポジトリ（GitHub CLAUDE.md）"]
+    D <-->|相互リンク| DEC
+    DEC <-->|相互リンク| R
 ```
 
 日記には**詳細を直書きしない**。サマリー + リンクのみ:

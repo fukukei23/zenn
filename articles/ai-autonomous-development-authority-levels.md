@@ -14,15 +14,10 @@ AIエージェントに開発を任せる場合、「どこまで自動で進め
 
 ## 3段階の権限レベル
 
-```
-Level 1: HUMAN_CONTROLLED
-    → 要件定義のみ人間が確認、以降はAIが自律実行
-
-Level 2: PARTIALLY_AUTONOMOUS
-    → 要件・計画・アーキテクチャまで人間が確認
-
-Level 3: FULLY_AUTONOMOUS
-    → 全フェーズをAIが自律実行
+```mermaid
+flowchart LR
+    L1["Level 1: HUMAN_CONTROLLED<br/>要件定義のみ人間確認"] --> L2["Level 2: PARTIALLY_AUTONOMOUS<br/>要件・計画・設計を人間確認"]
+    L2 --> L3["Level 3: FULLY_AUTONOMOUS<br/>全フェーズAIが自律実行"]
 ```
 
 ### 各レベルで実行されるフェーズ

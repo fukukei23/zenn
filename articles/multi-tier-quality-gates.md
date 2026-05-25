@@ -14,18 +14,17 @@ AIが生成したコードの品質をどう担保するか。単一のテスト
 
 ## 2層品質ゲートの全体像
 
-```
-Tier 1: 静的解析
-    ├── カバレッジ: 80%以上
-    ├── Pylint: スコア8.0以上
-    ├── MyPy: 型チェック
-    └── Bandit: セキュリティスキャン
-        ↓ 全て通過
-Tier 2: 動的テスト
-    ├── Mutation Testing (mutmut)
-    └── テストスイート強度の検証
-        ↓ 全て通過
-    APPROVE（コミット可能）
+```mermaid
+flowchart TB
+    T1["Tier 1: 静的解析"]
+    T1 --> C["カバレッジ: 80%以上"]
+    T1 --> P["Pylint: スコア8.0以上"]
+    T1 --> M["MyPy: 型チェック"]
+    T1 --> B["Bandit: セキュリティスキャン"]
+    C & P & M & B -->|全て通過| T2["Tier 2: 動的テスト"]
+    T2 --> MT["Mutation Testing (mutmut)"]
+    T2 --> TS["テストスイート強度の検証"]
+    MT & TS -->|全て通過| A["✅ APPROVE（コミット可能）"]
 ```
 
 Tier 1は高速に実行でき、Tier 2は時間がかかるが深い品質保証を提供します。
@@ -135,17 +134,16 @@ class ReviewDecision:
 
 ### 判断フロー
 
-```
-Tier 1 実行
-    ↓ 不通過 → REJECT（修正項目をCoderAgentに返却）
-    ↓ 通過
-Tier 2 実行
-    ↓ 不通過 → REJECT（テスト追加項目をTesterAgentに返却）
-    ↓ 通過
-LLMレビュー実行
-    ↓ 明らかな問題あり → REJECT
-    ↓ 判断が微妙 → MANUAL_REVIEW（人間に確認）
-    ↓ 問題なし → APPROVE
+```mermaid
+flowchart TB
+    T1["Tier 1 実行"]
+    T1 -->|不通過| R1["REJECT（修正項目をCoderAgentに返却）"]
+    T1 -->|通過| T2["Tier 2 実行"]
+    T2 -->|不通過| R2["REJECT（テスト追加項目をTesterAgentに返却）"]
+    T2 -->|通過| LLM["LLMレビュー実行"]
+    LLM -->|明らかな問題あり| R3["REJECT"]
+    LLM -->|判断が微妙| MR["MANUAL_REVIEW（人間に確認）"]
+    LLM -->|問題なし| AP["✅ APPROVE"]
 ```
 
 ### レビュー結果のフォーマット
