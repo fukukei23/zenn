@@ -23,6 +23,12 @@
       "title": "【リファクタリング入門】199行の関数を57行にした具体的手順",
       "slug": "199-57",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-05-29",
+      "title": "【リファクタリング実例】10ファイルに分割した長関数enger攻略：NexusCore Phase別の実際",
+      "slug": "10-enger-nexuscore-phase",
+      "source_repo": "NexusCore"
     }
   ]
 }
