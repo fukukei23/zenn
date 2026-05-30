@@ -49,7 +49,7 @@ from openai import OpenAI
 # GLM-5.1
 glm_client = OpenAI(
     api_key=os.environ["GLM_API_KEY"],
-    base_url="https://api.z.ai/api/anthropic/v1"  # Anthropic互換エンドポイント
+    base_url="https://api.z.ai/api/anthropic/v1"  # Z.AI（OpenAI互換エンドポイント）
 )
 
 # MiniMax-M2.7
