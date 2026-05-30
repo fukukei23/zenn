@@ -129,7 +129,7 @@ graph TD
 
 > 料理の「レシピ集」です。「カレーを作る時はこの手順」「パスタを作る時はこの手順」と決めておけば、毎回ゼロから考えなくて済みます。
 
-## 4. MCP — 10+の外部ツールを1カ所に統合
+## 4. MCP — 15の外部ツールを1カ所に統合
 
 MCP（Model Context Protocol）は、Claude Codeから他のサービスを直接操作できる仕組みです。
 
@@ -144,6 +144,8 @@ graph TD
     MCP --- EX[Exa<br/>高精度Web検索]
     MCP --- MM[Mermaid<br/>図表生成]
     MCP --- WR[Web Reader<br/>ページ読み込み]
+    MCP --- GLM[GLM<br/>安価LLM]
+    MCP --- MMX[MiniMax<br/>フォールバックLLM]
 ```
 
 | ツール | 何ができるか |
@@ -154,6 +156,7 @@ graph TD
 | **Discord** | メッセージ送受信、通知 |
 | **Context7** | 最新のライブラリドキュメントを取得 |
 | **Exa** | 精度の高いWeb検索 |
+| **GLM / MiniMax** | 安価なLLMをツールとして呼び出し |
 
 > 「万能リモコン」です。TV、エアコン、照明等、別々のメーカーの機器を1つのリモコンで操作できるようなもの。
 
@@ -260,7 +263,7 @@ graph TD
     end
     
     subgraph 能力拡張
-        MCP2[MCP<br/>10+ツール統合]
+        MCP2[MCP<br/>15ツール統合]
         SUB[Subagent<br/>4並列実行]
         MEM[Memory<br/>記憶の永続化]
     end
