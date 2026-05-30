@@ -29,6 +29,12 @@
       "title": "【リファクタリング実例】10ファイルに分割した長関数enger攻略：NexusCore Phase別の実際",
       "slug": "10-enger-nexuscore-phase",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-05-30",
+      "title": "【Python】bare except全廃で安全なエラー処理を実装する具体的手順",
+      "slug": "python-bare-except",
+      "source_repo": "NexusCore"
     }
   ]
 }
