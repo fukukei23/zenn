@@ -182,7 +182,7 @@ Gradio UIでインタラクティブテスト可能
 ## 他のContext Engineering ツールとの比較
 
 | ツール | アプローチ | 依存関係 | 決定論的 |
-|--------|-----------|---------|---------|
+|--------|-----------|---------|----------|
 | contextforge | 単一ファイル・AST分析 | ゼロ | ○ |
 | Aider | Git統合・マルチファイル | pip必要 | × |
 | Cursor | IDE統合・コンテキスト自動選択 | Electron | × |
@@ -196,9 +196,9 @@ https://github.com/fukukei23/contextforge
 
 ## 関連記事
 
-- [Claude Code設定の3層設計 — CLAUDE.mdをどう分割するか](./claude-code-claude-md-3-layer-design) — コンテキスト最適化の実践設計
-- [MCPサーバー15個の断捨離基準](./mcp-15-servers-cleanup-criteria) — コンテキスト圧迫の要因と削減手法
-- [SSOT300件の意思決定ログから学んだ教訓](./ssot-300-decision-logs-lessons) — 情報整理のノウハウ
+- [Claude Code設定の3層設計 — CLAUDE.mdをどう分割するか](/articles/claude-code-claude-md-3-layer-design) — コンテキスト最適化の実践設計
+- [MCPサーバー15個の断捨離基準](/articles/mcp-15-servers-cleanup-criteria) — コンテキスト圧迫の要因と削減手法
+- [SSOT300件の意思決定ログから学んだ教訓](/articles/ssot-300-decision-logs-lessons) — 情報整理のノウハウ
 
 ---
 
