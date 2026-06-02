@@ -26,10 +26,12 @@ published: false
 [Stripe]             ← 決済
 ```
 
-**なぜこの構成か**:
+:::message
+**なぜこの構成か**
 - **Cloudflare Workers**: LINE WebhookのHTTPS必須要件を満たす（GAS単体だと遅い）
 - **GAS**: サーバー不要・無料枠で運用・Google Sheetsとシームレス
 - **Stripe**: PCI DSS準拠（カード情報を自システムに持たない）
+:::
 
 ## 実装のポイント
 
@@ -51,6 +53,8 @@ function verifyLineSignature(body, signature) {
 ```
 
 **タイミング攻撃**: 文字列比較の処理時間から署名を推測する攻撃。`===` ではなく定数時間比較を使う必要があります。
+
+> **補足**: GAS（V8ランタイム）では Web Crypto API（`crypto.subtle.timingSafeEqual`）が使えないため、CryptoJSに依存しています。Node.js環境では標準ライブラリの定数時間比較関数が利用可能です。
 
 ### 2. Stripe Webhook署名検証（冪等性付き）
 
@@ -166,11 +170,13 @@ function doGet(e) {
 }
 ```
 
+> **注意**: URLパラメータにトークンを含めるため、アクセスログやブラウザ履歴に残る可能性があります。本番環境では `doPost` + ヘッダー認証を推奨しますが、今回はGASの簡易検証用途で採用しています。
+
 ## 苦労した点
 
 ### GASの制約
 - **実行時間上限6分**: 長い処理は分割する必要がある
-- **同時実行制限**: 複数Webhookが同時到着時にキューイングが必要
+- **同時実行制限**: 複数Webhookが同時到着時にキューイングが必要 → 本プロジェクトでは `LockService.getScriptLock()` で排他ロック対応。大規模運用では Google Cloud Tasks の導入を推奨
 - **スクリプトプロパティ**: シークレットの保存先（暗号化済み）
 
 ### Cloudflare Workers の制約
