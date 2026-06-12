@@ -96,6 +96,7 @@ def generate_article(glm_client, topic, scan_results):
 要件:
 - Zenn Markdown形式
 - frontmatter（title, emoji, type, topics, published: false）を必ず含める
+- 記事全体をコードフェンス（```markdown```）で囲まないこと。生のMarkdownとして出力すること
 - 構成: はじめに → 本文（2-4セクション） → おわりに
 - PythonまたはTypeScriptのコード例を最低1つ含める
 - 日本語で書く
@@ -113,7 +114,18 @@ def slug_from_title(title):
     return f"auto-{datetime.now().strftime('%Y%m%d-%H%M')}"
 
 
+def strip_code_fence(text):
+    """LLMが出力を```markdown ... ```で囲んだ場合に外す。"""
+    text = text.strip()
+    # ```markdown\n...\n``` or ```\n...\n``` パターン
+    m = re.match(r"^```(?:markdown|md)?\s*\n(.*?)\n```\s*$", text, re.DOTALL)
+    if m:
+        return m.group(1)
+    return text
+
+
 def ensure_frontmatter(article, title, tags):
+    article = strip_code_fence(article)
     if article.strip().startswith("---"):
         return article
 
