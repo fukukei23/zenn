@@ -41,6 +41,12 @@
       "title": "【NexusCore事例】テスト数4,862→4,895の舞台裏：カバレッジ95%越えを達成したテスト設計思想",
       "slug": "nexuscore-4-862-4-895-95",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-06-12",
+      "title": "【NexusCore事例】OpenRouter BYOK対応：ユーザーAPIキー1本드로マルチLLMを実現するまで",
+      "slug": "nexuscore-openrouter-byok-api-1-llm",
+      "source_repo": "NexusCore"
     }
   ]
 }
