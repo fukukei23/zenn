@@ -79,16 +79,16 @@ Phase 1: Spec & Test Definition（仕様とテストの定義）
    ↓ ※この段階で実装コードを出力してはならない
 Phase 2: Implementation（実装）
    ↓
-Phase 2.5: Independent Review Gate（独立レビュー Gate）⚠️最重要
+Phase 3: Independent Review Gate（独立レビュー Gate）⚠️最重要
    ↓
 Phase 4: Merge & Assetization（統合と設計資産化）
 ```
 
 Phase 1で実装コードの出力を禁止としている点は重要です。AIに仕様を解釈させて「この仕様を満たすコードを書いて」とお願いしたくなる衝動を抑えるためです。仕様書はテキストで確定し、そのテキスト自体が成果物の一部となります。
 
-## Phase 2.5がなぜ重要か
+## Phase 3がなぜ重要か
 
-STIT+IRGの中で最も重要だと私が考えるのが、Phase 2.5のIndependent Review Gateです。
+STIT+IRGの中で最も重要だと私が考えるのが、Phase 3のIndependent Review Gateです。
 
 このフェーズでは、以下の厳格なルールが適用されます。
 
@@ -122,7 +122,7 @@ ARCHITECTURE.md              # Governance Gate Entrypoint（SSOT）
 GOVERNANCE/                  # プロトコルとAI向けルール
   AI_INSTRUCTIONS.md         # 実装AI向け指示書
   MASTER_PROTOCOL_TEMPLATE.md # 開発フロー・Gate定義の正本
-  REVIEW_PACKET_TEMPLATE.md  # Phase 2.5用レビューパケット
+  REVIEW_PACKET_TEMPLATE.md  # Phase 3用レビューパケット
 ARCHITECTURES/               # 設計図テンプレート
 DECISION_LOGS/               # 不変ログ（追記のみ、編集禁止）
 PROJECT_PROFILES/            # プロジェクト固有の制約
@@ -146,7 +146,7 @@ AI_INSTRUCTIONS.mdには、実装AI向けの指示書が含まれています。
 
 Phase 1の段階で実装コードが出ないことに慣れるまで時間がかかりました。「じゃあここでコード見せてよ」と口に出してしまうことを、意識的に抑える必要がありました。
 
-### Phase 2.5の心理的ハードルは高い
+### Phase 3の心理的ハードルは高い
 
 新しいセッションを開始して、ゼロからコードを説明する作業は面倒に感じることがあります。しかし、この「一手間」があるからこそ、品質保証が確実になります。
 

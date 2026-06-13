@@ -79,7 +79,7 @@
 | `mutation-testing-mutmut-practice.md` | 既存公開 |
 | `nexuscore-multi-agent-architecture.md` | 既存公開 |
 | `pw-stealth-enhanced-python-anti-detection.md` | 既存公開 |
-| `vibe-coding-civilservant-projects.md` | 既存公開（Zennで403中） |
+| `vibe-coding-civilservant-projects.md` | 既存公開 |
 | `pytest-fastapi-95.md` | テスト用 |
 | `python-95-nexuscore.md` | テスト用 |
 | `sqlalchemy-gomock-simplenamespace-95.md` | テスト用 |
