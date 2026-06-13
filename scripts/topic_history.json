@@ -47,6 +47,12 @@
       "title": "【NexusCore事例】OpenRouter BYOK対応：ユーザーAPIキー1本드로マルチLLMを実現するまで",
       "slug": "nexuscore-openrouter-byok-api-1-llm",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-06-13",
+      "title": "【初心者向け】fail-closed設計で学ぶ 安全性の低いコードが如何に危険か",
+      "slug": "fail-closed",
+      "source_repo": "NexusCore"
     }
   ]
 }
