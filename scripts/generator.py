@@ -107,11 +107,26 @@ def generate_article(glm_client, topic, scan_results):
     return chat(glm_client, ARTICLE_MODEL, prompt, max_tokens=8000)
 
 
+# Zenn slug要件: 半角英数字/ハイフン/アンダースコア 12〜50文字
+SLUG_MIN = 12
+SLUG_MAX = 50
+# 短すぎるslugを延長する接尾辞（記事系で無難なものを順に試す）
+SLUG_SUFFIXES = ("-guide", "-design", "-practice", "-tutorial", "-article")
+
+
 def slug_from_title(title):
     ascii_part = re.sub(r"[^a-zA-Z0-9]+", "-", title).strip("-").lower()
-    if ascii_part and len(ascii_part) > 5:
-        return ascii_part[:60]
-    return f"auto-{datetime.now().strftime('%Y%m%d-%H%M')}"
+    if not ascii_part:
+        # 日本語のみ等、英数字が1つも含まれない場合は日付ベースのslug
+        return f"auto-{datetime.now().strftime('%Y%m%d-%H%M')}"
+    # 短すぎる場合は意味のある接尾辞で延長
+    # 例: "fail-closed"(11字) → "fail-closed-guide"(17字)
+    if len(ascii_part) < SLUG_MIN:
+        for suffix in SLUG_SUFFIXES:
+            candidate = ascii_part + suffix
+            if SLUG_MIN <= len(candidate) <= SLUG_MAX:
+                return candidate
+    return ascii_part[:SLUG_MAX]
 
 
 def strip_code_fence(text):
