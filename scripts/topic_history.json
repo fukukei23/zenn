@@ -53,6 +53,12 @@
       "title": "【初心者向け】fail-closed設計で学ぶ 安全性の低いコードが如何に危険か",
       "slug": "fail-closed",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-06-15",
+      "title": "【初心者向け】fail-closed設計をPythonで実装する：環境変数未設定時に処理を停止させる具体例",
+      "slug": "fail-closed-python",
+      "source_repo": "NexusCore"
     }
   ]
 }
