@@ -65,6 +65,12 @@
       "title": "【Python】SSRF・IDOR・Path Injectionを初心者向けに徹底解説：atelier-kyo-managerの実例から学ぶWebセキュリティ",
       "slug": "python-ssrf-idor-path-injection-atelier-kyo-manage",
       "source_repo": "atelier-kyo-manager"
+    },
+    {
+      "date": "2026-06-17",
+      "title": "【初心者向け】fail-closed設計をNexusCoreの実例で学ぶ：key_storeの安全実装",
+      "slug": "fail-closed-nexuscore-key-store",
+      "source_repo": "NexusCore"
     }
   ]
 }
