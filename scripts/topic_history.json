@@ -71,6 +71,12 @@
       "title": "【初心者向け】fail-closed設計をNexusCoreの実例で学ぶ：key_storeの安全実装",
       "slug": "fail-closed-nexuscore-key-store",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-06-19",
+      "title": "【Python】非同期関数のテストをSyncにする：AsyncMock・MagicMockの実用的使い分け",
+      "slug": "python-sync-asyncmock-magicmock",
+      "source_repo": "atelier-kyo-manager"
     }
   ]
 }
