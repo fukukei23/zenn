@@ -36,3 +36,8 @@ logs/
 .secrets.env
 credentials.json
 node_modules/
+
+# Zenn pipeline 一時ファイル（discover.yml が実行時に生成・末尾で削除）
+scan_results.json
+article_meta.json
+skip.flag

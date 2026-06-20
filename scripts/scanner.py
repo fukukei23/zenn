@@ -9,13 +9,9 @@ from datetime import datetime, timedelta
 import requests
 
 OWNER = "fukukei23"
-REPOS = [
-    "NexusCore",
-    "atelier-kyo-manager",
-    "reserve-optimizer",
-    "orchestrix",
-    "contextforge",
-]
+
+# メタ系リポジトリ（コンテンツ/知識ベース管理は記事ネタ不適・再帰になるため除外）
+EXCLUDE_REPOS = {"zenn", "obsidian-ssot"}
 
 
 def github_get(url, token, params=None):
@@ -26,6 +22,31 @@ def github_get(url, token, params=None):
     resp = requests.get(url, headers=headers, params=params, timeout=30)
     resp.raise_for_status()
     return resp.json()
+
+
+def discover_active_repos(token, owner, since_iso):
+    """認証ユーザーの直近活動リポジトリをpushed_at順で抽出。
+
+    /user/repos?sort=pushed から最新100件取得 → pushed_at >= since で
+    フィルタ → owner絞り込み → 除外リスト適用。リポジトリ名のリストを返す。
+    """
+    data = github_get(
+        "https://api.github.com/user/repos",
+        token,
+        params={"sort": "pushed", "direction": "desc", "per_page": 100},
+    )
+    repos = []
+    for r in data if isinstance(data, list) else []:
+        name = r.get("name", "")
+        repo_owner = (r.get("owner") or {}).get("login", "")
+        pushed = r.get("pushed_at", "")
+        if repo_owner != owner:
+            continue
+        if name in EXCLUDE_REPOS:
+            continue
+        if pushed and pushed >= since_iso:
+            repos.append(name)
+    return repos
 
 
 def scan_repo(token, owner, repo, since):
@@ -85,10 +106,18 @@ def main():
         sys.exit(1)
 
     since = (datetime.utcnow() - timedelta(days=7)).isoformat() + "Z"
-    print(f"Scanning {len(REPOS)} repos since {since[:10]}...")
+    repos = discover_active_repos(token, OWNER, since)
+
+    if not repos:
+        print("No recently active repos, skipping")
+        with open(os.path.join(os.path.dirname(__file__), "..", "skip.flag"), "w") as f:
+            f.write("no_activity")
+        return
+
+    print(f"Scanning {len(repos)} repos since {since[:10]}: {', '.join(repos)}")
 
     results = []
-    for repo in REPOS:
+    for repo in repos:
         try:
             result = scan_repo(token, OWNER, repo, since)
             n_commits = len(result["commits"])
