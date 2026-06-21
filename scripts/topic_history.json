@@ -83,6 +83,12 @@
       "title": "【Python】yt-dlp + basic_pitchで音楽分析CLIを作った：mp3→MIDI→特徴量抽出のパイプライン構築",
       "slug": "python-yt-dlp-basic-pitch-cli-mp3-midi",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-06-21",
+      "title": "【初心者向け】SSOT（Single Source of Truth）をPython+Obsidianで実装する：ssot-guideの実例から学ぶデータ管理",
+      "slug": "ssot-single-source-of-truth-python-obsidian-ssot-g",
+      "source_repo": "ssot-guide"
     }
   ]
 }
