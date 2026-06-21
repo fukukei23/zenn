@@ -76,12 +76,29 @@ def extract_topics(minimax_client, scan_results, past_titles):
     return []
 
 
+def mask_sensitive(text: str) -> str:
+    """context中の非公開情報・ノイズURLを汎用プレースホルダに置換し、
+    記事本文への実ユーザー名/ローカルパス/実URLのベタ書きを防止する。"""
+    # 非公開ローカル環境情報（yn441611 はローカルユーザー名・非公開）
+    text = text.replace("/home/yn441611/", "~/")
+    text = text.replace("yn441611", "<ユーザー名>")
+    # GitHub系URLは記事生成に不要・ベタ書き防止のため一律マスク
+    text = re.sub(
+        r"https?://(?:[a-z0-9-]+\.)*(?:github\.com|githubusercontent\.com|github\.io)(?:/[^\s\"'\\]*)?",
+        "<GitHub-URL>",
+        text,
+    )
+    return text
+
+
 def generate_article(glm_client, topic, scan_results):
     repo_data = next(
         (r for r in scan_results if r["repo"] == topic.get("repo")),
         scan_results[0] if scan_results else {},
     )
-    context = json.dumps(repo_data, ensure_ascii=False, indent=2)[:3000]
+    context = mask_sensitive(
+        json.dumps(repo_data, ensure_ascii=False, indent=2)
+    )[:3000]
 
     prompt = f"""以下の情報をもとに、Zenn技術記事を書いてください。
 
@@ -102,7 +119,11 @@ def generate_article(glm_client, topic, scan_results):
 - 日本語で書く
 - 初心者向けのわかりやすい説明
 - 2000-3000文字程度
-- 実務経験に基づく具体的な内容（抽象論だけにしない）"""
+- 実務経験に基づく具体的な内容（抽象論だけにしない）
+- **実ユーザー名・ローカルパス（~/ や /home/...）・実URLを記事本文に書かないこと**
+  参考情報に <ユーザー名> <GitHub-URL> 等のプレースホルダや実URLが含まれる場合は、
+  それらをそのまま転記せず「自分のリポジトリ」「GitHub上のドキュメント」等の
+  汎用的な表現に書き換えること。コード例のパスも /path/to/ 等の一般化された例を使う"""
 
     return chat(glm_client, ARTICLE_MODEL, prompt, max_tokens=8000)
 
