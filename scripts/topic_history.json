@@ -89,6 +89,12 @@
       "title": "【初心者向け】SSOT（Single Source of Truth）をPython+Obsidianで実装する：ssot-guideの実例から学ぶデータ管理",
       "slug": "ssot-single-source-of-truth-python-obsidian-ssot-g",
       "source_repo": "ssot-guide"
+    },
+    {
+      "date": "2026-06-23",
+      "title": "【初心者向け】新PCで動かなくなるScripts対策：$HOME переменнаяで可搬性を高める具体例",
+      "slug": "pc-scripts-home",
+      "source_repo": "claude-config"
     }
   ]
 }
