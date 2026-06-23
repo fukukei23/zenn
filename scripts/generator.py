@@ -66,14 +66,20 @@ def extract_topics(minimax_client, scan_results, past_titles):
 - 具体的なコード例を含められる題材
 - 1記事で完結するスコープ
 
-出力形式（JSON配列のみ、説明文は不要）:
+出力形式（JSON配列のみ・説明文・前置き・コードフェンスなし・各要素間のカンマ欠落に注意した厳密な有効JSON）:
 [{{"title": "記事タイトル", "summary": "2-3行の概要", "repo": "リポジトリ名", "tags": ["tag1", "tag2"]}}]"""
 
-    text = chat(minimax_client, TOPIC_MODEL, prompt, max_tokens=1000)
-    match = re.search(r"\[.*\]", text, re.DOTALL)
-    if match:
-        return json.loads(match.group())
-    return []
+    # MiniMaxは確率的に出力が揺らぐため、壊れたJSONを返した場合は再生成してリトライする
+    for _attempt in range(3):
+        text = chat(minimax_client, TOPIC_MODEL, prompt, max_tokens=1000)
+        match = re.search(r"\[.*\]", text, re.DOTALL)
+        if not match:
+            continue
+        try:
+            return json.loads(match.group())
+        except json.JSONDecodeError:
+            continue  # JSONが壊れていれば再生成
+    return []  # 3回失敗時は安全にスキップ（skip.flag経由で当日の生成を中止）
 
 
 def mask_sensitive(text: str) -> str:
