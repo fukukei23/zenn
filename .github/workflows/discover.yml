@@ -60,6 +60,12 @@ jobs:
             echo "generated=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Update ranking
+        if: steps.article.outputs.generated == 'true'
+        env:
+          MINIMAX_API_KEY: ${{ secrets.MINIMAX_API_KEY }}
+        run: python scripts/ranker.py
+
       - name: Push draft article
         if: steps.article.outputs.generated == 'true'
         env:
@@ -68,6 +74,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add "articles/$SLUG.md"
+          git add "docs/公開ランキング.md"
           git add scripts/topic_history.json
           git diff --cached --quiet || git commit -m "draft: $SLUG"
           git push
