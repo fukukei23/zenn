@@ -101,6 +101,12 @@
       "title": "【Pythonテスト技法】xfail前提のゴールドセット回帰テストで仕様変更を安全に検出する 具体例",
       "slug": "python-xfail",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-06-24",
+      "title": "【初心者向け】スクリプトの可搬性完全ガイド：WSLユーザー名ハードコード去除で新PC移行をスムーズに",
+      "slug": "wsl-pc-guide",
+      "source_repo": "claude-config"
     }
   ]
 }
