@@ -3,7 +3,7 @@ title: "Claude Code Desktop版でMCPを使ってコストを抑える方法"
 emoji: "💸"
 type: "tech"
 topics: ["claudecode", "mcp", "glm", "コスト最適化", "claude"]
-published: false
+published: true
 ---
 
 ## 結論

@@ -3,7 +3,7 @@ title: "Mutation Testingでテスト品質を測る（mutmut実践記録）"
 emoji: "🧬"
 type: "tech"
 topics: ["python", "testing", "mutationtesting", "testquality"]
-published: false
+published: true
 ---
 
 ## はじめに

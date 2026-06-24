@@ -3,7 +3,7 @@ title: "VPS + Docker + Caddy + OpenClaw：自宅AIアシスタントのインフ
 emoji: "🏠"
 type: "tech"
 topics: ["openclaw", "docker", "linux", "security"]
-published: false
+published: true
 ---
 
 ## はじめに

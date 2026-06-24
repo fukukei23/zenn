@@ -3,7 +3,7 @@ title: "Claude Codeを武器庫にした話 — 7つの仕組みで1人開発を
 emoji: "⚔️"
 type: "tech"
 topics: ["claude", "ai", "llm", "developer-tools", "生産性"]
-published: false
+published: true
 ---
 
 ## はじめに
