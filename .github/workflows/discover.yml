@@ -13,6 +13,9 @@ permissions:
 jobs:
   discover:
     runs-on: ubuntu-latest
+    env:
+      # CI環境(UTC)の日付ズレ防止。generator.py/ranker.py の datetime.now() をJST化
+      TZ: Asia/Tokyo
 
     steps:
       - name: Checkout
