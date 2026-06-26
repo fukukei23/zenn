@@ -113,6 +113,12 @@
       "title": "【Python】プロパティベーステスト入門：対称性・単調性・不変量を7つの具体例で学ぶ",
       "slug": "python-7-guide",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-06-26",
+      "title": "【初心者向け】PythonでWikilinkをMarkdownに変換：TDDで実装する1ファイルスクリプト",
+      "slug": "python-wikilink-markdown-tdd-1",
+      "source_repo": "claude-config"
     }
   ]
 }
