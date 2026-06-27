@@ -119,6 +119,12 @@
       "title": "【初心者向け】PythonでWikilinkをMarkdownに変換：TDDで実装する1ファイルスクリプト",
       "slug": "python-wikilink-markdown-tdd-1",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-06-27",
+      "title": "【初心者向け】Claude CodeでAI駆動開発入門：私が実務で使った7つのパターン",
+      "slug": "claude-code-ai-7",
+      "source_repo": "claude-code-guide"
     }
   ]
 }
