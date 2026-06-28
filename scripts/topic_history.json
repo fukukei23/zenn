@@ -125,6 +125,12 @@
       "title": "【初心者向け】Claude CodeでAI駆動開発入門：私が実務で使った7つのパターン",
       "slug": "claude-code-ai-7",
       "source_repo": "claude-code-guide"
+    },
+    {
+      "date": "2026-06-28",
+      "title": "【初心者向け】Claude CodeでWindows画面を自動操作：スクリーンショット・クリック・キー入力のスクリプト集",
+      "slug": "claude-code-windows",
+      "source_repo": "claude-config"
     }
   ]
 }
