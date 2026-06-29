@@ -131,6 +131,12 @@
       "title": "【初心者向け】Claude CodeでWindows画面を自動操作：スクリーンショット・クリック・キー入力のスクリプト集",
       "slug": "claude-code-windows",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-06-29",
+      "title": "【初心者向け】WSL2ユーザー名変更に哭了しない：$HOME変数でスクリプト可搬性を高める具体例",
+      "slug": "wsl2-home-guide",
+      "source_repo": "claude-config"
     }
   ]
 }
