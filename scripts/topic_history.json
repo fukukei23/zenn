@@ -137,6 +137,12 @@
       "title": "【初心者向け】WSL2ユーザー名変更に哭了しない：$HOME変数でスクリプト可搬性を高める具体例",
       "slug": "wsl2-home-guide",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-06-30",
+      "title": "【Claude Code E2E検証】WSLパス変換フックの設計思想：Windows Desktop × Linux開発環境の相互運用性",
+      "slug": "claude-code-e2e-wsl-windows-desktop-linux",
+      "source_repo": "claude-config"
     }
   ]
 }
