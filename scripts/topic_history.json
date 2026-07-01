@@ -143,6 +143,12 @@
       "title": "【Claude Code E2E検証】WSLパス変換フックの設計思想：Windows Desktop × Linux開発環境の相互運用性",
       "slug": "claude-code-e2e-wsl-windows-desktop-linux",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-07-01",
+      "title": "【Claude Code】Windows通知をPowerShell Toastで実装：Python・bash連携の具体例",
+      "slug": "claude-code-windows-powershell-toast-python-bash",
+      "source_repo": "claude-config"
     }
   ]
 }
