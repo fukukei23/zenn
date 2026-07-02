@@ -149,6 +149,12 @@
       "title": "【Claude Code】Windows通知をPowerShell Toastで実装：Python・bash連携の具体例",
       "slug": "claude-code-windows-powershell-toast-python-bash",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-07-02",
+      "title": "【Claude Code】CLAUDE.mdのセッション状態を1枚の表で管理する：新PC対応リファクタリング実例",
+      "slug": "claude-code-claude-md-1-pc",
+      "source_repo": "claude-config"
     }
   ]
 }
