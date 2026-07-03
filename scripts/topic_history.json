@@ -155,6 +155,12 @@
       "title": "【Claude Code】CLAUDE.mdのセッション状態を1枚の表で管理する：新PC対応リファクタリング実例",
       "slug": "claude-code-claude-md-1-pc",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-07-03",
+      "title": "【初心者向け】fetch_issuesで学ぶgh CLI非ログインシェル対応：PATH補完と環境変数の深掘り",
+      "slug": "fetch-issues-gh-cli-path",
+      "source_repo": "claude-config"
     }
   ]
 }
