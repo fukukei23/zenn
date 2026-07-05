@@ -167,6 +167,12 @@
       "title": "【初心者向け】PowerShell ToastでWindows通知を実装：Python・bash連携でCLIツールの体験を上げる具体例",
       "slug": "powershell-toast-windows-python-bash-cli",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-07-05",
+      "title": "【ssot-guide×claude-config】バックログ迷子防止ゲートを設計：未解決アイテムを半自動で追跡する具体例",
+      "slug": "ssot-guide-claude-config",
+      "source_repo": "claude-config"
     }
   ]
 }
