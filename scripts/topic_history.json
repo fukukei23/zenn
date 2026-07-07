@@ -173,6 +173,12 @@
       "title": "【ssot-guide×claude-config】バックログ迷子防止ゲートを設計：未解決アイテムを半自動で追跡する具体例",
       "slug": "ssot-guide-claude-config",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-07-07",
+      "title": "【drift_detector v1解説】AI駆動開発におけるズレ検知の設計思想：ルールベース+KPI数値評価でタスク暴走を防ぐ具体例",
+      "slug": "drift-detector-v1-ai-kpi",
+      "source_repo": "claude-config"
     }
   ]
 }
