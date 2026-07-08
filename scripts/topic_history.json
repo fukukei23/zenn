@@ -179,6 +179,12 @@
       "title": "【drift_detector v1解説】AI駆動開発におけるズレ検知の設計思想：ルールベース+KPI数値評価でタスク暴走を防ぐ具体例",
       "slug": "drift-detector-v1-ai-kpi",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-07-08",
+      "title": "【初心者向け】2リポジトリ自動同期パイプラ設計：obsidian-ssot→ssot-guideの実装例",
+      "slug": "2-obsidian-ssot-ssot-guide",
+      "source_repo": "ssot-guide"
     }
   ]
 }
