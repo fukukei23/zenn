@@ -185,6 +185,12 @@
       "title": "【初心者向け】2リポジトリ自動同期パイプラ設計：obsidian-ssot→ssot-guideの実装例",
       "slug": "2-obsidian-ssot-ssot-guide",
       "source_repo": "ssot-guide"
+    },
+    {
+      "date": "2026-07-09",
+      "title": "【Claude Code】settings.json安全編集術：Pythonで構造を壊さずJSONを操作する具体例",
+      "slug": "claude-code-settings-json-python-json",
+      "source_repo": "claude-code-guide"
     }
   ]
 }
