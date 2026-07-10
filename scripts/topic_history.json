@@ -191,6 +191,12 @@
       "title": "【Claude Code】settings.json安全編集術：Pythonで構造を壊さずJSONを操作する具体例",
       "slug": "claude-code-settings-json-python-json",
       "source_repo": "claude-code-guide"
+    },
+    {
+      "date": "2026-07-10",
+      "title": "【claude-config】state_store.pyで学ぶプロセス間同期：atomic+flock+CASで安全な状態管理",
+      "slug": "claude-config-state-store-py-atomic-flock-cas",
+      "source_repo": "claude-config"
     }
   ]
 }
