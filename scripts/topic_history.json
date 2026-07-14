@@ -197,6 +197,12 @@
       "title": "【claude-config】state_store.pyで学ぶプロセス間同期：atomic+flock+CASで安全な状態管理",
       "slug": "claude-config-state-store-py-atomic-flock-cas",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-07-14",
+      "title": "【Claude Code】SessionStart hookで始める状態管理入門：セッション引継ぎをPythonスクリプトで実装する具体例",
+      "slug": "claude-code-sessionstart-hook-python",
+      "source_repo": "claude-code-guide"
     }
   ]
 }
