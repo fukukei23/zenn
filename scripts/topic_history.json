@@ -203,6 +203,12 @@
       "title": "【Claude Code】SessionStart hookで始める状態管理入門：セッション引継ぎをPythonスクリプトで実装する具体例",
       "slug": "claude-code-sessionstart-hook-python",
       "source_repo": "claude-code-guide"
+    },
+    {
+      "date": "2026-07-15",
+      "title": "【claude-config Phase 2】librosaで実測オーディオ解析：wav生成テストフィクスチャでE2Eテストを実現",
+      "slug": "claude-config-phase-2-librosa-wav-e2e",
+      "source_repo": "claude-config"
     }
   ]
 }
