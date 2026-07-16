@@ -209,6 +209,12 @@
       "title": "【claude-config Phase 2】librosaで実測オーディオ解析：wav生成テストフィクスチャでE2Eテストを実現",
       "slug": "claude-config-phase-2-librosa-wav-e2e",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-07-16",
+      "title": "【atelier-kyo-manager実例】CI完全緑化への道：44 failedを段階的に0にした具体的な戦い方",
+      "slug": "atelier-kyo-manager-ci-44-failed-0",
+      "source_repo": "atelier-kyo-manager"
     }
   ]
 }
