@@ -215,6 +215,12 @@
       "title": "【atelier-kyo-manager実例】CI完全緑化への道：44 failedを段階的に0にした具体的な戦い方",
       "slug": "atelier-kyo-manager-ci-44-failed-0",
       "source_repo": "atelier-kyo-manager"
+    },
+    {
+      "date": "2026-07-19",
+      "title": "【GitHub】.gitignoreの厄介な罠：親ディレクトリ指定が子ディレクトリを巻き込む「包含漏れ」の実例と修正法",
+      "slug": "github-gitignore",
+      "source_repo": "NexusCore"
     }
   ]
 }
