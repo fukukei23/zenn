@@ -221,6 +221,12 @@
       "title": "【GitHub】.gitignoreの厄介な罠：親ディレクトリ指定が子ディレクトリを巻き込む「包含漏れ」の実例と修正法",
       "slug": "github-gitignore",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-07-20",
+      "title": "【NexusCore事例】fail-closed設計でPath Traversalを防御：plan_contractのtarget_files検証の実装解説",
+      "slug": "nexuscore-fail-closed-path-traversal-plan-contract",
+      "source_repo": "NexusCore"
     }
   ]
 }
