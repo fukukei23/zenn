@@ -227,6 +227,12 @@
       "title": "【NexusCore事例】fail-closed設計でPath Traversalを防御：plan_contractのtarget_files検証の実装解説",
       "slug": "nexuscore-fail-closed-path-traversal-plan-contract",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-07-21",
+      "title": "【NexusCore Stage 2】architect/debugger/guardianで実現する3層品質保証アーキテクチャ",
+      "slug": "nexuscore-stage-2-architect-debugger-guardian-3",
+      "source_repo": "NexusCore"
     }
   ]
 }
