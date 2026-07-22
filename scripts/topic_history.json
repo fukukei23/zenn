@@ -233,6 +233,12 @@
       "title": "【NexusCore Stage 2】architect/debugger/guardianで実現する3層品質保証アーキテクチャ",
       "slug": "nexuscore-stage-2-architect-debugger-guardian-3",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-07-22",
+      "title": "【IT転職面接】SSOTで管理する数値を面接資料に自動反映：portfolio数値マスター×interview-prep実例",
+      "slug": "it-ssot-portfolio-interview-prep",
+      "source_repo": "interview-prep"
     }
   ]
 }
