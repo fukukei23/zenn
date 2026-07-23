@@ -239,6 +239,12 @@
       "title": "【IT転職面接】SSOTで管理する数値を面接資料に自動反映：portfolio数値マスター×interview-prep実例",
       "slug": "it-ssot-portfolio-interview-prep",
       "source_repo": "interview-prep"
+    },
+    {
+      "date": "2026-07-23",
+      "title": "【ssot-daily-batch.py解説】Pythonでべき等バッチを作る：idempotency_key・ステップ依存・dry-runの具体実装",
+      "slug": "ssot-daily-batch-py-python-idempotency-key-dry-run",
+      "source_repo": "claude-config"
     }
   ]
 }
