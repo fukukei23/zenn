@@ -245,6 +245,12 @@
       "title": "【ssot-daily-batch.py解説】Pythonでべき等バッチを作る：idempotency_key・ステップ依存・dry-runの具体実装",
       "slug": "ssot-daily-batch-py-python-idempotency-key-dry-run",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "【claude-config Phase1】theme_approval.pyで学ぶ承認ワークフロー設計：approved_themes管理＋diffログの具体実装",
+      "slug": "claude-config-phase1-theme-approval-py-approved-th",
+      "source_repo": "claude-config"
     }
   ]
 }
