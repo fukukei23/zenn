@@ -251,6 +251,12 @@
       "title": "【claude-config Phase1】theme_approval.pyで学ぶ承認ワークフロー設計：approved_themes管理＋diffログの具体実装",
       "slug": "claude-config-phase1-theme-approval-py-approved-th",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-07-25",
+      "title": "【NexusCore事例】multi-llm-review-liteで学ぶLLMフォールバック設計：nemotron統一+合成案で95%可用性を達成",
+      "slug": "nexuscore-multi-llm-review-lite-llm-nemotron-95",
+      "source_repo": "NexusCore"
     }
   ]
 }
