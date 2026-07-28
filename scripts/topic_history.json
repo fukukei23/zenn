@@ -257,6 +257,12 @@
       "title": "【NexusCore事例】multi-llm-review-liteで学ぶLLMフォールバック設計：nemotron統一+合成案で95%可用性を達成",
       "slug": "nexuscore-multi-llm-review-lite-llm-nemotron-95",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-07-28",
+      "title": "【初心者向け】RSS × Discord Webhookで始める自動監視ツール設計：pokeka-lottery-monitorの実例から学ぶ",
+      "slug": "rss-discord-webhook-pokeka-lottery-monitor",
+      "source_repo": "pokeka-lottery-monitor"
     }
   ]
 }
