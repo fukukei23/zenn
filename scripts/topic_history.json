@@ -263,6 +263,12 @@
       "title": "【初心者向け】RSS × Discord Webhookで始める自動監視ツール設計：pokeka-lottery-monitorの実例から学ぶ",
       "slug": "rss-discord-webhook-pokeka-lottery-monitor",
       "source_repo": "pokeka-lottery-monitor"
+    },
+    {
+      "date": "2026-07-29",
+      "title": "【CLI監視ツール設計】ヘルスチェック実装入門：ソース別成功率集計で異常を自動検知",
+      "slug": "cli-practice",
+      "source_repo": "pokeka-lottery-monitor"
     }
   ]
 }
