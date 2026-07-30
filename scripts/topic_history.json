@@ -269,6 +269,12 @@
       "title": "【CLI監視ツール設計】ヘルスチェック実装入門：ソース別成功率集計で異常を自動検知",
       "slug": "cli-practice",
       "source_repo": "pokeka-lottery-monitor"
+    },
+    {
+      "date": "2026-07-30",
+      "title": "【claude-config実例】Auto sync定期実行の設計思想：cron vs 手動pushから学ぶCI/CDミニマム導入",
+      "slug": "claude-config-auto-sync-cron-vs-push-ci-cd",
+      "source_repo": "claude-config"
     }
   ]
 }
