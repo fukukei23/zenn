@@ -275,6 +275,12 @@
       "title": "【claude-config実例】Auto sync定期実行の設計思想：cron vs 手動pushから学ぶCI/CDミニマム導入",
       "slug": "claude-config-auto-sync-cron-vs-push-ci-cd",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-08-01",
+      "title": "【impact-a実装】Claude Codeの危険操作を自動検出するgit diffパーサ設計",
+      "slug": "impact-a-claude-code-git-diff",
+      "source_repo": "claude-config"
     }
   ]
 }
