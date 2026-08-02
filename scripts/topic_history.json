@@ -281,6 +281,12 @@
       "title": "【impact-a実装】Claude Codeの危険操作を自動検出するgit diffパーサ設計",
       "slug": "impact-a-claude-code-git-diff",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-08-02",
+      "title": "【NexusCore Stage 3】12エージェント協調の要諦：未使用モジュール棚卸しから学ぶ保守性の心得",
+      "slug": "nexuscore-stage-3-12",
+      "source_repo": "NexusCore"
     }
   ]
 }
