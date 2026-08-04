@@ -1,5 +1,5 @@
 ---
-title: "【Python】SSRF・IDOR・Path Injectionを初心者向けに徹底解説：atelier-kyo-managerの実例から学ぶWebセキュリティ"
+title: "【Python】SSRF・IDOR・Path Injectionをatelier-kyo-managerの実例で学ぶWebセキュリティ"
 emoji: "🔒"
 type: "tech"
 topics: ["セキュリティ", "Python", "初心者向け", "ssrf", "idor"]

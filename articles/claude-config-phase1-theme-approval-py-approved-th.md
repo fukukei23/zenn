@@ -1,5 +1,5 @@
 ---
-title: "【claude-config Phase1】theme_approval.pyで学ぶ承認ワークフロー設計：approved_themes管理＋diffログの具体実装"
+title: "【claude-config】theme_approval.pyで学ぶ承認ワークフロー設計とdiffログの具体実装"
 emoji: "✅"
 type: "tech"
 topics: ["Python", "CLI", "ワークフロー設計", "NexusCore"]
