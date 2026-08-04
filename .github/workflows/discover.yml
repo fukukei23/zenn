@@ -69,6 +69,11 @@ jobs:
           MINIMAX_API_KEY: ${{ secrets.MINIMAX_API_KEY }}
         run: python scripts/ranker.py
 
+      - name: Validate all articles
+        # generator失敗時も走らせ既存記事の退化を検知（手動編集由来の違反カバー）
+        if: always() && steps.check.outputs.skip != 'true'
+        run: python scripts/validate_all_articles.py
+
       - name: Push draft article
         if: steps.article.outputs.generated == 'true'
         env:
@@ -83,7 +88,8 @@ jobs:
           git push
 
       - name: Notify (Discord + Issue)
-        if: steps.article.outputs.generated == 'true'
+        # always(): generator/validate失敗時も違反通知を確実に送る（閾値撤廃・毎回通知）
+        if: always() && steps.check.outputs.skip != 'true'
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

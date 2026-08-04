@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate Zenn article drafts using 2-stage LLM pipeline (GLM + MiniMax)."""
 
+import hashlib
 import json
 import os
 import re
@@ -65,6 +66,7 @@ def extract_topics(minimax_client, scan_results, past_titles):
 - 初心者にもわかる説明
 - 具体的なコード例を含められる題材
 - 1記事で完結するスコープ
+- **titleは必ず70文字以内（Zennのデプロイ上限・全角も半角も1文字換算・超過するとデプロイが中断する）**
 
 出力形式（JSON配列のみ・説明文・前置き・コードフェンスなし・各要素間のカンマ欠落に注意した厳密な有効JSON）:
 [{{"title": "記事タイトル", "summary": "2-3行の概要", "repo": "リポジトリ名", "tags": ["tag1", "tag2"]}}]"""
@@ -122,6 +124,7 @@ def generate_article(glm_client, topic, scan_results):
 - 記事全体をコードフェンス（```markdown```）で囲まないこと。生のMarkdownとして出力すること
 - 構成: はじめに → 本文（2-4セクション） → おわりに
 - PythonまたはTypeScriptのコード例を最低1つ含める
+- **frontmatterのtitleは70文字以内にすること（Zenn上限・超過するとデプロイ失敗）。タイトル案が70字超の場合は意味を保って短縮すること**
 - 日本語で書く
 - 初心者向けのわかりやすい説明
 - 2000-3000文字程度
@@ -137,23 +140,53 @@ def generate_article(glm_client, topic, scan_results):
 # Zenn slug要件: 半角英数字/ハイフン/アンダースコア 12〜50文字
 SLUG_MIN = 12
 SLUG_MAX = 50
-# 短すぎるslugを延長する接尾辞（記事系で無難なものを順に試す）
-SLUG_SUFFIXES = ("-guide", "-design", "-practice", "-tutorial", "-article")
+TITLE_MAX = 70  # Zenn title上限（ダッシュボードデプロイエラー文が一次ソース）
 
 
 def slug_from_title(title):
+    """titleから衝突耐性のあるslugを生成。
+
+    Zennでは slug = ファイル名（frontmatterにslugフィールドなし）。
+    ファイル名の一意性 = slugの一意性。似たタイトルで同じascii部分になる衝突を
+    防ぐため、titleのSHA-256ハッシュ先頭8桁を接尾辞として付与（16^8=約43億通りで
+    実質衝突ゼロ・決定的で再現性あり）。
+    """
     ascii_part = re.sub(r"[^a-zA-Z0-9]+", "-", title).strip("-").lower()
     if not ascii_part:
-        # 日本語のみ等、英数字が1つも含まれない場合は日付ベースのslug
-        return f"auto-{datetime.now().strftime('%Y%m%d-%H%M')}"
-    # 短すぎる場合は意味のある接尾辞で延長
-    # 例: "fail-closed"(11字) → "fail-closed-guide"(17字)
-    if len(ascii_part) < SLUG_MIN:
-        for suffix in SLUG_SUFFIXES:
-            candidate = ascii_part + suffix
-            if SLUG_MIN <= len(candidate) <= SLUG_MAX:
-                return candidate
-    return ascii_part[:SLUG_MAX]
+        ascii_part = "article"
+    hash8 = hashlib.sha256(title.encode("utf-8")).hexdigest()[:8]
+    # hash8 + ハイフン1字分の余裕を残してascii_partを切り詰め
+    ascii_part = ascii_part[: SLUG_MAX - len(hash8) - 1]
+    slug = f"{ascii_part}-{hash8}"
+    # ascii_part極短でSLUG_MIN未満になる場合はhashを延長（安全策）
+    if len(slug) < SLUG_MIN:
+        need = SLUG_MIN - len(ascii_part) - 1
+        hash_long = hashlib.sha256(title.encode("utf-8")).hexdigest()[:need]
+        slug = f"{ascii_part}-{hash_long}"
+    return slug[:SLUG_MAX]
+
+
+def validate_article(title, slug, existing_slugs):
+    """Zenn規約への違反をチェックし、違反メッセージのリストを返す（空=合格）。
+
+    - title: 70文字以下（Zennデプロイエラー基準・python len()=Unicode文字数）
+    - slug: 12〜50文字・半角英数字/ハイフン/アンダースコアのみ
+    - slug: 既存記事との重複不可
+    """
+    errors = []
+    if len(title) > TITLE_MAX:
+        errors.append(
+            f"titleが{TITLE_MAX}文字超過（{len(title)}字）: Zenn上限は{TITLE_MAX}文字"
+        )
+    if len(slug) < SLUG_MIN or len(slug) > SLUG_MAX:
+        errors.append(
+            f"slug文字数違反（{len(slug)}字）: {SLUG_MIN}〜{SLUG_MAX}文字が必要"
+        )
+    if not re.match(r"^[a-z0-9_-]+$", slug):
+        errors.append("slug文字種違反: 半角英数字/ハイフン/アンダースコアのみ許可")
+    if slug in existing_slugs:
+        errors.append(f"slug重複: '{slug}' は既存記事と衝突")
+    return errors
 
 
 def strip_code_fence(text):
@@ -224,11 +257,43 @@ def main():
     tags = topic.get("tags", ["ai", "automation"])
     article = ensure_frontmatter(article, topic["title"], tags)
 
-    slug = slug_from_title(topic["title"])
     article_dir = os.path.join(SCRIPTS_DIR, "..", "articles")
     os.makedirs(article_dir, exist_ok=True)
-    article_path = os.path.join(article_dir, f"{slug}.md")
 
+    # 既存slug一覧（ファイル名=slug・衝突チェック用）
+    existing_slugs = [
+        os.path.splitext(f)[0]
+        for f in os.listdir(article_dir)
+        if f.endswith(".md")
+    ]
+    slug = slug_from_title(topic["title"])
+
+    # Zenn規約バリデーション：違反時は .skipped/ へ退避し CI 失敗（exit 1）。
+    # 沈黙の skip を防ぐため validation_errors.json に記録し notifier が通知する。
+    errors = validate_article(topic["title"], slug, existing_slugs)
+    if errors:
+        skipped_dir = os.path.join(SCRIPTS_DIR, "..", ".skipped")
+        os.makedirs(skipped_dir, exist_ok=True)
+        skipped_path = os.path.join(skipped_dir, f"{slug}.md")
+        with open(skipped_path, "w", encoding="utf-8") as f:
+            f.write(article)
+        flag_path = os.path.join(SCRIPTS_DIR, "..", "validation_errors.json")
+        verrs = load_json(flag_path) if os.path.exists(flag_path) else {"errors": []}
+        verrs.setdefault("errors", []).append(
+            {
+                "title": topic["title"],
+                "slug": slug,
+                "errors": errors,
+                "skipped_path": f".skipped/{slug}.md",
+            }
+        )
+        save_json(verrs, flag_path)
+        print(f"VALIDATION FAILED → skipped to .skipped/{slug}.md:")
+        for e in errors:
+            print(f"  - {e}")
+        sys.exit(1)
+
+    article_path = os.path.join(article_dir, f"{slug}.md")
     with open(article_path, "w", encoding="utf-8") as f:
         f.write(article)
 

@@ -40,7 +40,7 @@ def send_discord(webhook_url, meta):
 
     resp = requests.post(webhook_url, json=message, timeout=15)
     if resp.ok:
-        print(f"Discord notification sent")
+        print("Discord notification sent")
     else:
         print(f"Discord failed: {resp.status_code} {resp.text[:200]}")
 
@@ -94,10 +94,58 @@ def create_issue(token, meta):
         return None
 
 
+def load_validation_errors():
+    """generator が違反記事をskipした記録（validation_errors.json）。"""
+    path = os.path.join(SCRIPTS_DIR, "..", "validation_errors.json")
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def notify_validation(verrs, webhook_url):
+    """違反skip通知（閾値撤廃・毎回通知）。Discord + GitHub Step Summary に併用出力。"""
+    errs = verrs.get("errors", [])
+    lines = [
+        f"⚠️ **Zenn記事バリデーション違反（{len(errs)}件）** "
+        "- デプロイ中断防止のためskipしました"
+    ]
+    for e in errs:
+        lines.append(f"• `{e['slug']}`")
+        lines.append(f"  タイトル: {e['title']}")
+        lines.append(f"  違反: {' / '.join(e['errors'])}")
+        lines.append(f"  退避先: {e.get('skipped_path', '.skipped/')}")
+
+    if webhook_url:
+        resp = requests.post(
+            webhook_url, json={"content": "\n".join(lines)}, timeout=15
+        )
+        status = "sent" if resp.ok else f"failed({resp.status_code})"
+        print(f"Discord (validation): {status}")
+
+    step_summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if step_summary:
+        with open(step_summary, "a", encoding="utf-8") as f:
+            f.write("\n\n## ⚠️ Zenn記事バリデーション違反\n\n")
+            for e in errs:
+                f.write(
+                    f"- `{e['slug']}` ({e['title']}): "
+                    f"{' / '.join(e['errors'])}\n"
+                )
+
+
 def main():
+    # 優先：バリデーション違反通知（generator が違反記事をskipした時）
+    verrs = load_validation_errors()
+    if verrs:
+        notify_validation(verrs, os.environ.get("DISCORD_WEBHOOK_URL", ""))
+        sys.exit(1)
+
+    # 通常：新着draft通知
     meta = load_meta()
     if not meta:
-        sys.exit(1)
+        # 記事生成なし（skip.flag 等）は正常終了
+        return
 
     # Discord notification
     webhook_url = os.environ.get("DISCORD_WEBHOOK_URL", "")
