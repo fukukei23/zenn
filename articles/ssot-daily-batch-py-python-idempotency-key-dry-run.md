@@ -1,5 +1,5 @@
 ---
-title: "【ssot-daily-batch.py解説】Pythonでべき等バッチを作る：idempotency_key・ステップ依存・dry-runの具体実装"
+title: "【ssot-daily-batch.py】Pythonでべき等バッチを作る：idempotency_key・dry-runの具体実装"
 emoji: "📝"
 type: "tech"
 topics: ["Python", "batch-processing", "idempotency", "SSOT"]

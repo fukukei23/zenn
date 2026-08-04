@@ -1,5 +1,5 @@
 ---
-title: "【NexusCore事例】fail-closed設計でPath Traversalを防御：plan_contractのtarget_files検証の実装解説"
+title: "【NexusCore】fail-closedでPath Traversal防御：plan_contractのtarget_files検証"
 emoji: "📝"
 type: "tech"
 topics: ["fail-closed", "Path Traversal", "契約駆動開発", "セキュリティ", "Python"]
@@ -7,7 +7,7 @@ published: false
 ---
 
 ```markdown
-title: "【NexusCore事例】fail-closed設計でPath Traversalを防御：plan_contractのtarget_files検証の実装解説"
+title: "【NexusCore】fail-closedでPath Traversal防御：plan_contractのtarget_files検証"
 emoji: "🛡️"
 type: "tech"
 topics: ["fail-closed", "Path Traversal", "契約駆動開発", "セキュリティ", "Python"]

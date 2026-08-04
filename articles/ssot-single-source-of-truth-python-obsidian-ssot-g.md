@@ -1,5 +1,5 @@
 ---
-title: "【初心者向け】SSOT（Single Source of Truth）をPython+Obsidianで実装する：ssot-guideの実例から学ぶデータ管理"
+title: "【初心者向け】SSOTをPython+Obsidianで実装する：ssot-guide実例で学ぶデータ管理"
 emoji: "🌵"
 type: "tech"
 topics: ["Python", "Obsidian", "SSOT", "初心者向け", "GitHub"]

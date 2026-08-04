@@ -1,5 +1,5 @@
 ---
-title: "【NexusCore事例】multi-llm-review-liteで学ぶLLMフォールバック設計：nemotron統一+合成案で95%可用性を達成"
+title: "【NexusCore事例】LLMフォールバック設計：nemotron統一+合成案で95%可用性を達成"
 emoji: "📝"
 type: "tech"
 topics: ["LLM", "fallback", "Python", "NexusCore"]
@@ -7,7 +7,7 @@ published: false
 ---
 
 ```markdown
-title: "【NexusCore事例】multi-llm-review-liteで学ぶLLMフォールバック設計：nemotron統一+合成案で95%可用性を達成"
+title: "【NexusCore事例】LLMフォールバック設計：nemotron統一+合成案で95%可用性を達成"
 emoji: "🛡️"
 type: "tech"
 topics: ["LLM", "fallback", "Python", "NexusCore"]
