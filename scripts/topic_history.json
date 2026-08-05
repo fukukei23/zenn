@@ -287,6 +287,12 @@
       "title": "【NexusCore Stage 3】12エージェント協調の要諦：未使用モジュール棚卸しから学ぶ保守性の心得",
       "slug": "nexuscore-stage-3-12",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-08-05",
+      "title": "【NexusCore事例】fail-closed設計の真髄：POSTGRES_PASSWORD環境変数管理で学ぶ",
+      "slug": "nexuscore-fail-closed-postgres-password-d5596ae7",
+      "source_repo": "NexusCore"
     }
   ]
 }
