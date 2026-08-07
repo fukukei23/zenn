@@ -293,6 +293,12 @@
       "title": "【NexusCore事例】fail-closed設計の真髄：POSTGRES_PASSWORD環境変数管理で学ぶ",
       "slug": "nexuscore-fail-closed-postgres-password-d5596ae7",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-08-07",
+      "title": "【NexusCore事例】Celeryタスクの冪等設計：Redis分散ロックで重複実行を防ぐ",
+      "slug": "nexuscore-celery-redis-2f2cecb9",
+      "source_repo": "NexusCore"
     }
   ]
 }
