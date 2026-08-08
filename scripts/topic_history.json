@@ -299,6 +299,12 @@
       "title": "【NexusCore事例】Celeryタスクの冪等設計：Redis分散ロックで重複実行を防ぐ",
       "slug": "nexuscore-celery-redis-2f2cecb9",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-08-08",
+      "title": "【theme_approval解説】依存注入でテスト容易性を爆上げする具体例",
+      "slug": "theme-approval-661e3cac",
+      "source_repo": "claude-config"
     }
   ]
 }
