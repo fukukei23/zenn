@@ -305,6 +305,12 @@
       "title": "【theme_approval解説】依存注入でテスト容易性を爆上げする具体例",
       "slug": "theme-approval-661e3cac",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-08-11",
+      "title": "【AIWatch実装】週$20コストキャップの設計：gh CLIでAIリポジトリ利用료를自動監視",
+      "slug": "aiwatch-20-gh-cli-ai-18c67691",
+      "source_repo": "claude-config"
     }
   ]
 }
