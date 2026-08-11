@@ -46,3 +46,4 @@ skip.flag
 multi-llm-review_*/
 .skipped/
 validation_errors.json
+generator_error.json

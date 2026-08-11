@@ -3,7 +3,6 @@
 
 import json
 import os
-import sys
 
 import requests
 
@@ -94,13 +93,58 @@ def create_issue(token, meta):
         return None
 
 
-def load_validation_errors():
+def load_validation_errors(base_dir=None):
     """generator が違反記事をskipした記録（validation_errors.json）。"""
-    path = os.path.join(SCRIPTS_DIR, "..", "validation_errors.json")
+    target_dir = base_dir or os.path.join(SCRIPTS_DIR, "..")
+    path = os.path.join(target_dir, "validation_errors.json")
     if not os.path.exists(path):
         return None
     with open(path, encoding="utf-8") as f:
         return json.load(f)
+
+
+def load_generator_error(base_dir=None):
+    """generator が予期せぬ例外で crash した記録（generator_error.json）。
+    API例外（429/500/timeout 等）の静かな crash を notifier が検知して通知
+    するための経路。"""
+    target_dir = base_dir or os.path.join(SCRIPTS_DIR, "..")
+    path = os.path.join(target_dir, "generator_error.json")
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def notify_generator_error(err, webhook_url):
+    """generator 例外通知（Discord + GitHub Step Summary）。API例外等で
+    記事生成できなかった旨を通知し、沈黙の crash を可視化する。"""
+    err_type = err.get("type", "Unknown")
+    message = err.get("message", "")
+    tb = err.get("traceback", "")
+    lines = [
+        f"🚨 **generator が例外で停止** ({err_type}) "
+        "- 記事生成できず・要確認",
+        f"• message: {message}",
+    ]
+    if tb:
+        lines.append("• traceback（先頭5行）:")
+        for line in tb.splitlines()[:5]:
+            lines.append(f"  {line}")
+
+    if webhook_url:
+        resp = requests.post(
+            webhook_url, json={"content": "\n".join(lines)}, timeout=15
+        )
+        status = "sent" if resp.ok else f"failed({resp.status_code})"
+        print(f"Discord (generator-error): {status}")
+
+    step_summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if step_summary:
+        with open(step_summary, "a", encoding="utf-8") as f:
+            f.write("\n\n## 🚨 generator 例外停止\n\n")
+            f.write(f"- **type**: {err_type}\n")
+            f.write(f"- **message**: {message}\n")
+            f.write(f"```\n{tb}\n```\n")
 
 
 def notify_validation(verrs, webhook_url):
@@ -135,11 +179,17 @@ def notify_validation(verrs, webhook_url):
 
 
 def main():
-    # 優先：バリデーション違反通知（generator が違反記事をskipした時）
+    # 優先0: generator 例外（API例外等でcrash・沈黙防止）
+    gerr = load_generator_error()
+    if gerr:
+        notify_generator_error(gerr, os.environ.get("DISCORD_WEBHOOK_URL", ""))
+        return  # 例外時は他の通知スキップ
+
+    # 優先1: バリデーション違反通知（generator が違反記事をskipした時）
     verrs = load_validation_errors()
     if verrs:
         notify_validation(verrs, os.environ.get("DISCORD_WEBHOOK_URL", ""))
-        sys.exit(1)
+        return  # sys.exit(1)→return: 違反通知は送信済み・Step Summaryで可視化
 
     # 通常：新着draft通知
     meta = load_meta()

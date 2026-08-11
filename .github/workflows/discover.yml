@@ -97,4 +97,4 @@ jobs:
 
       - name: Cleanup temp files
         if: always()
-        run: rm -f scan_results.json article_meta.json skip.flag
+        run: rm -f scan_results.json article_meta.json skip.flag generator_error.json

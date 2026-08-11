@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""generator.py のユニットテスト（slug生成・バリデーション）。"""
+"""generator.py のユニットテスト（slug生成・バリデーション・例外記録）。"""
 
+import json
 import os
 import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from generator import slug_from_title, validate_article, SLUG_MIN, SLUG_MAX
+from generator import slug_from_title, validate_article, save_generator_error, SLUG_MIN, SLUG_MAX
 
 
 class TestSlugFromTitle:
@@ -69,3 +70,22 @@ class TestValidateArticle:
     def test_multiple_errors_returned(self):
         errs = validate_article("あ" * 80, "Bad Slug!", ["Bad Slug!"])
         assert len(errs) >= 2
+
+
+class TestSaveGeneratorError:
+    def test_writes_required_fields(self, tmp_path):
+        exc = RuntimeError("API timeout")
+        save_generator_error(exc, base_dir=str(tmp_path))
+        data = json.load(open(os.path.join(str(tmp_path), "generator_error.json")))
+        assert data["type"] == "RuntimeError"
+        assert data["message"] == "API timeout"
+        assert "traceback" in data
+
+    def test_traceback_includes_context(self, tmp_path):
+        try:
+            raise ValueError("test error")
+        except ValueError as exc:
+            save_generator_error(exc, base_dir=str(tmp_path))
+        data = json.load(open(os.path.join(str(tmp_path), "generator_error.json")))
+        assert "ValueError" in data["traceback"]
+        assert "test error" in data["traceback"]

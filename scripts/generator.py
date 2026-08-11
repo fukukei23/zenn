@@ -6,6 +6,7 @@ import json
 import os
 import re
 import sys
+import traceback
 from datetime import datetime
 
 from openai import OpenAI
@@ -15,6 +16,21 @@ MINIMAX_BASE_URL = "https://api.minimax.io/v1"
 TOPIC_MODEL = "MiniMax-M2.7"
 ARTICLE_MODEL = "GLM-5.1"
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def save_generator_error(exc, base_dir=None):
+    """予期せぬ例外を generator_error.json に記録し、notifier が検知して
+    Discord通知できるようにする。API例外（429/500/timeout 等）の静かな
+    crash を防ぐため、main() の try-except から呼ばれる。"""
+    target_dir = base_dir or os.path.join(SCRIPTS_DIR, "..")
+    error_data = {
+        "type": type(exc).__name__,
+        "message": str(exc),
+        "traceback": traceback.format_exc(),
+    }
+    path = os.path.join(target_dir, "generator_error.json")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(error_data, f, ensure_ascii=False, indent=2)
 
 
 def load_json(path):
@@ -319,4 +335,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as exc:
+        # 予期せぬ例外（API例外等）を generator_error.json に記録し notifier へ。
+        # SystemExit（validate違反・scan空・skip の意図的 exit）は Exception の
+        # サブクラスでないため捕まらず、そのまま通る（既存の挙動を維持）。
+        save_generator_error(exc)
+        print(f"ERROR: {type(exc).__name__}: {exc}")
+        print("Saved to generator_error.json for notifier")
+        sys.exit(1)
