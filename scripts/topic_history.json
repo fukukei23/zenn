@@ -317,6 +317,12 @@
       "title": "【claude-config】aiwatch日本語翻訳パイプラインの実装：3フィールドで運用負荷軽減",
       "slug": "claude-config-aiwatch-3-311bd4eb",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-08-15",
+      "title": "【Python】AST静的検査で安全に進めるリファクタ：PricingInput参照の機械検証テスト",
+      "slug": "python-ast-pricinginput-8fe8d761",
+      "source_repo": "atelier-kyo-manager"
     }
   ]
 }
