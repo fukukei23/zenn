@@ -13,7 +13,7 @@ from openai import OpenAI
 
 GLM_BASE_URL = "https://api.z.ai/api/coding/paas/v4"
 MINIMAX_BASE_URL = "https://api.minimax.io/v1"
-TOPIC_MODEL = "MiniMax-M2.7"
+TOPIC_MODEL = "MiniMax-M3"
 ARTICLE_MODEL = "GLM-5.1"
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -59,7 +59,11 @@ def chat(client, model, prompt, max_tokens=4000):
         max_tokens=max_tokens,
         messages=[{"role": "user", "content": prompt}],
     )
-    return response.choices[0].message.content
+    content = response.choices[0].message.content
+    # 推理系モデル（MiniMax-M3等）は <think>...</think> を先頭に出す。
+    # think内にプロンプトのJSONが引用されるため、残すとJSON抽出が誤掴みする。
+    # 閉じタグが欠けた壊れたthinkは残るが、その場合は従来同様リトライ→skip。
+    return re.sub(r"<think>.*?</think>", "", content, flags=re.DOTALL)
 
 
 def extract_topics(minimax_client, scan_results, past_titles):
@@ -88,8 +92,12 @@ def extract_topics(minimax_client, scan_results, past_titles):
 [{{"title": "記事タイトル", "summary": "2-3行の概要", "repo": "リポジトリ名", "tags": ["tag1", "tag2"]}}]"""
 
     # MiniMaxは確率的に出力が揺らぐため、壊れたJSONを返した場合は再生成してリトライする
+    # max_tokens=4000: 推理系モデルは<think>で数千token消費するため1000では息切れする
+    # （2026-08-13〜15の生成停止事故: finish_reason=length・本文にJSON配列が無い）
+    last_text = ""
     for _attempt in range(3):
-        text = chat(minimax_client, TOPIC_MODEL, prompt, max_tokens=1000)
+        text = chat(minimax_client, TOPIC_MODEL, prompt, max_tokens=4000)
+        last_text = text
         match = re.search(r"\[.*\]", text, re.DOTALL)
         if not match:
             continue
@@ -97,6 +105,8 @@ def extract_topics(minimax_client, scan_results, past_titles):
             return json.loads(match.group())
         except json.JSONDecodeError:
             continue  # JSONが壊れていれば再生成
+    # 失敗時は静かに終わらず生レスポンス断片をログへ（黙り込みの即診断用・例外にせずskip維持）
+    print(f"extract_topics: 3 retries failed. Last response head: {last_text[:200]!r}")
     return []  # 3回失敗時は安全にスキップ（skip.flag経由で当日の生成を中止）
 
 
