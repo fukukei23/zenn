@@ -323,6 +323,12 @@
       "title": "【Python】AST静的検査で安全に進めるリファクタ：PricingInput参照の機械検証テスト",
       "slug": "python-ast-pricinginput-8fe8d761",
       "source_repo": "atelier-kyo-manager"
+    },
+    {
+      "date": "2026-08-16",
+      "title": "【Python】Open Redirect対策入門：CWE-601をFastAPIで実装する具体例",
+      "slug": "python-open-redirect-cwe-601-fastapi-eb918c9a",
+      "source_repo": "atelier-kyo-manager"
     }
   ]
 }
