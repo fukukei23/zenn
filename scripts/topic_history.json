@@ -329,6 +329,12 @@
       "title": "【Python】Open Redirect対策入門：CWE-601をFastAPIで実装する具体例",
       "slug": "python-open-redirect-cwe-601-fastapi-eb918c9a",
       "source_repo": "atelier-kyo-manager"
+    },
+    {
+      "date": "2026-08-17",
+      "title": "【pytest】importlibモードで同名test_hidden.py競合を回避する具体的方法",
+      "slug": "pytest-importlib-test-hidden-py-08c18a63",
+      "source_repo": "nexuscore-bench"
     }
   ]
 }
