@@ -335,6 +335,12 @@
       "title": "【pytest】importlibモードで同名test_hidden.py競合を回避する具体的方法",
       "slug": "pytest-importlib-test-hidden-py-08c18a63",
       "source_repo": "nexuscore-bench"
+    },
+    {
+      "date": "2026-08-18",
+      "title": "【LLM駆動開発】削除行数上限ガードで暴走を防ぐ：nexuscore-benchの壁2-A実装",
+      "slug": "llm-nexuscore-bench-2-a-bec361c4",
+      "source_repo": "NexusCore"
     }
   ]
 }
