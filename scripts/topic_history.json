@@ -341,6 +341,12 @@
       "title": "【LLM駆動開発】削除行数上限ガードで暴走を防ぐ：nexuscore-benchの壁2-A実装",
       "slug": "llm-nexuscore-bench-2-a-bec361c4",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-08-19",
+      "title": "【AWS SAM】sam local統合テストでDynamoDB Localと格闘した2つの障害と解決法",
+      "slug": "aws-sam-sam-local-dynamodb-local-2-b9968595",
+      "source_repo": "aws-line-crm"
     }
   ]
 }
