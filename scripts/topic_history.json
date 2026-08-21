@@ -347,6 +347,12 @@
       "title": "【AWS SAM】sam local統合テストでDynamoDB Localと格闘した2つの障害と解決法",
       "slug": "aws-sam-sam-local-dynamodb-local-2-b9968595",
       "source_repo": "aws-line-crm"
+    },
+    {
+      "date": "2026-08-21",
+      "title": "【Claude Code】AI対話で約束を守る：精読シート7欄化で「無言のすり減り」を防ぐ具体設計",
+      "slug": "claude-code-ai-7-fb29c2a9",
+      "source_repo": "claude-config"
     }
   ]
 }
