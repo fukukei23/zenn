@@ -353,6 +353,12 @@
       "title": "【Claude Code】AI対話で約束を守る：精読シート7欄化で「無言のすり減り」を防ぐ具体設計",
       "slug": "claude-code-ai-7-fb29c2a9",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-08-22",
+      "title": "【Claude Code】突破不能案件で「できます」が刺さる：空約束誘発を防ぐ具体設計",
+      "slug": "claude-code-44560e77",
+      "source_repo": "claude-config"
     }
   ]
 }
