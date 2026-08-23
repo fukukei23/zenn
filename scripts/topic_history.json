@@ -359,6 +359,12 @@
       "title": "【Claude Code】突破不能案件で「できます」が刺さる：空約束誘発を防ぐ具体設計",
       "slug": "claude-code-44560e77",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-08-23",
+      "title": "【Python】正規表現の貪欲マッチでCLIツールが誤ブロックされた実例と修正法",
+      "slug": "python-cli-8638c634",
+      "source_repo": "claude-config"
     }
   ]
 }
