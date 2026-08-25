@@ -365,6 +365,12 @@
       "title": "【Python】正規表現の貪欲マッチでCLIツールが誤ブロックされた実例と修正法",
       "slug": "python-cli-8638c634",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-08-25",
+      "title": "【初心者向け】マルチLLMレビューでCLI安全性を底上げ：sync-from-ssot.shの5欠陥修正実例",
+      "slug": "llm-cli-sync-from-ssot-sh-5-80c5343a",
+      "source_repo": "ssot-guide"
     }
   ]
 }
