@@ -371,6 +371,12 @@
       "title": "【初心者向け】マルチLLMレビューでCLI安全性を底上げ：sync-from-ssot.shの5欠陥修正実例",
       "slug": "llm-cli-sync-from-ssot-sh-5-80c5343a",
       "source_repo": "ssot-guide"
+    },
+    {
+      "date": "2026-08-26",
+      "title": "【Claude Code】[y/N]質問を廃止して3値ルール(N/H/R)へ：LLM自動判定で安定したSSOT記録",
+      "slug": "claude-code-y-n-3-n-h-r-llm-ssot-c48d963e",
+      "source_repo": "claude-config"
     }
   ]
 }
