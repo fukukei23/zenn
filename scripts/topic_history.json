@@ -377,6 +377,12 @@
       "title": "【Claude Code】[y/N]質問を廃止して3値ルール(N/H/R)へ：LLM自動判定で安定したSSOT記録",
       "slug": "claude-code-y-n-3-n-h-r-llm-ssot-c48d963e",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-08-27",
+      "title": "【初心者向け】cron PATHに~/binを追加して定期実行を安定化させる具体手順",
+      "slug": "cron-path-bin-a372b632",
+      "source_repo": "claude-config"
     }
   ]
 }
