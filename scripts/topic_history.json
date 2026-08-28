@@ -383,6 +383,12 @@
       "title": "【初心者向け】cron PATHに~/binを追加して定期実行を安定化させる具体手順",
       "slug": "cron-path-bin-a372b632",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-08-28",
+      "title": "【Claude Code】cron多重発火を防ぐstamp+年齢方式の排他設計：同一commit重複を構造的封じ",
+      "slug": "claude-code-cron-stamp-commit-a44d6031",
+      "source_repo": "claude-config"
     }
   ]
 }
