@@ -389,6 +389,12 @@
       "title": "【Claude Code】cron多重発火を防ぐstamp+年齢方式の排他設計：同一commit重複を構造的封じ",
       "slug": "claude-code-cron-stamp-commit-a44d6031",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-08-29",
+      "title": "「Claude Code」テンプレート推奨の無批判転記をhookで検出する：AI駆動開発の衛生管理術",
+      "slug": "claude-code-hook-ai-076429e2",
+      "source_repo": "claude-config"
     }
   ]
 }
