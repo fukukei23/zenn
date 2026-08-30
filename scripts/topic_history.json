@@ -395,6 +395,12 @@
       "title": "「Claude Code」テンプレート推奨の無批判転記をhookで検出する：AI駆動開発の衛生管理術",
       "slug": "claude-code-hook-ai-076429e2",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-08-30",
+      "title": "Claude Code ハーネス入門：tool calling/自律ループ/サーキットブレーカ用語集",
+      "slug": "claude-code-tool-calling-5359933a",
+      "source_repo": "claude-code-guide"
     }
   ]
 }
