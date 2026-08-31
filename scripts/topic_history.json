@@ -401,6 +401,12 @@
       "title": "Claude Code ハーネス入門：tool calling/自律ループ/サーキットブレーカ用語集",
       "slug": "claude-code-tool-calling-5359933a",
       "source_repo": "claude-code-guide"
+    },
+    {
+      "date": "2026-08-31",
+      "title": "「Claude Code」呼称ルール警告hook実装：SSOT衛生管理を「ユーザー」→「ふくけい」置換で実現",
+      "slug": "claude-code-hook-ssot-ec5d3c5e",
+      "source_repo": "claude-config"
     }
   ]
 }
