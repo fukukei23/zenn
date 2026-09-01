@@ -407,6 +407,12 @@
       "title": "「Claude Code」呼称ルール警告hook実装：SSOT衛生管理を「ユーザー」→「ふくけい」置換で実現",
       "slug": "claude-code-hook-ssot-ec5d3c5e",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-09-01",
+      "title": "【Claude Code】ゼロ断定ゲート入門：M>N再検索要求でLLM暴走を防ぐ具体設計",
+      "slug": "claude-code-m-n-llm-1e173e52",
+      "source_repo": "claude-config"
     }
   ]
 }
