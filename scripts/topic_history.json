@@ -425,6 +425,12 @@
       "title": "【pytest】ImportErrorで全skipされた36テストを救う：意図的削除関数の正しい整理法",
       "slug": "pytest-importerror-skip-36-1db8c090",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-09-05",
+      "title": "GitHub Pages自動デプロイ設定の3つの落とし穴：configure-pagesとworkflow重複を防ぐには",
+      "slug": "github-pages-3-configure-pages-workflow-ca493e90",
+      "source_repo": "cca-f-mock"
     }
   ]
 }
