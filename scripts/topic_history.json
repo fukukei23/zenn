@@ -431,6 +431,12 @@
       "title": "GitHub Pages自動デプロイ設定の3つの落とし穴：configure-pagesとworkflow重複を防ぐには",
       "slug": "github-pages-3-configure-pages-workflow-ca493e90",
       "source_repo": "cca-f-mock"
+    },
+    {
+      "date": "2026-09-06",
+      "title": "【Claude Code】commit巻き込み事故を3層hookで防ぐ：git-commit-scoped設計",
+      "slug": "claude-code-commit-3-hook-git-commit-scop-1760a199",
+      "source_repo": "claude-config"
     }
   ]
 }
