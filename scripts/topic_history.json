@@ -437,6 +437,12 @@
       "title": "【Claude Code】commit巻き込み事故を3層hookで防ぐ：git-commit-scoped設計",
       "slug": "claude-code-commit-3-hook-git-commit-scop-1760a199",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-09-08",
+      "title": "【Python】カスタムexit code 78でpytest衝突回避：CLI終了コード設計の具体例",
+      "slug": "python-exit-code-78-pytest-cli-7798a800",
+      "source_repo": "cc-stories-guide"
     }
   ]
 }
