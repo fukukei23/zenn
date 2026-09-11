@@ -449,6 +449,12 @@
       "title": "【Python】劣化スモークテスト入門：性能退行を5000行履歴で検出する実例",
       "slug": "python-5000-d9c7c761",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-09-11",
+      "title": "【atelier-kyo-manager事例】包括的リポジトリレビュー14件を記録する：推測ゼロ実測issue-backlog形式",
+      "slug": "atelier-kyo-manager-14-issue-backlog-45cefd89",
+      "source_repo": "atelier-kyo-manager"
     }
   ]
 }
