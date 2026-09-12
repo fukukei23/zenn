@@ -455,6 +455,12 @@
       "title": "【atelier-kyo-manager事例】包括的リポジトリレビュー14件を記録する：推測ゼロ実測issue-backlog形式",
       "slug": "atelier-kyo-manager-14-issue-backlog-45cefd89",
       "source_repo": "atelier-kyo-manager"
+    },
+    {
+      "date": "2026-09-12",
+      "title": "【初心者向け】壊れたJSONで朝のセッション起動を守る：例外耐性設計の具体例",
+      "slug": "json-7b6fed96",
+      "source_repo": "claude-config"
     }
   ]
 }
