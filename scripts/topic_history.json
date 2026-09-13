@@ -461,6 +461,12 @@
       "title": "【初心者向け】壊れたJSONで朝のセッション起動を守る：例外耐性設計の具体例",
       "slug": "json-7b6fed96",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-09-13",
+      "title": "【Claude Code】llm-check多層判定設計入門：Stage 0-3でCLI安全性を自動検証する具体例",
+      "slug": "claude-code-llm-check-stage-0-3-cli-b9a4d0d6",
+      "source_repo": "claude-config"
     }
   ]
 }
