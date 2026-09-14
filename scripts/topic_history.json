@@ -467,6 +467,12 @@
       "title": "【Claude Code】llm-check多層判定設計入門：Stage 0-3でCLI安全性を自動検証する具体例",
       "slug": "claude-code-llm-check-stage-0-3-cli-b9a4d0d6",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-09-14",
+      "title": "【Claude Code】環境変数のWindows-WSL不伝播問題をargv明示渡しで解決する実装例",
+      "slug": "claude-code-windows-wsl-argv-07d559e3",
+      "source_repo": "claude-config"
     }
   ]
 }
