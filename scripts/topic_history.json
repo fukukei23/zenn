@@ -479,6 +479,12 @@
       "title": "【Claude Code】wslrunディスパッチャでWindows-WSL相互運用：path-rewriteフック回避の具体設計",
       "slug": "claude-code-wslrun-windows-wsl-path-rewri-090387e1",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-09-19",
+      "title": "【Python】孤立サロゲートでUnicodeEncodeErrorを防ぐ：ログ保存前の無害化実装",
+      "slug": "python-unicodeencodeerror-b06c9ffa",
+      "source_repo": "claude-config"
     }
   ]
 }
