@@ -485,6 +485,12 @@
       "title": "【Python】孤立サロゲートでUnicodeEncodeErrorを防ぐ：ログ保存前の無害化実装",
       "slug": "python-unicodeencodeerror-b06c9ffa",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-09-20",
+      "title": "整形外科予約ボット設計入門：GAS×Cloudflare Worker×Stripeで学ぶマルチサービス連携",
+      "slug": "gas-cloudflare-worker-stripe-1a9b764b",
+      "source_repo": "reserve-optimizer"
     }
   ]
 }
