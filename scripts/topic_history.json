@@ -491,6 +491,12 @@
       "title": "整形外科予約ボット設計入門：GAS×Cloudflare Worker×Stripeで学ぶマルチサービス連携",
       "slug": "gas-cloudflare-worker-stripe-1a9b764b",
       "source_repo": "reserve-optimizer"
+    },
+    {
+      "date": "2026-09-21",
+      "title": "【Claude Code】status-first規則のフォールバック設計：カプセル化注入型で切替系発話を機械検出する実装例",
+      "slug": "claude-code-status-first-3e5a603a",
+      "source_repo": "claude-config"
     }
   ]
 }
