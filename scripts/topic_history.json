@@ -497,6 +497,12 @@
       "title": "【Claude Code】status-first規則のフォールバック設計：カプセル化注入型で切替系発話を機械検出する実装例",
       "slug": "claude-code-status-first-3e5a603a",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-09-22",
+      "title": "【Claude Code】夜間ループCLI統合設計：night_loop.pyで学ぶTDD 11テスト実装術",
+      "slug": "claude-code-cli-night-loop-py-tdd-11-0b804ae7",
+      "source_repo": "claude-config"
     }
   ]
 }
