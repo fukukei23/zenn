@@ -31,12 +31,12 @@ GRADE_RANGES = [
     ("S", (20, 999), "スコア20+、面接・転職に直結"),
     ("A", (17, 19), "スコア17-19、技術アピールに有効"),
     ("B", (14, 16), "スコア14-16、着実な技術発信"),
-    ("C", (0, 13), "スコア13以下、入門・ニッチ"),
+    ("C", (0, 13), "スコア13以下、入門・ニッチ（入口の広さが低い単発型は群化候補）"),
 ]
 
 HEADER_TMPL = """# Zenn記事公開ランキング（{today}）
 
-> バズり度・技術深度・重要度を1-10で評価
+> バズり度・技術深度・重要度を1-10で評価（合計は3軸計・変更なし）
 > 最終更新: {today}
 
 ## 評価基準
@@ -46,6 +46,7 @@ HEADER_TMPL = """# Zenn記事公開ランキング（{today}）
 | バズり度 | Zenn/はてなブックマーク等での反応期待値 |
 | 技術深度 | 内容が専門的か・独自ノウハウか |
 | 重要度 | キャリア・就活でのアピール度 |
+| 入口の広さ | 初心者が読める入口型か（1-10・低い単発型は群化候補・合計には算入しない） |
 | 合計 | 高いほど優先して公開 |
 
 ---
@@ -56,8 +57,8 @@ HEADER_TMPL = """# Zenn記事公開ランキング（{today}）
 
 GRADE_TMPL = "### {grade}級（{desc}）\n\n"
 TABLE_HEADER = (
-    "| 順位 | スコア | ファイル | 日本語タイトル | バズ | 技術 | 重要 | 状態 | ❤ |\n"
-    "|------|--------|----------|---------------|------|------|------|------|---|\n"
+    "| 順位 | スコア | ファイル | 日本語タイトル | バズ | 技術 | 重要 | 状態 | ❤ | 入口 |\n"
+    "|------|--------|----------|---------------|------|------|------|------|---|------|\n"
 )
 
 
@@ -68,13 +69,15 @@ def parse_ranking_md(path):
     with open(path, encoding="utf-8") as f:
         text = f.read()
     records = []
-    # | 順位 | スコア | `file.md` | タイトル | バズ | 技術 | 重要 | 状態 | ❤ |
+    # | 順位 | スコア | `file.md` | タイトル | バズ | 技術 | 重要 | 状態 | ❤ | 入口(任意・2026-09-23追加) |
     pattern = re.compile(
         r"^\|\s*\d+\s*\|\s*(\d+)\s*\|\s*`([^`]+\.md)`\s*\|\s*(.*?)\s*\|"
-        r"\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\w+)\s*\|\s*([^\s|]+)\s*\|\s*$",
+        r"\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\w+)\s*\|\s*([^\s|]+)\s*\|"
+        r"(?:\s*(\d+)?\s*\|\s*)?$",
         re.M,
     )
     for idx, m in enumerate(pattern.finditer(text)):
+        reach = int(m.group(9)) if m.group(9) else None
         records.append({
             "file": m.group(2),
             "title": m.group(3).strip().replace("\\|", "|"),
@@ -84,6 +87,7 @@ def parse_ranking_md(path):
             "importance": int(m.group(6)),
             "status": m.group(7),
             "likes": m.group(8),
+            "reach": reach,
             "existing_index": idx,
         })
     return records
@@ -144,9 +148,10 @@ def score_article(client, title, summary, tags):
 - buzz（バズり度）: Zenn/はてなブックマーク等での反応期待値（1-10）
 - tech（技術深度）: 内容が専門的か・独自ノウハウか（1-10）
 - importance（重要度）: 非IT公務員からIT転職するキャリア・就活でのアピール度（1-10）
+- reach（入口の広さ）: プログラミング初心者にも読める入口型か・固有名詞や単一バグへの依存が低いか（1-10・低いほどニッチ）
 
 出力形式（JSONのみ・説明文・前置き・コードフェンスなし・厳密な有効JSON）:
-{{"buzz": 7, "tech": 8, "importance": 6}}"""
+{{"buzz": 7, "tech": 8, "importance": 6, "reach": 5}}"""
 
     # MiniMaxはJSON出力が揺らぐため5回リトライ（generator.extract_topics と同じ堅牢パターン）
     for _attempt in range(5):
@@ -161,7 +166,8 @@ def score_article(client, title, summary, tags):
             importance = clamp_score(data["importance"])
             if None in (buzz, tech, importance):
                 continue
-            return {"buzz": buzz, "tech": tech, "importance": importance}
+            reach = clamp_score(data.get("reach"))  # 任意軸・無ければNone
+            return {"buzz": buzz, "tech": tech, "importance": importance, "reach": reach}
         except (json.JSONDecodeError, KeyError, TypeError):
             continue
     return None
@@ -191,10 +197,11 @@ def render_md(records, today):
         out.append(TABLE_HEADER)
         for i, r in enumerate(in_grade, 1):
             title_esc = r["title"].replace("|", "\\|")
+            reach_disp = r.get("reach") if r.get("reach") is not None else "-"
             out.append(
                 f"| {i} | {r['score']} | `{r['file']}` | {title_esc} "
                 f"| {r['buzz']} | {r['tech']} | {r['importance']} "
-                f"| {r['status']} | {r['likes']} |\n"
+                f"| {r['status']} | {r['likes']} | {reach_disp} |\n"
             )
         out.append("\n")
     return "".join(out)

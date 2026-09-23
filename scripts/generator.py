@@ -11,6 +11,9 @@ from datetime import datetime
 
 from openai import OpenAI
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from theme_policy import enforce_theme_ratio  # noqa: E402
+
 GLM_BASE_URL = "https://api.z.ai/api/coding/paas/v4"
 MINIMAX_BASE_URL = "https://api.minimax.io/v1"
 TOPIC_MODEL = "MiniMax-M3"
@@ -85,6 +88,8 @@ def extract_topics(minimax_client, scan_results, past_titles):
 - 公務員からIT転職を目指す人の実務経験に基づく内容
 - 初心者にもわかる説明
 - 具体的なコード例を含められる題材
+- **3件中2件以上は「複数の活動を横断する大きな議題・体験談型」にすること（単一バグや単一関数の修正記録ではなく・例: 「〜した話」「〜で学ぶ」「入門」「まとめ」）**
+- 単発実装系の題材は3件中最大1件まで
 - 1記事で完結するスコープ
 - **titleは必ず70文字以内（Zennのデプロイ上限・全角も半角も1文字換算・超過するとデプロイが中断する）**
 
@@ -272,6 +277,21 @@ def main():
     if not topics:
         print("No topics found. Exiting.")
         sys.exit(0)
+
+    # spec 2026-09-23 §4-2: 型分類+配合強制（cross不足なら既存3リトライ内で再生成）
+    topics, needs_regenerate = enforce_theme_ratio(topics)
+    if needs_regenerate:
+        print("Theme ratio NG (cross不足) → regenerating topics...")
+        topics = extract_topics(minimax_client, scan_results, past_titles)
+        topics, needs_regenerate = enforce_theme_ratio(topics)
+        if needs_regenerate:
+            print(
+                "WARN: 3 retries exhausted without cross majority. "
+                "Proceeding with single-type topics (degraded)."
+            )
+            # generator_error.jsonへ記録（fail条件・spec §6）
+            save_generator_error(Exception(
+                "theme_ratio_degraded: cross majority not achieved after retry"))
 
     for i, t in enumerate(topics):
         print(f"  [{i+1}] {t['title']} ({t.get('repo', '?')})")
