@@ -3,6 +3,9 @@
 
 generator.validate_article を全記事に適用。手動編集由来の違反も捕捉し、
 Zennデプロイのブロッカー増加を未然に防ぐ最終防波堤（B′案ステップ7）。
+
+--ja-quality <files...>: 追加で日本語品質gate（LLM点検・ja_quality.py）を
+指定ファイルに実行する（2026-09-23追加・公開前の手動gate用・デフォルトは高速機械検証のみ）。
 """
 
 import os
@@ -50,15 +53,43 @@ def validate_all(article_dir=ARTICLE_DIR):
 
 def main():
     violations = validate_all()
+    rc = 0
     if not violations:
         print("✅ All articles valid")
-        return 0
-    print(f"❌ {len(violations)}件の違反記事:")
-    for f, errs in violations:
-        print(f"  {f}:")
-        for e in errs:
-            print(f"    - {e}")
-    return 1
+    else:
+        print(f"❌ {len(violations)}件の違反記事:")
+        for f, errs in violations:
+            print(f"  {f}:")
+            for e in errs:
+                print(f"    - {e}")
+        rc = 1
+
+    # --ja-quality <files...>: 日本語品質gate（LLM点検・2026-09-23追加）
+    if "--ja-quality" in sys.argv:
+        idx = sys.argv.index("--ja-quality")
+        ja_files = sys.argv[idx + 1:]
+        if ja_files:
+            from ja_quality import check_file
+            from generator import MINIMAX_BASE_URL
+            from openai import OpenAI
+            client = OpenAI(
+                api_key=os.environ["MINIMAX_API_KEY"],
+                base_url=MINIMAX_BASE_URL,
+            )
+            print(f"\n--- 日本語品質gate（{len(ja_files)}件） ---")
+            for path in ja_files:
+                issues = check_file(client, path)
+                if issues is None:
+                    print(f"⚠️ {os.path.basename(path)}: 点検不能（fail-safe・継続）")
+                    continue
+                for it in issues:
+                    print(f"❌ {os.path.basename(path)}: {it.get('problem', '?')}")
+                    print(f"   該当: {it.get('quote', '?')[:60]}")
+                    print(f"   修正案: {it.get('suggestion', '?')[:60]}")
+                    rc = 1
+                if not issues:
+                    print(f"✅ {os.path.basename(path)}: 日本語品質OK")
+    return rc
 
 
 if __name__ == "__main__":
