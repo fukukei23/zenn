@@ -54,14 +54,21 @@ def enforce_theme_ratio(topics: list, cross_ratio: float = 0.7) -> tuple:
       プロンプト要求と `2/3=0.667 < 0.7` の比率比較が不整合になり、
       プロンプトどおりの提案まで恒常再生成されるバグを防ぐ
     - min_cross = max(1, round(len(topics) * cross_ratio)) → 3件なら2件
+    - 非dict要素（LLMが壊れたJSONで文字列を混入）はself-inspect修正で耐性化:
+      str()化して分類する（クラッシュで当日生成が止まらない・2026-09-23）
     - 単発型を削除はしない（捨てない設計・spec §4-1）
     - 戻り値: (topics, needs_regenerate)
     """
     if not topics:
         return topics, True
+
+    def _title_summary(t):
+        if isinstance(t, dict):
+            return t.get("title", ""), t.get("summary", "")
+        return str(t), ""
+
     n_cross = sum(
-        1 for t in topics
-        if classify_topic_type(t.get("title", ""), t.get("summary", "")) == "cross")
+        1 for t in topics if classify_topic_type(*_title_summary(t)) == "cross")
     min_cross = max(1, round(len(topics) * cross_ratio))
     needs = n_cross < min_cross
     return topics, needs
