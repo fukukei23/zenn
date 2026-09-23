@@ -278,17 +278,23 @@ def main():
         print("No topics found. Exiting.")
         sys.exit(0)
 
-    # spec 2026-09-23 §4-2: 型分類+配合強制（cross不足なら既存3リトライ内で再生成）
-    topics, needs_regenerate = enforce_theme_ratio(topics)
-    if needs_regenerate:
-        print("Theme ratio NG (cross不足) → regenerating topics...")
+    # spec 2026-09-23 §4-2: 型分類+配合強制（cross不足なら最大3回再生成・MLR r1修正で
+    # 元トピックを温存し全敗時は元に戻す）
+    original_topics = topics
+    for _regen in range(3):
+        topics, needs_regenerate = enforce_theme_ratio(topics)
+        if not needs_regenerate:
+            break
+        print(f"Theme ratio NG (cross不足) → regenerating topics ({_regen + 1}/3)...")
         topics = extract_topics(minimax_client, scan_results, past_titles)
+    else:
         topics, needs_regenerate = enforce_theme_ratio(topics)
         if needs_regenerate:
             print(
                 "WARN: 3 retries exhausted without cross majority. "
-                "Proceeding with single-type topics (degraded)."
+                "Restoring original topics (degraded)."
             )
+            topics = original_topics  # 元トピック復元（全敗時の空跑り防止）
             # generator_error.jsonへ記録（fail条件・spec §6）
             save_generator_error(Exception(
                 "theme_ratio_degraded: cross majority not achieved after retry"))

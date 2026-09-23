@@ -18,7 +18,11 @@ _THEME_PATTERNS = [(w, re.compile(re.escape(w), re.IGNORECASE))
 
 
 def extract_theme(title: str, tags: list) -> str:
-    """タイトル・タグからテーマ語を決定的に抽出する（複数ヒット時は最長語）。"""
+    """タイトル・タグからテーマ語を決定的に抽出する。
+
+    複数ヒット時はより短い（より広い）テーマ語を優先する
+    （hook記事も"Claude Code"テーマに束ねるのが群化の意図・MLR r1でdocstring矛盾を修正）。
+    """
     text = f"{title} {' '.join(tags)}"
     for w, pat in _THEME_PATTERNS:
         if pat.search(text):

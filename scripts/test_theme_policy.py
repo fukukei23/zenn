@@ -63,7 +63,7 @@ class TestEnforceThemeRatio:
             {"title": "UnicodeEncodeErrorの回避", "summary": "実装"},
             {"title": "bare except全廃の手順", "summary": "実装"},
         ]
-        # cross 1/3 < 0.7 → 再生成要求（単発は捨てない・filteredにも残す）
+        # cross 1件 < min_cross 2件 → 再生成要求（単発は捨てない・filteredにも残す）
         filtered, needs = enforce_theme_ratio(topics)
         assert needs is True
         assert len(filtered) == 3  # 単発を削除はしない（捨てない設計）
@@ -72,3 +72,14 @@ class TestEnforceThemeRatio:
         filtered, needs = enforce_theme_ratio([])
         assert needs is True
         assert filtered == []
+
+    def test_two_of_three_cross_passes(self):
+        # MLR r1修正（Gemini#1/GLM#1 critical）: プロンプト要求「3件中2件以上」を満たす
+        # 2/3=0.667が比率比較で誤ってNGになるバグの回帰テスト
+        topics = [
+            {"title": "1年で20プロジェクトを作った話", "summary": "体験談"},
+            {"title": "設計原則の入門ガイド", "summary": "入門"},
+            {"title": "UnicodeEncodeErrorの回避方法", "summary": "無害化"},
+        ]
+        filtered, needs = enforce_theme_ratio(topics)
+        assert needs is False, "2/3 cross should satisfy '2件以上' requirement"

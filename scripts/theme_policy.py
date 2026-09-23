@@ -48,16 +48,20 @@ def classify_topic_type(title: str, summary: str = "") -> str:
 
 
 def enforce_theme_ratio(topics: list, cross_ratio: float = 0.7) -> tuple:
-    """提案トピック配列を型分類し、cross比率が不足なら再生成要求を返す。
+    """提案トピック配列を型分類し、cross件数が不足なら再生成要求を返す。
 
+    - 閾値は比率でなく件数比較（MLR r1修正・2026-09-23）: 「3件中2件以上cross」の
+      プロンプト要求と `2/3=0.667 < 0.7` の比率比較が不整合になり、
+      プロンプトどおりの提案まで恒常再生成されるバグを防ぐ
+    - min_cross = max(1, round(len(topics) * cross_ratio)) → 3件なら2件
     - 単発型を削除はしない（捨てない設計・spec §4-1）
     - 戻り値: (topics, needs_regenerate)
     """
+    if not topics:
+        return topics, True
     n_cross = sum(
         1 for t in topics
         if classify_topic_type(t.get("title", ""), t.get("summary", "")) == "cross")
-    if not topics:
-        return topics, True
-    ratio = n_cross / len(topics)
-    needs = ratio < cross_ratio
+    min_cross = max(1, round(len(topics) * cross_ratio))
+    needs = n_cross < min_cross
     return topics, needs

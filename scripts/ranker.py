@@ -73,11 +73,12 @@ def parse_ranking_md(path):
     pattern = re.compile(
         r"^\|\s*\d+\s*\|\s*(\d+)\s*\|\s*`([^`]+\.md)`\s*\|\s*(.*?)\s*\|"
         r"\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\w+)\s*\|\s*([^\s|]+)\s*\|"
-        r"(?:\s*(\d+)?\s*\|\s*)?$",
+        r"(?:\s*(\d+|-)\s*\|\s*)?$",
         re.M,
     )
     for idx, m in enumerate(pattern.finditer(text)):
-        reach = int(m.group(9)) if m.group(9) else None
+        g9 = m.group(9)
+        reach = int(g9) if g9 and g9 != "-" else None
         records.append({
             "file": m.group(2),
             "title": m.group(3).strip().replace("\\|", "|"),
