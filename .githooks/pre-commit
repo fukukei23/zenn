@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# pre-commit — 層1（suiko）最小hook（Phase 0項目④・2026-09-24）
+# 仕様: 警告のみ・3秒タイムアウト・非block（常にexit 0）
+#  - suiko不在・タイムアウト・エラーは全て黙ってスキップ（コミットを止めない）
+#  - 検出があれば警告表示（忘却リスク低減のみが目的・Phase 0完了前の任意運用）
+set -u
+
+SUIKO="${SUIKO_BIN:-$HOME/bin/suiko}"
+[ -x "$SUIKO" ] || exit 0
+
+# コミット対象のarticles配列mdのみ対象
+targets=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null | grep '^articles/.*\.md$' || true)
+[ -z "$targets" ] && exit 0
+
+for f in $targets; do
+    [ -f "$f" ] || continue
+    out=$(timeout 3 "$SUIKO" lint --genre tech "$f" 2>/dev/null) || continue
+    if ! printf '%s' "$out" | grep -q '検出なし'; then
+        echo "⚠️ [層1 suiko] $f に指摘があります（警告のみ・コミットは継続）:"
+        printf '%s\n' "$out" | head -15
+        echo ""
+    fi
+done
+exit 0
