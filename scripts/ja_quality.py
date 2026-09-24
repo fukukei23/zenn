@@ -23,10 +23,11 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from generator import chat, MINIMAX_BASE_URL, TOPIC_MODEL  # noqa: E402
 
-# 推理モデル（GLM-5.1/MiniMax-M3）は点検タスクでreasoningに約8800字を消費する実測
-# （2026-09-23診断: max_tokens=2000/4000では推論だけで枠を使い切りcontent空・finish=length）
-# → 本gateは大きな枠を必須とする（ reasoning+JSON出力の合計に余裕を持たせる）
-CHECK_MAX_TOKENS = 16000
+# 推論モデル（MiniMax-M3）は点検タスクでreasoningに大量トークンを消費する実測
+# （2026-09-24 Phase 0項目②実測: 16000では4k字入力でも16%がlength切れ・P95がキャップ打ち切り）
+# → 24000へ引上げ（M3のmax output上限は262144を確認済み・OpenRouter仕様）
+# 環境変数 JA_QUALITY_MAX_TOKENS でオーバーライド可能（Phase 0項目④・v4推奨）
+CHECK_MAX_TOKENS = int(os.environ.get("JA_QUALITY_MAX_TOKENS", "24000"))
 
 
 def split_frontmatter(text: str) -> tuple:
@@ -50,6 +51,7 @@ def build_prompt(title: str, body: str) -> str:
 {body}
 
 点検する観点（壊れた日本語・読者を混乱させる文）:
+- 意味が成立しない文（文全体として主語と述語の対応が崩れ、何についての何かが読み取れない最上位の破綻）
 - 主語のすり替え・不明（誰が・何が、途中で変わる文）
 - 同じ言葉の二重使用による意味不明（例: 「思って…と思っています」）
 - 誤字脱字・変な助詞
@@ -86,10 +88,24 @@ def parse_issues(text: str) -> list | None:
     return data["issues"]
 
 
+APPLY_LIMIT_CHARS = 12000  # 実用上限（2026-09-24実測: ≤12k字は全長成功・16k字で3連続length切れ）
+
+
+def length_warning(body: str) -> str | None:
+    """本文が実用上限（12k字）を超える場合の警告文を返す（超えていなければNone）。"""
+    if len(body) <= APPLY_LIMIT_CHARS:
+        return None
+    return (f"本文が{len(body)}字で実用上限の12000字を超えています。"
+            f"分割点検を推奨（16k字超は点検不能になる実測あり）")
+
+
 def check_file(client, path: str, max_retries: int = 3) -> list | None:
     """1ファイルをLLM点検する。issuesリスト（0件=合格）/None=点検不能。"""
     with open(path, encoding="utf-8") as f:
         title, body = split_frontmatter(f.read())
+    warn = length_warning(body)
+    if warn:
+        print(f"  [warn] {os.path.basename(path)}: {warn}", file=sys.stderr)
     prompt = build_prompt(title, body)
     for _attempt in range(max_retries):
         text = chat(client, TOPIC_MODEL, prompt, max_tokens=CHECK_MAX_TOKENS)
