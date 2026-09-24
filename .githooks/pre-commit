@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# pre-commit — 層1（suiko）最小hook（Phase 0項目④・2026-09-24・v4準拠）
+# pre-commit — 層1（suiko）最小hook（Phase 0項目④・2026-09-24・昇格済み運用）
 # 仕様: 警告のみ・3秒タイムアウト・非block（常にexit 0）
 #  - suiko不在・タイムアウト・エラーは全て黙ってスキップ（コミットを止めない）
-#  - v4準拠: 暫定部分採用の2検出器（redundant_light_verb / hype_expression）のみ表示
-#    （50サンプル実測で誤検知0の6/6・全カテゴリ表示だとコミット毎に警告スパムになる実測のため）
+#  - 昇格済み: 2検出器（redundant_light_verb / hype_expression）のみ表示
+#    （筆者6/6+他者9/11で誤検知率9.1%・Wilson上限27.0%≤30%で昇格承認 2026-09-25）
 #  - 表示はinfo相当の参考提示（warn扱いしない・r2 GLM#5採用）
 set -u
 
