@@ -3,7 +3,7 @@ title: "AIエージェント開発環境に秘密情報流出ゲートを自作�
 emoji: "🔐"
 type: "tech"
 topics: ["security", "gitleaks", "git", "githubactions", "aiagents"]
-published: false
+published: true
 ---
 
 :::message
