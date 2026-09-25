@@ -28,16 +28,21 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
-      - name: Japanese quality check (warn-only)
+      - name: Japanese quality gate (fix + approval loop)
+        id: ja_gate
         env:
           MINIMAX_API_KEY: ${{ secrets.MINIMAX_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-        run: python scripts/ja_quality_ci.py
+        run: |
+          python scripts/ja_quality_fix.py | tee /tmp/ja_gate.log
+          GATE=$(grep -o 'gate=[a-z]*' /tmp/ja_gate.log | tail -1 | cut -d= -f2)
+          echo "gate=${GATE:-fixed}" >> "$GITHUB_OUTPUT"
 
       - name: Publish article
         id: publish
+        if: steps.ja_gate.outputs.gate == 'clean'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
@@ -45,18 +50,18 @@ jobs:
         run: python scripts/publisher.py
 
       - name: Wait for Zenn processing
-        if: steps.publish.outputs.published == 'true'
+        if: steps.ja_gate.outputs.gate == 'clean' && steps.publish.outputs.published == 'true'
         run: sleep 120
 
       - name: Post to SNS
-        if: steps.publish.outputs.published == 'true'
+        if: steps.ja_gate.outputs.gate == 'clean' && steps.publish.outputs.published == 'true'
         env:
           BULK_PUBLISH_API_KEY: ${{ secrets.BULK_PUBLISH_API_KEY }}
           ARTICLE_SLUG: ${{ steps.publish.outputs.slug }}
         run: python scripts/sns_poster.py
 
       - name: Close issue
-        if: steps.publish.outputs.published == 'true'
+        if: steps.ja_gate.outputs.gate == 'clean' && steps.publish.outputs.published == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUM: ${{ github.event.issue.number }}
@@ -65,7 +70,7 @@ jobs:
           gh issue close "$ISSUE_NUM" --comment "Published: https://zenn.dev/fukukei23/articles/$ARTICLE_SLUG"
 
       - name: Notify Discord
-        if: steps.publish.outputs.published == 'true'
+        if: steps.ja_gate.outputs.gate == 'clean' && steps.publish.outputs.published == 'true'
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           ARTICLE_SLUG: ${{ steps.publish.outputs.slug }}
