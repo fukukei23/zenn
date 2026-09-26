@@ -3,7 +3,7 @@ title: "Claude CodeはYouTubeを見られない — Gemini APIで楽曲をリバ
 emoji: "🎬"
 type: "tech"
 topics: ["claudecode", "geminiapi", "youtube", "promptengineering", "aimusic"]
-published: false
+published: true
 ---
 
 # Claude CodeはYouTubeを見られない — Gemini APIで楽曲をリバースエンジニアリングした話

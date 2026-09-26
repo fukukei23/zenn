@@ -3,7 +3,7 @@ title: "Claude Code設定ファイルの3層設計（グローバル/プロジ�
 emoji: "📐"
 type: "tech"
 topics: ["claude", "git", "beginners", "personaldevelopment"]
-published: false
+published: true
 ---
 
 ## はじめに

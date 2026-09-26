@@ -3,7 +3,7 @@ title: 【NexusCore Stage 2】architect/debugger/guardianで実現する3層品�
 emoji: 🛡️
 type: tech
 topics: ["NexusCore", "マルチエージェント", "品質保証", "LLM駆動開発"]
-published: false
+published: true
 ---
 
 # はじめに

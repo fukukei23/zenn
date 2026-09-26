@@ -3,7 +3,7 @@ title: "300件の意思決定ログから学ぶSSOT運用1年目の知見"
 emoji: "📚"
 type: "tech"
 topics: ["obsidian", "github", "personaldevelopment", "beginners"]
-published: false
+published: true
 ---
 
 ## はじめに

@@ -3,7 +3,7 @@ title: "AIエージェントの自己修復ループ設計（テスト失敗→�
 emoji: "🔄"
 type: "tech"
 topics: ["ai", "multiagent", "selfhealing", "testing"]
-published: false
+published: true
 ---
 
 ## はじめに

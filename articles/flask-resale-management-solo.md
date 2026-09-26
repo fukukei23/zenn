@@ -3,7 +3,7 @@ title: "Flask物販管理システムを1人で作った話（BUYMA × Buyandshi
 emoji: "🛍️"
 type: "tech"
 topics: ["python", "flask", "ai", "scraping", "automation"]
-published: false
+published: true
 ---
 
 ## はじめに

@@ -3,7 +3,7 @@ title: 【Claude Code】commit巻き込み事故を3層hookで防ぐ：git-commi
 emoji: 🛡️
 type: tech
 topics: [ClaudeCode, git, pre-commit, hooks, 安全設計]
-published: false
+published: true
 ---
 
 ## はじめに

@@ -3,7 +3,7 @@ title: "【Claude Code】settings.json安全編集術：Pythonで構造を壊さ
 emoji: "🔧"
 type: "tech"
 topics: ["Python", "Claude Code", "JSON", "設定管理"]
-published: false
+published: true
 ---
 
 ## はじめに

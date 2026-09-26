@@ -3,7 +3,7 @@ title: "公務員がOpenClawで24時間AI執事「フクロウ」を作った3�
 emoji: "🦞"
 type: "tech"
 topics: ["openclaw", "ai", "docker", "automation", "linux"]
-published: false
+published: true
 ---
 
 # 公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録

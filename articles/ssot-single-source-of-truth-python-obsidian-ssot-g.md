@@ -3,7 +3,7 @@ title: "【初心者向け】SSOTをPython+Obsidianで実装する：ssot-guide�
 emoji: "🌵"
 type: "tech"
 topics: ["Python", "Obsidian", "SSOT", "初心者向け", "GitHub"]
-published: false
+published: true
 ---
 
 ## はじめに

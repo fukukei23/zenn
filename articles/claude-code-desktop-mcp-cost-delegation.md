@@ -3,7 +3,7 @@ title: "CLI版とDesktop版でGLM/MiniMaxの役割がまるで違う話"
 emoji: "🔀"
 type: "tech"
 topics: ["claudecode", "mcp", "llm", "glm", "claude"]
-published: false
+published: true
 ---
 
 ## はじめに
