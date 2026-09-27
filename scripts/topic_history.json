@@ -503,6 +503,12 @@
       "title": "【Claude Code】夜間ループCLI統合設計：night_loop.pyで学ぶTDD 11テスト実装術",
       "slug": "claude-code-cli-night-loop-py-tdd-11-0b804ae7",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-09-27",
+      "title": "日本語品質warn-onlyフックを3リポ同時展開した話：既存挙動を壊さない段階的ロールアウトの具体手順",
+      "slug": "warn-only-3-bd8eb876",
+      "source_repo": "cc-stories-guide"
     }
   ]
 }
