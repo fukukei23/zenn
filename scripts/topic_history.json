@@ -515,6 +515,12 @@
       "title": "【Claude Code】MLR穴塞ぎ完了までの全記録：5機25指摘統合から17テスト349緑まで",
       "slug": "claude-code-mlr-5-25-17-349-59425944",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-09-30",
+      "title": "【Claude Code】shadow→enforce昇格プロセス入門：誤検知ゼロを達成した段階的導入の具体手順",
+      "slug": "claude-code-shadow-enforce-e09fea35",
+      "source_repo": "claude-config"
     }
   ]
 }
