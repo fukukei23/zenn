@@ -521,6 +521,12 @@
       "title": "【Claude Code】shadow→enforce昇格プロセス入門：誤検知ゼロを達成した段階的導入の具体手順",
       "slug": "claude-code-shadow-enforce-e09fea35",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-10-01",
+      "title": "【初心者向け】ベンチマーク運用完全ガイド：SLOゲート・fail条件・ロールバック判定の実装",
+      "slug": "slo-fail-b8544017",
+      "source_repo": "nexuscore-bench"
     }
   ]
 }
