@@ -527,6 +527,12 @@
       "title": "【初心者向け】ベンチマーク運用完全ガイド：SLOゲート・fail条件・ロールバック判定の実装",
       "slug": "slo-fail-b8544017",
       "source_repo": "nexuscore-bench"
+    },
+    {
+      "date": "2026-10-02",
+      "title": "Claude Code 通知spamを1日1回に抑える：hysteresis設計入門",
+      "slug": "claude-code-spam-1-1-hysteresis-1fee035a",
+      "source_repo": "claude-config"
     }
   ]
 }
