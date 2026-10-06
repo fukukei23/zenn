@@ -48,4 +48,56 @@ GAS・Cloudflare Worker・Stripeという性質の異なるサービスを組み
 整形外科は高齢の患者さんが多いため、自由入力を排除してすべてQuickReply（選択ボタン）で進めます。実運用でわかったのは、ボタンは最大13個まで置けるものの、**4〜6個に絞るほうが押し間違いが激減した**ことです。
 
 ```typescript
-// QuickReplyメッセージの組み立て
+// QuickReplyメッセージの組み立て（GAS側・LineService.jsより抜粋）
+function sendLineReplyQuickReply(replyToken, text, quickReplies) {
+  var message = {
+    type: 'text',
+    text: text,
+    quickReply: {
+      items: quickReplies.map(function(qr) {
+        return {
+          type: 'action',
+          action: {
+            type: 'message',   // ボタン押下で固定テキストを送信させる
+            label: qr.label,   // ボタンに表示される文字
+            text: qr.text      // 押した時にユーザーから送られるテキスト
+          }
+        };
+      })
+    }
+  };
+  return sendLineMessages(replyToken, [message]);
+}
+```
+
+ボタンの `text` には「明日の午前」のような確定語を入れ、患者さんが押すだけで会話が1ステップ進むようにします。自由入力が来た場合はステートマシン側で受け止めて「ボタンから選んでください」と再案内する二段構えです。
+
+## webhookの署名検証：Workerに集約した1点張り
+
+LINEとStripeはどちらもwebhookに署名（HMAC）を付けてくるため、受信側で必ず検証します。この検証をWorker側に集約したのが、冒頭の「GASに秘密情報を持ち込まない」設計の効きどころです。
+
+```typescript
+// Worker側（index.tsより抜粋・イメージ）
+const isValid = await verifyLineSignature(body, signature, env.LINE_CHANNEL_SECRET);
+if (!isValid) {
+  return new Response("Invalid signature", { status: 401 });
+}
+// LINE に即座に 200 OK を返す（タイムアウト回避）
+// GAS 転送は waitUntil でバックグラウンド実行
+ctx.waitUntil(forwardToGAS(body, env, "line"));
+```
+
+ポイントは2つです。
+
+- **検証を通ったら即200を返し、GASへの転送はバックグラウンド（`waitUntil`）に回す**。webhook送信元はタイムアウトでリトライしてくるため、遅い下流に引きずられて多重送信になるのを防ぐ
+- **Stripe → Worker の転送は最小データだけに絞る**（イベント種別・決済ID・`metadata` の予約ID）。URL長制限と不要情報流出の両面で、転送経由のデータは小さいほど安全
+
+## おわりに
+
+「どのサービスに何を担わせるか」を先に決めてから書き始めたことで、実装中の迷いはほぼありませんでした。
+
+- 状態と台帳 = **スプレッドシート**（壊れても記録が残る・事務がそのまま読める）
+- 秘密情報とwebhook検証 = **Cloudflare Worker**（GASのサンドボックスの制約を回避）
+- カード情報 = **Stripe Checkout に丸投げ**（自前で一切触らない）
+
+小さな業務システムでは「全部 GAS で済ませる」のが一見楽ですが、秘密情報の置き場所とwebhookの署名検証という2点だけで外に出す判断ができます。同じ課題（電話予約のパンク・事務の負担）を抱える医院さんの一助になれば幸いです。
