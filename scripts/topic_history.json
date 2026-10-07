@@ -539,6 +539,12 @@
       "title": "MLR 5機レビュー採用判断術：27指摘を7項目に絞る優先順位決定の判断軸",
       "slug": "mlr-5-27-7-850c3065",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-10-07",
+      "title": "スマホからClaude Code操作入門：Moshi+mosh+Tailscaleで構築した全手順",
+      "slug": "claude-code-moshi-mosh-tailscale-2b3f455c",
+      "source_repo": "claude-code-guide"
     }
   ]
 }
