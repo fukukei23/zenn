@@ -545,6 +545,12 @@
       "title": "スマホからClaude Code操作入門：Moshi+mosh+Tailscaleで構築した全手順",
       "slug": "claude-code-moshi-mosh-tailscale-2b3f455c",
       "source_repo": "claude-code-guide"
+    },
+    {
+      "date": "2026-10-08",
+      "title": "禁止列挙を脱却する：Claude Code外交文章ガードレール設計の観点ベース進化実録",
+      "slug": "claude-code-7685a442",
+      "source_repo": "claude-config"
     }
   ]
 }
