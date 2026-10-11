@@ -1,0 +1,45 @@
+# 転載ドリップキュー（先頭から1件ずつ消費・12時間間隔）
+
+- [x] openclaw-24h-owl-butler-3months → https://qiita.com/fukukei23/items/985a71acb4f528da41f2 / https://note.com/fukukei23/n/n8e8bfab89f9e — 公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録
+- [ ] ssot-300-decision-logs-lessons — 300件の意思決定ログから学ぶSSOT運用1年目の知見
+- [ ] secret-leak-gate-ai-agent-env-2weeks — AIエージェント開発環境に秘密情報流出ゲートを自作して2週間運用したら誤警報ゼロだった話
+- [ ] claude-code-obsidian-ssot — Claude Codeの記憶をObsidianでSSOT化する設計——複数AIのセッションを1箇所に統合する方法
+- [ ] llm-routing-one-month-report — 月間27億トークンを処理したLLMルーティングの実運用レポート（1ヶ月の振り返り）
+- [ ] multi-agent-orchestration-design — 14のAIエージェントを協調させるマルチエージェントアーキテクチャの設計
+- [ ] multi-tier-quality-gates — マルチ層品質ゲート設計（静的解析→動的テスト→Mutation Testingのパイプライン実装）
+- [ ] mutation-testing-mutmut-practice — Mutation Testingでテスト品質を測る（mutmut実践記録）
+- [ ] claude-code-arsenal-7-weapons — Claude Codeを武器庫にした話 — 7つの仕組みで1人開発を最大化
+- [ ] pw-stealth-enhanced-python-anti-detection — playwright-stealthが開発停止なのでPython版を自作してPyPIに公開した話
+- [ ] claude-code-cost-optimization — Claude Code CLIをGLM（Z.AI）で代替した話（コスト大幅削減の実測）
+- [ ] openclaw-vps-docker-caddy-infrastructure — VPS + Docker + Caddy + OpenClaw：自宅AIアシスタントのインフラ構築
+- [ ] ai-agent-self-healing-loop — AIエージェントの自己修復ループ設計（テスト失敗→原因分析→自動修正の実装）
+- [ ] ai-governance-stit-irg — AI駆動開発のガバナンス設計——自分を止めるルールをテンプレート化した話
+- [ ] claude-code-claude-md-3-layer-design — Claude Code設定ファイルの3層設計（グローバル/プロジェクト/ディレクトリ）
+- [ ] specification-driven-development — 仕様駆動開発 — 「何を作るか」を先に決めて品質を保つ方法
+- [ ] flask-resale-management-solo — Flask物販管理システムを1人で作った話（BUYMA × Buyandship）
+- [ ] linebot-stripe-cloudflare-reservation — LINE Bot × Stripe × Cloudflare Workers で予約システムを2週間で作った話
+- [ ] tdd-for-beginners — TDD（テスト駆動開発）を初めて学ぶ人のための完全ガイド
+- [ ] clean-architecture-for-beginners — クリーンアーキテクチャ入門 — レイヤー分離で保守性の高い設計を
+- [ ] youtube-gemini-reverse-engineering-song-prompt — Claude CodeはYouTubeを見られない — Gemini APIで楽曲をリバースエンジニアリングした話
+- [ ] claude-code-ai-7 — 【初心者向け】Claude CodeでAI駆動開発入門：私が実務で使った7つのパターン
+- [ ] ssot-single-source-of-truth-python-obsidian-ssot-g — 【初心者向け】SSOTをPython+Obsidianで実装する：ssot-guide実例で学ぶデータ管理
+- [ ] ai-agent-vps-security — AIエージェントを構築するなら絶対に読んでほしい「4層防御」の作り方
+- [ ] ai-code-review-prompt-hallucination — LLMのハルシネーションを構造的に防ぐプロンプト設計（コードレビューでの実践）
+- [ ] claude-code-commit-3-hook-git-commit-scop-1760a199 — 【Claude Code】commit巻き込み事故を3層hookで防ぐ：git-commit-scoped設計
+- [ ] claude-code-minimax-fallback — Claude Code CLIにMiniMaxをフォールバックとして組み込んだ話（安いLLMを7層で守り抜く戦略）
+- [ ] claude-code-sessionstart-hook-python — 【Claude Code】SessionStart hookで始める状態管理入門：セッション引継ぎをPythonスクリプ
+- [ ] claude-code-sessionstart-hooks-automation — SessionStartフックでClaude Code CLIを自動構成する実践
+- [ ] context-engineering-47kb-tool — Context Engineering入門: 47KBのPythonファイルでLLM入力を最適化する
+- [ ] bdd-for-beginners — BDD（振舞駆動開発）とは？TDDとの違いと使い方
+- [ ] cicd-for-beginners — CI/CD超入門 — コードを書くだけで自動テスト・自動デプロイ
+- [ ] ddd-for-beginners — ドメイン駆動設計（DDD）を初めて学ぶ人のための実践ガイド
+- [ ] design-principles-for-beginners —  SOLID・DRY・KISS・YAGNI — 知ってると得する設計基本原则
+- [ ] dev-methods-selector — 新人エンジニアでもわかる！開発手法の選び方 — プロジェクト別に学ぶ5つのレシピ
+- [ ] caddy-nginx-replacement-vps — 「nginx書けない人に送るCaddy最強設定」〜VPS AIエージェントの本番構成晒し〜
+- [ ] nexuscore-multi-agent-architecture — 14のAIエージェントが協調する自律型開発フレームワークの設計と実装
+- [ ] nexuscore-stage-2-architect-debugger-guardian-3 — 【NexusCore Stage 2】architect/debugger/guardianで実現する3層品質保証アーキ
+- [ ] claude-code-tool-calling-5359933a — Claude Code ハーネス入門：tool calling/自律ループ/サーキットブレーカ用語集
+- [ ] llm-cli-sync-from-ssot-sh-5-80c5343a — 【初心者向け】マルチLLMレビューでCLI安全性を底上げ：sync-from-ssot.shの5欠陥修正実例
+- [ ] claude-code-desktop-mcp-cost-delegation — CLI版とDesktop版でGLM/MiniMaxの役割がまるで違う話
+- [ ] claude-code-desktop-mcp-cost-reduction — Claude Code Desktop版でMCPを使ってコストを抑える方法
+- [ ] claude-code-settings-json-python-json — 【Claude Code】settings.json安全編集術：Pythonで構造を壊さずJSONを操作する具体例

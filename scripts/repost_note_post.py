@@ -109,29 +109,43 @@ def main() -> int:
         log(f"下書きURL: {page.url}")
 
         # --- フェーズ3: 承認待ち ---
-        log(f"承認待ち: {GO_FILE} が作成されたら公開操作へ（最大{approve_wait}秒）")
-        deadline = time.time() + approve_wait
-        while time.time() < deadline:
-            if GO_FILE.exists():
-                break
-            time.sleep(10)
-        if not GO_FILE.exists():
-            log("承認なしタイムアウト。下書き保存のまま終了（公開はしない）")
-            ctx.close()
-            return 2
-        log("承認ファイル検出 → 公開操作")
+        if os.environ.get("NOTE_AUTO_PUBLISH") == "1":
+            log("NOTE_AUTO_PUBLISH=1 → 承認待ちをスキップして自動公開")
+        else:
+            log(f"承認待ち: {GO_FILE} が作成されたら公開操作へ（最大{approve_wait}秒）")
+            deadline = time.time() + approve_wait
+            while time.time() < deadline:
+                if GO_FILE.exists():
+                    break
+                time.sleep(10)
+            if not GO_FILE.exists():
+                log("承認なしタイムアウト。下書き保存のまま終了（公開はしない）")
+                ctx.close()
+                return 2
+            log("承認ファイル検出 → 公開操作")
 
-        # --- フェーズ4: 公開操作 ---
+        # --- フェーズ4: 公開操作（2026-10-11実測: 最終ボタンは「投稿する」） ---
         page.locator("text=公開に進む").first.click()
         page.wait_for_timeout(5000)
         page.screenshot(path=str(SHOT_DIR / "note-publish-step1.png"))
         log(f"公開設定画面へ（URL: {page.url}）")
-        # 設定画面の「公開する」確認ボタン
+        for tag in ("AI", "VibeCoding"):
+            try:
+                hloc = page.locator('input[placeholder*="ハッシュタグ"]').first
+                hloc.click()
+                hloc.fill(tag)
+                page.keyboard.press("Enter")
+                page.wait_for_timeout(800)
+                log(f"ハッシュタグ追加: {tag}")
+            except Exception as e:
+                log(f"ハッシュタグ失敗（継続）: {type(e).__name__}")
         try:
-            page.get_by_text("公開する", exact=True).first.click(timeout=15000)
-            log("公開ボタンクリック完了")
+            page.get_by_text("投稿する", exact=True).first.click(timeout=20000)
+            log("投稿するボタンクリック完了")
         except Exception as e:
-            log(f"公開ボタン失敗: {type(e).__name__}（スクショで確認して下さい）")
+            log(f"投稿するボタン失敗: {type(e).__name__}（/tmp/note-publish-step1.png確認）")
+            ctx.close()
+            return 1
         page.wait_for_timeout(6000)
         page.screenshot(path=str(SHOT_DIR / "note-final.png"))
         log(f"最終URL: {page.url}")
