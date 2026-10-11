@@ -551,6 +551,12 @@
       "title": "禁止列挙を脱却する：Claude Code外交文章ガードレール設計の観点ベース進化実録",
       "slug": "claude-code-7685a442",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-10-11",
+      "title": "orp.py 3層防御でLLMモデル照合の落とし穴を防ぐ：幽霊モデル検出の具体実装",
+      "slug": "orp-py-3-llm-41b3b64e",
+      "source_repo": "claude-config"
     }
   ]
 }
