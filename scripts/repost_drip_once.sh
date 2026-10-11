@@ -50,11 +50,22 @@ fi
 
 # --- 3. note投稿（自動公開） ---
 NOTE_GO_FILE=/tmp/note-drip-go NOTE_AUTO_PUBLISH=1 \
-  python3 scripts/repost_note_post.py "repost-manuscripts/${SLUG}/note.md" 60 2>&1
+  python3 scripts/repost_note_post.py "repost-manuscripts/${SLUG}/note.md" 60 2>&1 | tee /tmp/drip-note-out.txt
 NOTE_EXIT=$?
 [ $NOTE_EXIT -eq 0 ] || { echo "[drip] note投稿失敗（exit $NOTE_EXIT）・Qiitaは公開済み"; exit 4; }
+NOTE_LAST_URL=$(grep -oE "https://editor.note.com/notes/[0-9a-f]+/publish/" <<< "$(cat /tmp/drip-note-out.txt)" | head -1)
+echo "[drip] note投稿URL: $NOTE_LAST_URL"
 
-# --- 4. キューを[x]化してURL追記 ---
+# --- 4. サムネ後付け（repost-manuscripts/<slug>/thumb.png があれば） ---
+THUMB="repost-manuscripts/${SLUG}/thumb.png"
+NOTE_ID=$(grep -oE "notes/[0-9a-f]+" <<< "$NOTE_LAST_URL" | cut -d/ -f2)
+if [ -f "$THUMB" ] && [ -n "$NOTE_ID" ]; then
+    python3 scripts/repost_note_set_thumb.py "$NOTE_ID" "$THUMB" || echo "[drip] サムネ設定失敗（投稿自体は成功済み・継続）"
+else
+    echo "[drip] サムネ無し（thumb.png未生成）→ スキップ"
+fi
+
+# --- 5. キューを[x]化してURL追記 ---
 python3 - "$SLUG" <<'PY'
 import re, sys, pathlib
 slug = sys.argv[1]
