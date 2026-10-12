@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
-# 転載ドリップ1回実行（12時間間隔durable cronから呼ばれる・flock排他・冪等）
-# キュー: ~/projects/zenn/repost-queue.md の先頭 [ ] 行を1件消費し note+Qiita へ公開
+# 転載ドリップ実行（flock排他・冪等）v3
+# 使い方: repost_drip_once.sh [both|note-only|qiita-pending]
+#   both          = キュー先頭を note+Qiita へ投稿（既定）
+#   note-only     = キュー先頭を noteのみ投稿しキューを [n] 化
+#   qiita-pending = [n]（note済/Qiita未）の記事を Qiita へ投稿して [x] 化
+# スケジュール想定: 09:37 both / 13:57 note-only / 17:37 note-only / 21:37 qiita-pending
+#   → note 3本/日 + Qiita 2本/日（Qiitaはレート制限429実測のため2本/日に制限）
 set -uo pipefail
 
 exec 9>/tmp/repost-drip.lock
@@ -8,17 +13,21 @@ flock -n 9 || { echo "[drip] 他実行中のためskip（flock失敗）"; exit 0
 
 cd ~/projects/zenn
 QUEUE=repost-queue.md
-SLUG=$(grep -m1 '^- \[ \]' "$QUEUE" | sed 's/^- \[ \] //' | cut -d' ' -f1)
-[ -z "$SLUG" ] && { echo "[drip] キュー空・終了"; exit 0; }
-echo "[drip] 対象: $SLUG ($(date +%H:%M:%S))"
-
+MODE="${1:-both}"
 set -a; source ~/.secrets.env; set +a
 
-# --- 1. note用へ変換 + Qiita用原稿の自動生成 ---
-python3 scripts/repost_make_note.py "articles/${SLUG}.md" "repost-manuscripts/${SLUG}/note.md" || exit 1
-mkdir -p "repost-manuscripts/${SLUG}"
-python3 - "$SLUG" <<'PY' || exit 1
-import pathlib, re, sys
+log() { echo "[drip] $*"; }
+
+get_slug_by_state() {
+  grep -m1 "^- ${1}" "$QUEUE" | sed "s/^- ${1} //" | cut -d' ' -f1
+}
+
+gen_note_manuscripts() {
+  local slug="$1"
+  python3 scripts/repost_make_note.py "articles/${slug}.md" "repost-manuscripts/${slug}/note.md" || return 1
+  mkdir -p "repost-manuscripts/${slug}"
+  python3 - "$slug" <<'PY' || return 1
+import pathlib, sys
 slug = sys.argv[1]
 src = pathlib.Path(f"articles/{slug}.md")
 dst = pathlib.Path(f"repost-manuscripts/{slug}/qiita.md")
@@ -32,52 +41,104 @@ dst.parent.mkdir(parents=True, exist_ok=True)
 dst.write_text(body + "\n", encoding="utf-8")
 print(f"[drip] qiita.md生成: {len(body)}文字")
 PY
+}
 
-# --- 2. Qiita投稿（private→即公開切替） ---
-TITLE=$(sed -n 's/^title: *"\(.*\)"/\1/p' "articles/${SLUG}.md" | head -1)
-Q_OUT=$(python3 scripts/repost_qiita_post.py post "repost-manuscripts/${SLUG}/qiita.md" "AI,VibeCoding,LLM" "$TITLE" 2>&1)
-echo "$Q_OUT"
-if echo "$Q_OUT" | grep -q "item_id=[0-9a-f]"; then
-    QID=$(echo "$Q_OUT" | grep -oE "item_id=[0-9a-f]+" | cut -d= -f2)
+gen_title() {
+  sed -n 's/^title: *"\(.*\)"/\1/p' "articles/$1.md" | head -1
+}
+
+note_post() {
+  local slug="$1"
+  python3 scripts/repost_make_note.py "articles/${slug}.md" "repost-manuscripts/${slug}/note.md" || return 1
+  NOTE_GO_FILE=/tmp/note-drip-go NOTE_AUTO_PUBLISH=1 \
+    python3 scripts/repost_note_post.py "repost-manuscripts/${slug}/note.md" 60 2>&1 | tee /tmp/drip-note-out.txt
+  return ${PIPESTATUS[0]}
+}
+
+note_thumb() {
+  local slug="$1"
+  local nurl nid thumb
+  nurl=$(grep -oE "https://editor.note.com/notes/[0-9a-f]+/publish/" /tmp/drip-note-out.txt | head -1)
+  nid=$(grep -oE "notes/[0-9a-f]+" <<< "$nurl" | head -1 | cut -d/ -f2)
+  thumb="repost-manuscripts/${slug}/thumb.png"
+  if [ -f "$thumb" ] && [ -n "$nid" ]; then
+    python3 scripts/repost_note_set_thumb.py "$nid" "$thumb" || log "サムネ設定失敗（継続）"
+  fi
+}
+
+qiita_post() {
+  local slug="$1"
+  local title
+  title=$(gen_title "$slug")
+  local out
+  out=$(python3 scripts/repost_qiita_post.py post "repost-manuscripts/${slug}/qiita.md" "AI,VibeCoding,LLM" "$title" 2>&1)
+  echo "$out"
+  if echo "$out" | grep -q "item_id=[0-9a-f]"; then
+    local qid
+    qid=$(echo "$out" | grep -oE "item_id=[0-9a-f]+" | cut -d= -f2)
     sleep 10
-    P_OUT=$(python3 scripts/repost_qiita_post.py publish "$QID" 2>&1)
-    echo "$P_OUT"
-    Q_OK=$(echo "$P_OUT" | grep -c "private=False")
-else
-    echo "[drip] Qiita投稿失敗（429/403想定）→ 次回cronへ持ち越し"
-    exit 2
-fi
-[ "$Q_OK" = "1" ] || { echo "[drip] Qiita公開切替失敗"; exit 3; }
+    python3 scripts/repost_qiita_post.py publish "$qid" 2>&1
+    echo "$qid"
+  else
+    return 1
+  fi
+}
 
-# --- 3. note投稿（自動公開） ---
-NOTE_GO_FILE=/tmp/note-drip-go NOTE_AUTO_PUBLISH=1 \
-  python3 scripts/repost_note_post.py "repost-manuscripts/${SLUG}/note.md" 60 2>&1 | tee /tmp/drip-note-out.txt
-NOTE_EXIT=$?
-[ $NOTE_EXIT -eq 0 ] || { echo "[drip] note投稿失敗（exit $NOTE_EXIT）・Qiitaは公開済み"; exit 4; }
-NOTE_LAST_URL=$(grep -oE "https://editor.note.com/notes/[0-9a-f]+/publish/" <<< "$(cat /tmp/drip-note-out.txt)" | head -1)
-echo "[drip] note投稿URL: $NOTE_LAST_URL"
-
-# --- 4. サムネ後付け（repost-manuscripts/<slug>/thumb.png があれば） ---
-THUMB="repost-manuscripts/${SLUG}/thumb.png"
-NOTE_ID=$(grep -oE "notes/[0-9a-f]+" <<< "$NOTE_LAST_URL" | cut -d/ -f2)
-if [ -f "$THUMB" ] && [ -n "$NOTE_ID" ]; then
-    python3 scripts/repost_note_set_thumb.py "$NOTE_ID" "$THUMB" || echo "[drip] サムネ設定失敗（投稿自体は成功済み・継続）"
-else
-    echo "[drip] サムネ無し（thumb.png未生成）→ スキップ"
-fi
-
-# --- 5. キューを[x]化してURL追記 ---
-python3 - "$SLUG" <<'PY'
-import re, sys, pathlib
-slug = sys.argv[1]
+mark_queue() {
+  python3 - "$1" "$2" "$3" "${4:-}" <<'PY'
+import sys, pathlib
+slug, old, new, url = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
 p = pathlib.Path("repost-queue.md")
 lines = p.read_text(encoding="utf-8").split("\n")
 for i, ln in enumerate(lines):
-    if ln.startswith("- [ ] ") and ln.split(" — ")[0] == f"- [ ] {slug}":
-        lines[i] = ln.replace("- [ ] ", "- [x] ", 1)
+    if ln.startswith(old) and ln.split(" — ")[0].split(" ")[1:2] == [slug]:
+        extra = f" {url}" if url else ""
+        lines[i] = f"{new} {slug}{extra} —" + (ln.split("—", 1)[1] if "—" in ln else "")
         break
 p.write_text("\n".join(lines), encoding="utf-8")
-print(f"[drip] キュー更新: {slug} を[x]化")
+print(f"[drip] キュー更新: {slug} → {new}")
 PY
-echo "[drip] 完了: $SLUG → Qiita($QID)+note"
-exit 0
+}
+
+case "$MODE" in
+  note-only)
+    SLUG=$(get_slug_by_state '\[ \]')
+    [ -z "$SLUG" ] && { log "キュー空・終了"; exit 0; }
+    log "note-only 対象: $SLUG"
+    note_post "$SLUG" || { log "note投稿失敗"; exit 4; }
+    note_thumb "$SLUG"
+    mark_queue "$SLUG" '\[ \]' '\[n\]'
+    log "note-only完了: $SLUG"
+    exit 0
+    ;;
+  qiita-pending)
+    SLUG=$(get_slug_by_state '\[n\]')
+    [ -z "$SLUG" ] && { log "Qiita未完の記事なし・終了"; exit 0; }
+    log "qiita-pending 対象: $SLUG"
+    gen_note_manuscripts "$SLUG"
+    QID=$(qiita_post "$SLUG") || { log "Qiita失敗→次回へ"; exit 2; }
+    mark_queue "$SLUG" '\[n\]' '\[x\]' "Qiita=$QID"
+    log "Qiita完了: $SLUG ($QID)"
+    exit 0
+    ;;
+  both)
+    SLUG=$(get_slug_by_state '\[ \]')
+    [ -z "$SLUG" ] && { log "キュー空・終了"; exit 0; }
+    log "both 対象: $SLUG"
+    gen_note_manuscripts "$SLUG"
+    QID=$(qiita_post "$SLUG") || { log "Qiita失敗→noteのみ継続"; QID=""; }
+    note_post "$SLUG" || { log "note投稿失敗"; exit 4; }
+    note_thumb "$SLUG"
+    if [ -n "$QID" ]; then
+      mark_queue "$SLUG" '\[ \]' '\[x\]' "Qiita=$QID note=https://note.com/fukukei23/n/$(grep -oE 'notes/[0-9a-f]+' <<< "$(cat /tmp/drip-note-out.txt)" | head -1 | cut -d/ -f2)"
+    else
+      mark_queue "$SLUG" '\[ \]' '\[n\]'
+    fi
+    log "both完了: $SLUG (Qiita=${QID:-未})"
+    exit 0
+    ;;
+  *)
+    echo "不明モード: $MODE"
+    exit 64
+    ;;
+esac
