@@ -1,5 +1,3 @@
-> ※本記事は[Zenn](https://zenn.dev/fukukei23/articles/vibe-coding-civilservant-projects)でも公開しています。
-
 ## はじめに
 
 2025年5月、私はITとは無関係の公務員でした。プログラミング経験はゼロ。Pythonの`print("hello")`も書けない状態でした。
@@ -149,3 +147,7 @@ Vibe Codingは「コードを書けない人の逃げ道」ではありません
 - [Claude Code CLIをGLM（Z.AI）で代替した話（コスト大幅削減の実測）](https://zenn.dev/fukukei23/articles/claude-code-cost-optimization)
 - [Claude Code CLIにMiniMaxをフォールバックとして組み込んだ話](https://zenn.dev/fukukei23/articles/claude-code-minimax-fallback)
 - [月間27億トークンを処理したLLMルーティングの実運用レポート](https://zenn.dev/fukukei23/articles/llm-routing-one-month-report)
+
+---
+
+本記事は[個人Zenn](https://zenn.dev/fukukei23)でも公開しています。

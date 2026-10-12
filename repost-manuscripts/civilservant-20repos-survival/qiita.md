@@ -1,5 +1,3 @@
-> ※本記事は[Zenn](https://zenn.dev/fukukei23/articles/civilservant-20repos-survival)でも公開しています。
-
 ## はじめに
 
 2025年5月、私はITとは無関係の40代公務員でした。
@@ -166,3 +164,7 @@ IT企業への就職→数年後の独立を目指して、現在も毎日開発
 ---
 
 *この記事はClaude Code（GLM-5.1）と一緒に書きました。*
+
+---
+
+本記事は[個人Zenn](https://zenn.dev/fukukei23)でも公開しています。
