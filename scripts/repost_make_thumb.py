@@ -30,14 +30,14 @@ def main() -> int:
             .replace("@@TAG@@", tag).replace("@@COPY@@", copy))
     html = html.replace("<span class=\"tag\">{tag}</span>", f'<span class="tag">{tag}</span>')
     html = html.replace("<div class=\"copy\">{copy}</div>", f'<div class="copy">{copy}</div>')
-    html_path = Path(out).with_suffix(".html")
+    html_path = Path(out).resolve().with_suffix(".html")
     html_path.write_text(html, encoding="utf-8")
     with sync_playwright() as p:
         b = p.chromium.launch(headless=True)
         page = b.new_page(viewport={"width": 1280, "height": 720})
         page.goto(html_path.as_uri())
         page.wait_for_timeout(800)
-        page.screenshot(path=out)
+        page.screenshot(path=str(Path(out).resolve()))
         b.close()
     print(f"[make-thumb] 生成: {out}（tag={tag} / copy={copy}）")
     return 0

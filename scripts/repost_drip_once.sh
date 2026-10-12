@@ -34,7 +34,8 @@ print(f"[drip] qiita.md生成: {len(body)}文字")
 PY
 
 # --- 2. Qiita投稿（private→即公開切替） ---
-Q_OUT=$(python3 scripts/repost_qiita_post.py post "repost-manuscripts/${SLUG}/qiita.md" "AI,VibeCoding,LLM" 2>&1)
+TITLE=$(sed -n 's/^title: *"\(.*\)"/\1/p' "articles/${SLUG}.md" | head -1)
+Q_OUT=$(python3 scripts/repost_qiita_post.py post "repost-manuscripts/${SLUG}/qiita.md" "AI,VibeCoding,LLM" "$TITLE" 2>&1)
 echo "$Q_OUT"
 if echo "$Q_OUT" | grep -q "item_id=[0-9a-f]"; then
     QID=$(echo "$Q_OUT" | grep -oE "item_id=[0-9a-f]+" | cut -d= -f2)

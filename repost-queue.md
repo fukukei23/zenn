@@ -1,7 +1,7 @@
 # 転載ドリップキュー（先頭から1件ずつ消費・12時間間隔）
 
 - [x] openclaw-24h-owl-butler-3months → https://qiita.com/fukukei23/items/985a71acb4f528da41f2 / https://note.com/fukukei23/n/n8e8bfab89f9e — 公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録
-- [ ] ssot-300-decision-logs-lessons — 300件の意思決定ログから学ぶSSOT運用1年目の知見
+- [x] ssot-300-decision-logs-lessons → https://qiita.com/fukukei23/items/df74ec8dfaeb4fd5cba0（限定公開・10:23時点429のため公開切替はcron 11:23） / https://note.com/fukukei23/n/nd5148435b1d8 — 300件の意思決定ログから学ぶSSOT運用1年目の知見
 - [ ] secret-leak-gate-ai-agent-env-2weeks — AIエージェント開発環境に秘密情報流出ゲートを自作して2週間運用したら誤警報ゼロだった話
 - [ ] claude-code-obsidian-ssot — Claude Codeの記憶をObsidianでSSOT化する設計——複数AIのセッションを1箇所に統合する方法
 - [ ] llm-routing-one-month-report — 月間27億トークンを処理したLLMルーティングの実運用レポート（1ヶ月の振り返り）

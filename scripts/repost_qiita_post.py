@@ -43,15 +43,12 @@ def main() -> int:
     if mode == "post":
         md_path = sys.argv[2]
         tags = [{"name": t.strip()} for t in sys.argv[3].split(",") if t.strip()]
+        # タイトルは第4引数で明示渡し（本文からの抽出はコードコメント誤検出事故2回の実績あり）
+        title = sys.argv[4] if len(sys.argv) > 4 else ""
         text = open(md_path, encoding="utf-8").read()
-        title = ""
-        for line in text.split("\n"):
-            if line.startswith("# "):
-                title = line[2:].strip()
-                break
-        # 本文: 見出し行より後（タイトル重複回避）・出典行は維持
-        body_start = text.index("\n", text.index(f"# {title}")) + 1
-        body = text[body_start:].strip()
+        body = text.strip()
+        if title:
+            body = body.replace(f"# {title}\n", "", 1).strip()
         status, res = request("/items", "POST", {
             "title": title, "body": body, "tags": tags,
             "private": True, "tweet": False,
