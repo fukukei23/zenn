@@ -12,9 +12,11 @@ exec 9>/tmp/repost-drip.lock
 flock -n 9 || { echo "[drip] 他実行中のためskip（flock失敗）"; exit 0; }
 
 cd ~/projects/zenn || exit 1
+# 前回実行の残留nidで誤記事にサムネ設定するのを防止（r3 GLM採用）
+rm -f /tmp/drip-note-out.txt
 QUEUE=repost-queue.md
 MODE="${1:-both}"
-set -a; source ~/.secrets.env; set +a
+set -a; source ~/.secrets.env || { echo "[drip] secrets読込失敗"; exit 1; }; set +a
 
 # 全出力を日次ログへ永続化（cronセッションのtail握り潰し対策・2026-10-13 MLR採用）
 mkdir -p logs
@@ -46,7 +48,12 @@ src = pathlib.Path(f"articles/{slug}.md")
 dst = pathlib.Path(f"repost-manuscripts/{slug}/qiita.md")
 text = src.read_text(encoding="utf-8")
 parts = text.split("---")
-body = "---".join(parts[2:]).strip()
+# frontmatter区切りが3未満（frontmatter無し等）は全文をbodyにフォールバック
+# （r3 MiniMax採用: 空qiita.md生成→投稿失敗の連発を防止）
+if len(parts) >= 3:
+    body = "---".join(parts[2:]).strip()
+else:
+    body = text.strip()
 attr = "\n\n---\n\n本記事は[個人Zenn](https://zenn.dev/fukukei23)でも公開しています。\n"
 if "個人Zenn" not in body:
     body += attr
@@ -96,6 +103,8 @@ note_thumb() {
     return 1
   else
     log "サムネスキップ（thumb存在=$([ -f "$thumb" ] && echo yes || echo no) / nid=${nid:-空}）"
+    # r3 GLM採用: else経路がlogの終了コード0を返しサムネ無し完了扱いになる回帰を防止
+    return 1
   fi
 }
 
@@ -128,7 +137,20 @@ lines = p.read_text(encoding="utf-8").split("\n")
 found = False
 for i, ln in enumerate(lines):
     if ln.startswith("- " + old) and f" {slug} " in f" {ln} ":
-        extra = f" {url}" if url else ""
+        # 既存extras（Qiita=ID等）を保持してマージ（r3 MiniMax採用: 破棄すると
+        # note-onlyでの[n]化時にQiita=記録が消えqiita-pendingで二重投稿になる）
+        import re as _re
+        m = _re.match(r"^- \S+ \S+(.*?) —", ln)
+        old_extras = m.group(1).strip() if m else ""
+        kv = {}
+        order = []
+        for tok in (old_extras + " " + (url or "")).split():
+            if "=" in tok:
+                k = tok.split("=", 1)[0]
+                if k not in kv:
+                    order.append(k)
+                kv[k] = tok
+        extra = (" " + " ".join(kv[k] for k in order)) if kv else ""
         body_part = ln.split("—", 1)[1] if "—" in ln else ""
         lines[i] = f"- {new} {slug}{extra} —{body_part}"
         found = True
