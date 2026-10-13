@@ -17,12 +17,14 @@
     ポインタを遮蔽しPlaywrightクリックが空振りする実測のため）+5秒ロード待ち
   ④staged残留カバーの×除去を開始時に実施（前回失敗の残留が次回を妨害する実測）
 """
+import re
 import sys
 import time
 
 from playwright.sync_api import sync_playwright
 
 PROFILE = "/home/yn4416/.cache/ms-playwright-note-f9ec"
+NOTE_ID_RE = re.compile(r"^n[0-9a-f]+$")
 
 
 def log(msg: str) -> None:
@@ -32,6 +34,11 @@ def log(msg: str) -> None:
 def main() -> int:
     note_id = sys.argv[1]
     thumb = sys.argv[2]
+    # 単体実行ガード（2026-10-13 MLR採用: drip側と同じ正規表現で
+    # 引数検証し空/不正IDで他記事への誤適用を防ぐ）
+    if not NOTE_ID_RE.fullmatch(note_id):
+        log(f"note_id形式不正（{note_id!r}）→ exit 2")
+        return 2
     with sync_playwright() as p:
         ctx = p.chromium.launch_persistent_context(
             PROFILE, headless=False, viewport={"width": 1280, "height": 900}

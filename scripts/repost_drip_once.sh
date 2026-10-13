@@ -11,12 +11,25 @@ set -uo pipefail
 exec 9>/tmp/repost-drip.lock
 flock -n 9 || { echo "[drip] 他実行中のためskip（flock失敗）"; exit 0; }
 
-cd ~/projects/zenn
+cd ~/projects/zenn || exit 1
 QUEUE=repost-queue.md
 MODE="${1:-both}"
 set -a; source ~/.secrets.env; set +a
 
+# 全出力を日次ログへ永続化（cronセッションのtail握り潰し対策・2026-10-13 MLR採用）
+mkdir -p logs
+exec > >(tee -a "logs/drip-$(date +%F).log") 2>&1
+
 log() { echo "[drip] $*"; }
+
+thumb_required() {
+  # サムネ必須ゲート（2026-10-13 MLR採用: cron promptの「thumbなしで続行」が
+  # 目的「サムネ必須」と矛盾するためスクリプト層で機械的に投稿を止める）
+  if [ ! -f "repost-manuscripts/$1/thumb.png" ]; then
+    log "thumb.png 無しのため投稿中止（サムネ必須・exit 3）: $1"
+    exit 3
+  fi
+}
 
 get_slug_by_state() {
   grep -m1 "^- ${1}" "$QUEUE" | sed "s/^- ${1} //" | cut -d' ' -f1
@@ -80,6 +93,7 @@ note_thumb() {
       return 0
     fi
     log "サムネ設定失敗（継続・rc=$rc・ログ: $tlog）"
+    return 1
   else
     log "サムネスキップ（thumb存在=$([ -f "$thumb" ] && echo yes || echo no) / nid=${nid:-空}）"
   fi
@@ -90,13 +104,15 @@ qiita_post() {
   local title
   title=$(gen_title "$slug")
   local out
-  out=$(python3 scripts/repost_qiita_post.py post "repost-manuscripts/${slug}/qiita.md" "AI,VibeCoding,LLM" "$title" 2>&1)
-  echo "$out"
+  # ログはstderrへ分離しQID取得元のstdoutを単一行に保つ（2026-10-13実測:
+  # 複数行混入QIDがキュー行を破壊した事故の再発防止）
+  out=$(python3 scripts/repost_qiita_post.py post "repost-manuscripts/${slug}/qiita.md" "AI,VibeCoding,LLM" "$title" 2>/tmp/qiita-post-err.log)
+  echo "$out" >&2
   if echo "$out" | grep -q "item_id=[0-9a-f]"; then
     local qid
     qid=$(echo "$out" | grep -oE "item_id=[0-9a-f]+" | cut -d= -f2)
     sleep 10
-    python3 scripts/repost_qiita_post.py publish "$qid" 2>&1
+    python3 scripts/repost_qiita_post.py publish "$qid" 2>&1 >&2
     echo "$qid"
   else
     return 1
@@ -125,8 +141,9 @@ case "$MODE" in
     SLUG=$(get_slug_by_state '\[ \]')
     [ -z "$SLUG" ] && { log "キュー空・終了"; exit 0; }
     log "note-only 対象: $SLUG"
+    thumb_required "$SLUG"
     note_post "$SLUG" || { log "note投稿失敗"; exit 4; }
-    note_thumb "$SLUG"
+    note_thumb "$SLUG" || { log "サムネ失敗でサムネ無し公開を防止（exit 5）"; exit 5; }
     mark_queue "$SLUG" "[ ]" "[n]"
     log "note-only完了: $SLUG"
     exit 0
@@ -145,16 +162,13 @@ case "$MODE" in
     SLUG=$(get_slug_by_state '\[ \]')
     [ -z "$SLUG" ] && { log "キュー空・終了"; exit 0; }
     log "both 対象: $SLUG"
+    thumb_required "$SLUG"
     gen_note_manuscripts "$SLUG"
-    QID=$(qiita_post "$SLUG") || { log "Qiita失敗→noteのみ継続"; QID=""; }
+    QID=$(qiita_post "$SLUG") || { log "Qiita失敗→noteスキップし次回へ（二重投稿防止）"; exit 2; }
     note_post "$SLUG" || { log "note投稿失敗"; exit 4; }
-    note_thumb "$SLUG"
-    if [ -n "$QID" ]; then
-      mark_queue "$SLUG" "[ ]" "[x]" "Qiita=$QID note=https://note.com/fukukei23/n/$(grep -oE 'notes/n[0-9a-f]+' <<< "$(cat /tmp/drip-note-out.txt)" | head -1 | cut -d/ -f2)"
-    else
-      mark_queue "$SLUG" "[ ]" "[n]"
-    fi
-    log "both完了: $SLUG (Qiita=${QID:-未})"
+    note_thumb "$SLUG" || { log "サムネ失敗でサムネ無し公開を防止（exit 5）"; exit 5; }
+    mark_queue "$SLUG" "[ ]" "[x]" "Qiita=$QID note=https://note.com/fukukei23/n/$(grep -oE 'notes/n[0-9a-f]+' <<< "$(cat /tmp/drip-note-out.txt)" | head -1 | cut -d/ -f2)"
+    log "both完了: $SLUG (Qiita=$QID)"
     exit 0
     ;;
   *)
