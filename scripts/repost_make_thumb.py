@@ -5,6 +5,7 @@
 出力は1280x720。パターン分析（20_PUBLISHING/noteサムネイルパターン分析.md）の
 ①型（絵主体・文字最小）をHTML→スクショで実装。
 """
+import html
 import sys
 from pathlib import Path
 
@@ -26,12 +27,14 @@ body{margin:0;width:1280px;height:720px;background:url('@@BG@@') center/cover;po
 
 def main() -> int:
     bg, out, tag, copy = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
-    html = (TEMPLATE.replace("@@BG@@", Path(bg).resolve().as_uri())
-            .replace("@@TAG@@", tag).replace("@@COPY@@", copy))
-    html = html.replace("<span class=\"tag\">{tag}</span>", f'<span class="tag">{tag}</span>')
-    html = html.replace("<div class=\"copy\">{copy}</div>", f'<div class="copy">{copy}</div>')
+    # html.escapeでタイトル記号（& < > "等）によるHTML破壊を防止（2026-10-13 r2 MLR採用）
+    tag_e = html.escape(tag, quote=True)
+    copy_e = html.escape(copy, quote=True)
+    page_html = (TEMPLATE.replace("@@BG@@", Path(bg).resolve().as_uri())
+            .replace("<span class=\"tag\">{tag}</span>", f'<span class="tag">{tag_e}</span>')
+            .replace("<div class=\"copy\">{copy}</div>", f'<div class="copy">{copy_e}</div>'))
     html_path = Path(out).resolve().with_suffix(".html")
-    html_path.write_text(html, encoding="utf-8")
+    html_path.write_text(page_html, encoding="utf-8")
     with sync_playwright() as p:
         b = p.chromium.launch(headless=True)
         page = b.new_page(viewport={"width": 1280, "height": 720})

@@ -125,12 +125,19 @@ import sys, pathlib
 slug, old, new, url = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
 p = pathlib.Path("repost-queue.md")
 lines = p.read_text(encoding="utf-8").split("\n")
+found = False
 for i, ln in enumerate(lines):
     if ln.startswith("- " + old) and f" {slug} " in f" {ln} ":
         extra = f" {url}" if url else ""
         body_part = ln.split("—", 1)[1] if "—" in ln else ""
         lines[i] = f"- {new} {slug}{extra} —{body_part}"
+        found = True
         break
+if not found:
+    # 無言失敗の撲滅（2026-10-13 r2 MLR採用: マッチ失敗時に気付けないと
+    # 投稿済みなのにキュー据え置き→次回枠で二重投稿になる）
+    print(f"[drip] mark_queue失敗: 対象行なし slug={slug} old={old}", flush=True)
+    sys.exit(1)
 p.write_text("\n".join(lines), encoding="utf-8")
 print(f"[drip] キュー更新: {slug} → {new}")
 PY
@@ -143,8 +150,15 @@ case "$MODE" in
     log "note-only 対象: $SLUG"
     thumb_required "$SLUG"
     note_post "$SLUG" || { log "note投稿失敗"; exit 4; }
-    note_thumb "$SLUG" || { log "サムネ失敗でサムネ無し公開を防止（exit 5）"; exit 5; }
+    note_thumb "$SLUG"
+    thumb_rc=$?
+    # キュー更新をexit 5より先に（2026-10-13 r2 MLR採用: 投稿済み記事のキュー据置は
+    # 次回枠の再投稿=二重投稿を生むため・投稿の成否とサムネの成否は独立に記録）
     mark_queue "$SLUG" "[ ]" "[n]"
+    if [ "$thumb_rc" -ne 0 ]; then
+      log "サムネ失敗（[n]記録済・exit 5・手動サムネ設定要）"
+      exit 5
+    fi
     log "note-only完了: $SLUG"
     exit 0
     ;;
@@ -152,7 +166,7 @@ case "$MODE" in
     SLUG=$(get_slug_by_state '\[n\]')
     [ -z "$SLUG" ] && { log "Qiita未完の記事なし・終了"; exit 0; }
     log "qiita-pending 対象: $SLUG"
-    gen_note_manuscripts "$SLUG"
+    gen_note_manuscripts "$SLUG" || { log "原稿生成失敗（exit 2）"; exit 2; }
     QID=$(qiita_post "$SLUG") || { log "Qiita失敗→次回へ"; exit 2; }
     mark_queue "$SLUG" "[n]" "[x]" "Qiita=$QID"
     log "Qiita完了: $SLUG ($QID)"
@@ -164,10 +178,22 @@ case "$MODE" in
     log "both 対象: $SLUG"
     thumb_required "$SLUG"
     gen_note_manuscripts "$SLUG"
-    QID=$(qiita_post "$SLUG") || { log "Qiita失敗→noteスキップし次回へ（二重投稿防止）"; exit 2; }
-    note_post "$SLUG" || { log "note投稿失敗"; exit 4; }
-    note_thumb "$SLUG" || { log "サムネ失敗でサムネ無し公開を防止（exit 5）"; exit 5; }
+    # 過去枠でQiita済み（note失敗持ち越し）なら再投稿スキップ（二重投稿防止・r2採用）
+    QID=$(grep -F " $SLUG " "$QUEUE" | grep -oE 'Qiita=[0-9a-f]+' | head -1 | cut -d= -f2)
+    if [ -n "$QID" ]; then
+      log "Qiita済み（$QID）→再投稿スキップ"
+    else
+      QID=$(qiita_post "$SLUG") || { log "Qiita失敗→noteスキップし次回へ（二重投稿防止）"; exit 2; }
+    fi
+    note_post "$SLUG" || { mark_queue "$SLUG" "[ ]" "[ ]" "Qiita=$QID"; log "note投稿失敗（Qiita=$QID記録済・exit 4）"; exit 4; }
+    note_thumb "$SLUG"
+    thumb_rc=$?
+    # キュー更新をexit 5より先に（r2採用: 投稿済み記事のキュー据置は二重投稿を生む）
     mark_queue "$SLUG" "[ ]" "[x]" "Qiita=$QID note=https://note.com/fukukei23/n/$(grep -oE 'notes/n[0-9a-f]+' <<< "$(cat /tmp/drip-note-out.txt)" | head -1 | cut -d/ -f2)"
+    if [ "$thumb_rc" -ne 0 ]; then
+      log "サムネ失敗（[x]記録済・exit 5・手動サムネ設定要）"
+      exit 5
+    fi
     log "both完了: $SLUG (Qiita=$QID)"
     exit 0
     ;;
