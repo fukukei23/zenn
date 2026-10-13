@@ -91,9 +91,10 @@ slug, old, new, url = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
 p = pathlib.Path("repost-queue.md")
 lines = p.read_text(encoding="utf-8").split("\n")
 for i, ln in enumerate(lines):
-    if ln.startswith(old) and ln.split(" — ")[0].split(" ")[1:2] == [slug]:
+    if ln.startswith("- " + old) and f" {slug} " in f" {ln} ":
         extra = f" {url}" if url else ""
-        lines[i] = f"{new} {slug}{extra} —" + (ln.split("—", 1)[1] if "—" in ln else "")
+        body_part = ln.split("—", 1)[1] if "—" in ln else ""
+        lines[i] = f"- {new} {slug}{extra} —{body_part}"
         break
 p.write_text("\n".join(lines), encoding="utf-8")
 print(f"[drip] キュー更新: {slug} → {new}")
@@ -107,7 +108,7 @@ case "$MODE" in
     log "note-only 対象: $SLUG"
     note_post "$SLUG" || { log "note投稿失敗"; exit 4; }
     note_thumb "$SLUG"
-    mark_queue "$SLUG" '\[ \]' '\[n\]'
+    mark_queue "$SLUG" "[ ]" "[n]"
     log "note-only完了: $SLUG"
     exit 0
     ;;
@@ -117,7 +118,7 @@ case "$MODE" in
     log "qiita-pending 対象: $SLUG"
     gen_note_manuscripts "$SLUG"
     QID=$(qiita_post "$SLUG") || { log "Qiita失敗→次回へ"; exit 2; }
-    mark_queue "$SLUG" '\[n\]' '\[x\]' "Qiita=$QID"
+    mark_queue "$SLUG" "[n]" "[x]" "Qiita=$QID"
     log "Qiita完了: $SLUG ($QID)"
     exit 0
     ;;
@@ -130,9 +131,9 @@ case "$MODE" in
     note_post "$SLUG" || { log "note投稿失敗"; exit 4; }
     note_thumb "$SLUG"
     if [ -n "$QID" ]; then
-      mark_queue "$SLUG" '\[ \]' '\[x\]' "Qiita=$QID note=https://note.com/fukukei23/n/$(grep -oE 'notes/[0-9a-f]+' <<< "$(cat /tmp/drip-note-out.txt)" | head -1 | cut -d/ -f2)"
+      mark_queue "$SLUG" "[ ]" "[x]" "Qiita=$QID note=https://note.com/fukukei23/n/$(grep -oE 'notes/[0-9a-f]+' <<< "$(cat /tmp/drip-note-out.txt)" | head -1 | cut -d/ -f2)"
     else
-      mark_queue "$SLUG" '\[ \]' '\[n\]'
+      mark_queue "$SLUG" "[ ]" "[n]"
     fi
     log "both完了: $SLUG (Qiita=${QID:-未})"
     exit 0
