@@ -6,7 +6,7 @@
 - [x] claude-code-obsidian-ssot Qiita=[qiita-post] post: HTTP=201 / item_id=69e6c999974261a70b22 / url=https://qiita.com/fukukei23/private/69e6c999974261a70b22
 [qiita-post] publish: HTTP=200 / url=https://qiita.com/fukukei23/items/69e6c999974261a70b22 / private=False
 69e6c999974261a70b22 note=https://note.com/fukukei23/n/ — Claude Codeの記憶をObsidianでSSOT化する設計——複数AIのセッションを1箇所に統合する方法
-- [ ] llm-routing-one-month-report — 月間27億トークンを処理したLLMルーティングの実運用レポート（1ヶ月の振り返り）
+- [x] llm-routing-one-month-report Qiita=bafb0eac4c29ae30469e note=https://note.com/fukukei23/n/n9f52ff20a22c — 月間27億トークンを処理したLLMルーティングの実運用レポート（1ヶ月の振り返り）
 - [ ] multi-agent-orchestration-design — 14のAIエージェントを協調させるマルチエージェントアーキテクチャの設計
 - [ ] multi-tier-quality-gates — マルチ層品質ゲート設計（静的解析→動的テスト→Mutation Testingのパイプライン実装）
 - [ ] mutation-testing-mutmut-practice — Mutation Testingでテスト品質を測る（mutmut実践記録）
