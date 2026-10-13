@@ -1,8 +1,8 @@
 # 転載ドリップキュー（先頭から1件ずつ消費・12時間間隔）
 
 - [x] openclaw-24h-owl-butler-3months → https://qiita.com/fukukei23/items/985a71acb4f528da41f2 / https://note.com/fukukei23/n/n8e8bfab89f9e — 公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録
-- [x] ssot-300-decision-logs-lessons → https://qiita.com/fukukei23/items/df74ec8dfaeb4fd5cba0（限定公開・10:23時点429のため公開切替はcron 11:23） / https://note.com/fukukei23/n/nd5148435b1d8 — 300件の意思決定ログから学ぶSSOT運用1年目の知見
-- [x] secret-leak-gate-ai-agent-env-2weeks Qiita=05af2fdd0138bac082d5 note=https://note.com/fukukei23/n/n7a4153d35410（重複2本: n60f6199b3f4a・n1486458d3c31は削除対象） — AIエージェント開発環境に秘密情報流出ゲートを自作して2週間運用したら誤警報ゼロだった話
+- [x] ssot-300-decision-logs-lessons → https://qiita.com/fukukei23/items/df74ec8dfaeb4fd5cba0/ https://note.com/fukukei23/n/nd5148435b1d8 — 300件の意思決定ログから学ぶSSOT運用1年目の知見
+- [x] secret-leak-gate-ai-agent-env-2weeks Qiita=05af2fdd0138bac082d5 note=https://note.com/fukukei23/n/n60f6199b3f4a（重複解消済: n7a4153d35410・n1486458d3c31は削除済み・生存側にサムネ設定済み2026-10-13） — AIエージェント開発環境に秘密情報流出ゲートを自作して2週間運用したら誤警報ゼロだった話
 - [x] claude-code-obsidian-ssot Qiita=[qiita-post] post: HTTP=201 / item_id=69e6c999974261a70b22 / url=https://qiita.com/fukukei23/private/69e6c999974261a70b22
 [qiita-post] publish: HTTP=200 / url=https://qiita.com/fukukei23/items/69e6c999974261a70b22 / private=False
 69e6c999974261a70b22 note=https://note.com/fukukei23/n/ — Claude Codeの記憶をObsidianでSSOT化する設計——複数AIのセッションを1箇所に統合する方法

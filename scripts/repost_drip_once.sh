@@ -62,7 +62,26 @@ note_thumb() {
   nid=$(grep -oE "notes/[0-9a-f]+" <<< "$nurl" | head -1 | cut -d/ -f2)
   thumb="repost-manuscripts/${slug}/thumb.png"
   if [ -f "$thumb" ] && [ -n "$nid" ]; then
-    python3 scripts/repost_note_set_thumb.py "$nid" "$thumb" || log "サムネ設定失敗（継続）"
+    # note_post直後は同一PlaywrightプロファイルのSingletonLock解放待ち（2026-10-13実測:
+    # 直後起動だとセット失敗しサムネ無しで公開されるため sleep+2回リトライ・フルログ保存）
+    sleep 5
+    local tlog="/tmp/drip-setthumb-${nid}.log" rc
+    python3 scripts/repost_note_set_thumb.py "$nid" "$thumb" 2>&1 | tee "$tlog"
+    rc=${PIPESTATUS[0]}
+    if [ "$rc" -eq 0 ]; then
+      log "サムネ設定成功: $nid"
+      return 0
+    fi
+    sleep 15
+    python3 scripts/repost_note_set_thumb.py "$nid" "$thumb" 2>&1 | tee -a "$tlog"
+    rc=${PIPESTATUS[0]}
+    if [ "$rc" -eq 0 ]; then
+      log "サムネ設定成功（2回目）: $nid"
+      return 0
+    fi
+    log "サムネ設定失敗（継続・rc=$rc・ログ: $tlog）"
+  else
+    log "サムネスキップ（thumb存在=$([ -f "$thumb" ] && echo yes || echo no) / nid=${nid:-空}）"
   fi
 }
 
