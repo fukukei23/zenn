@@ -8,7 +8,7 @@
 69e6c999974261a70b22 note=https://note.com/fukukei23/n/n3046a7b70603 — Claude Codeの記憶をObsidianでSSOT化する設計——複数AIのセッションを1箇所に統合する方法
 - [x] llm-routing-one-month-report Qiita=bafb0eac4c29ae30469e note=https://note.com/fukukei23/n/n9f52ff20a22c — 月間27億トークンを処理したLLMルーティングの実運用レポート（1ヶ月の振り返り）
 - [n] multi-agent-orchestration-design — 14のAIエージェントを協調させるマルチエージェントアーキテクチャの設計
-- [ ] multi-tier-quality-gates — マルチ層品質ゲート設計（静的解析→動的テスト→Mutation Testingのパイプライン実装）
+- [n] multi-tier-quality-gates — マルチ層品質ゲート設計（静的解析→動的テスト→Mutation Testingのパイプライン実装）
 - [ ] mutation-testing-mutmut-practice — Mutation Testingでテスト品質を測る（mutmut実践記録）
 - [ ] claude-code-arsenal-7-weapons — Claude Codeを武器庫にした話 — 7つの仕組みで1人開発を最大化
 - [ ] pw-stealth-enhanced-python-anti-detection — playwright-stealthが開発停止なのでPython版を自作してPyPIに公開した話
