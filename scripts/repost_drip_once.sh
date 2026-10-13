@@ -58,8 +58,8 @@ note_post() {
 note_thumb() {
   local slug="$1"
   local nurl nid thumb
-  nurl=$(grep -oE "https://editor.note.com/notes/[0-9a-f]+/publish/" /tmp/drip-note-out.txt | head -1)
-  nid=$(grep -oE "notes/[0-9a-f]+" <<< "$nurl" | head -1 | cut -d/ -f2)
+  nurl=$(grep -oE "https://editor.note.com/notes/n[0-9a-f]+/publish/" /tmp/drip-note-out.txt | head -1)
+  nid=$(grep -oE "notes/n[0-9a-f]+" <<< "$nurl" | head -1 | cut -d/ -f2)
   thumb="repost-manuscripts/${slug}/thumb.png"
   if [ -f "$thumb" ] && [ -n "$nid" ]; then
     # note_post直後は同一PlaywrightプロファイルのSingletonLock解放待ち（2026-10-13実測:
@@ -150,7 +150,7 @@ case "$MODE" in
     note_post "$SLUG" || { log "note投稿失敗"; exit 4; }
     note_thumb "$SLUG"
     if [ -n "$QID" ]; then
-      mark_queue "$SLUG" "[ ]" "[x]" "Qiita=$QID note=https://note.com/fukukei23/n/$(grep -oE 'notes/[0-9a-f]+' <<< "$(cat /tmp/drip-note-out.txt)" | head -1 | cut -d/ -f2)"
+      mark_queue "$SLUG" "[ ]" "[x]" "Qiita=$QID note=https://note.com/fukukei23/n/$(grep -oE 'notes/n[0-9a-f]+' <<< "$(cat /tmp/drip-note-out.txt)" | head -1 | cut -d/ -f2)"
     else
       mark_queue "$SLUG" "[ ]" "[n]"
     fi

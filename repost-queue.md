@@ -5,9 +5,9 @@
 - [x] secret-leak-gate-ai-agent-env-2weeks Qiita=05af2fdd0138bac082d5 note=https://note.com/fukukei23/n/n60f6199b3f4a（重複解消済: n7a4153d35410・n1486458d3c31は削除済み・生存側にサムネ設定済み2026-10-13） — AIエージェント開発環境に秘密情報流出ゲートを自作して2週間運用したら誤警報ゼロだった話
 - [x] claude-code-obsidian-ssot Qiita=[qiita-post] post: HTTP=201 / item_id=69e6c999974261a70b22 / url=https://qiita.com/fukukei23/private/69e6c999974261a70b22
 [qiita-post] publish: HTTP=200 / url=https://qiita.com/fukukei23/items/69e6c999974261a70b22 / private=False
-69e6c999974261a70b22 note=https://note.com/fukukei23/n/ — Claude Codeの記憶をObsidianでSSOT化する設計——複数AIのセッションを1箇所に統合する方法
+69e6c999974261a70b22 note=https://note.com/fukukei23/n/n3046a7b70603 — Claude Codeの記憶をObsidianでSSOT化する設計——複数AIのセッションを1箇所に統合する方法
 - [x] llm-routing-one-month-report Qiita=bafb0eac4c29ae30469e note=https://note.com/fukukei23/n/n9f52ff20a22c — 月間27億トークンを処理したLLMルーティングの実運用レポート（1ヶ月の振り返り）
-- [ ] multi-agent-orchestration-design — 14のAIエージェントを協調させるマルチエージェントアーキテクチャの設計
+- [n] multi-agent-orchestration-design — 14のAIエージェントを協調させるマルチエージェントアーキテクチャの設計
 - [ ] multi-tier-quality-gates — マルチ層品質ゲート設計（静的解析→動的テスト→Mutation Testingのパイプライン実装）
 - [ ] mutation-testing-mutmut-practice — Mutation Testingでテスト品質を測る（mutmut実践記録）
 - [ ] claude-code-arsenal-7-weapons — Claude Codeを武器庫にした話 — 7つの仕組みで1人開発を最大化
