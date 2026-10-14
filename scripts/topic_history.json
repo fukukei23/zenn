@@ -557,6 +557,12 @@
       "title": "orp.py 3層防御でLLMモデル照合の落とし穴を防ぐ：幽霊モデル検出の具体実装",
       "slug": "orp-py-3-llm-41b3b64e",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-10-14",
+      "title": "【Claude Code】crontab正典をgit管理する設計術：コミット漏れ検知hookをTDDで作る14テスト全記録",
+      "slug": "claude-code-crontab-git-hook-tdd-14-b898c26a",
+      "source_repo": "claude-config"
     }
   ]
 }
