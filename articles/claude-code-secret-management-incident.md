@@ -14,6 +14,8 @@ Claude CodeのようなAIコーディングエージェントは便利ですが�
 
 本記事では、この実録インシデントを時系列で振り返りながら、Claude Code環境でAPIキーを守る**実践的な安全パターン**を解説します。AIコーディングエージェントを使うすべての人に通用する内容です。
 
+> 📝 **注記**: 本記事は実録に基づく再構成です。日付・件数は当時の作業記録に基づき、フックのコード例は執筆時点（2026-10・Claude Code v2.1.x）の公式仕様に沿っています。バージョンにより保存形式やフック仕様が変わる可能性があるため、詳細は[公式ドキュメント](https://code.claude.com/docs/en/iam)で随時確認してください。
+
 ## インシデント実録：2ヶ月気づかなかった露出
 
 ### タイムライン
@@ -52,6 +54,8 @@ curl -H "Authorization: Bot MTIzNDU2Nzg..." https://discord.com/api/...
 ```
 
 つまり、**AIエージェントへの「便利な権限設定」が、そのままシークレットの保存場所になっていた**わけです。設定ファイルをgit管理しているなら、これはそのままコミット対象になります。
+
+なお、**秘密をコマンド引数に書くこと自体が第一の不良実践**です（シェル履歴・プロセスリストに残る）。本節で着目してほしいのは、その上で「便利な権限設定」が事故を**2ヶ月の長期潜伏**に発展させた二次被害構造の方です。
 
 ### なぜ2ヶ月気づかなかったのか
 
@@ -122,6 +126,8 @@ source ~/.secrets.env && curl -H "Authorization: Bot $DISCORD_BOT_TOKEN" https:/
 
 こうすれば、allow リストに永続化されるコマンドには **変数名しか含まれません**。権限を「今後許可」しても安全です。
 
+> ⚠️ **限界の明示**: シェルが展開した後の値は `/proc/<PID>/cmdline`（`ps` で見えるプロセス引数）には現れます。より厳格にしたい場合は、ヘッダを設定ファイル経由で渡す `curl -K` や標準入力渡しを使ってください。
+
 > 💡 ポイント: 「秘密の値」がどこにも保存されない形にするのが理想ですが、現実には「保存される場所を1つ（~/.secrets.env）に限定する」のが運用として強力です。
 
 ## 安全パターン（確認作業の受け答え方）
@@ -151,47 +157,64 @@ echo "len=${#DISCORD_BOT_TOKEN}"
 
 **キーの「値」を会話・ファイル・コミットに書かない。キー名はOK、値はNG** —— これが唯一の安全なルールです。
 
-## 3層防御の実装
+## 多層防御の実装
 
 ### 第1層: PreToolUseフック（技術的強制）
 
-「運用で気をつける」は人は忘れるので、コマンド実行**前**にフックでチェックします:
+「運用で気をつける」は人は忘れるので、コマンド実行**前**にフックでチェックします。Claude Codeのフックは **stdin でイベントJSONを受け取り、`exit 2` でコマンド実行をブロック**する仕様です（[公式ドキュメント](https://code.claude.com/docs/en/hooks)）。その仕様に沿った最小の動作例:
 
 ```python
-# check-command-safety.py（概念実装）
-BLOCKED_COMMANDS = ["cat", "head", "tail", "less", "more"]
-BLOCKED_PATTERNS = [
-    r"\.env$",           # .envファイル
-    r"credentials",      # 認証情報ファイル
-    r"secrets",          # シークレットファイル
-]
+#!/usr/bin/env python3
+# check-command-safety.py — cat系コマンドによるsecrets系ファイルの読み取りをブロック
+import json, re, sys
 
-def check_safety(command: str) -> bool:
-    for cmd in BLOCKED_COMMANDS:
-        if cmd in command:
-            target = extract_target(command)
-            for pattern in BLOCKED_PATTERNS:
-                if re.search(pattern, target):
-                    return False  # ブロック（AIに安全な代替を提案させる）
-    return True  # 許可
+event = json.load(sys.stdin)
+cmd = event.get("tool_input", {}).get("command", "")
+
+READERS = [r"\bcat\b", r"\bhead\b", r"\btail\b", r"\bless\b", r"\bmore\b"]
+TARGETS = [r"\.env", r"credentials", r"secrets"]  # 派生ファイル(.env.backup等)も拾う
+
+if any(re.search(r, cmd) for r in READERS) and any(re.search(t, cmd) for t in TARGETS):
+    print("secrets系ファイルの直接読み取りをブロック。キー名一覧の確認は以下を使ってください:\n"
+          "grep -E '^(export )?[A-Z_]+=' ~/.secrets.env | sed 's/=.*/=<REDACTED>/'",
+          file=sys.stderr)
+    sys.exit(2)  # Claude Codeでは exit 2 = ツール実行のブロック
+sys.exit(0)
 ```
 
-### 第2層: jq ブロック（ギャップ修正）
+`settings.json` への登録例（`Bash` ツールの実行前に呼ばれる）:
+
+```json
+{
+    "hooks": {
+        "PreToolUse": [
+            {
+                "matcher": "Bash",
+                "hooks": [
+                    { "type": "command", "command": "python3 ~/.claude/scripts/hooks/check-command-safety.py" }
+                ]
+            }
+        ]
+    }
+}
+```
+
+### 第2層: jq ホワイトリスト（ギャップ修正）
 
 初期実装では `jq` がブロック対象外でした。cat系を塞いでも `jq . settings.json` で全部ダンプできてしまう——いわゆる**抜け穴**です。
 
+ここで注意したいのは設計方式です。**ブラックリスト（「このクエリは禁止」の列挙）は列挙漏れの抜け穴を無限に生む**ので、**ホワイトリスト（許可クエリの完全一致以外は全部ブロック）**に反転させます:
+
 ```python
-# 追加したセキュリティルール
-ALLOWED_JQ_QUERIES = [
+# 許可するクエリの完全一致リスト（これ以外は全部ブロック）
+ALLOWED_JQ_QUERIES = {
     ".statusLine",
     ".model",
     ".permissions",
-]
-BLOCKED_JQ_QUERIES = [
-    ".",           # 全ダンプ
-    ".mcpServers", # APIキー含む
-    ".env",        # 環境変数
-]
+}
+
+def check_jq_query(query: str) -> bool:
+    return query in ALLOWED_JQ_QUERIES  # 完全一致のみ許可
 ```
 
 ### 第3層: ~/.secrets.env への集約
@@ -206,29 +229,47 @@ export GITHUB_TOKEN=xxx
 # 必要に応じて source ~/.secrets.env で注入
 ```
 
-設定ファイル側は値を書かず、SessionStartフックで環境変数として注入します:
+設定ファイル側は値を書かず、`${VAR}` 展開記法で環境変数を参照します:
 
 ```json
 {
     "mcpServers": {
         "brave-search": {
             "env": {
-                "BRAVE_API_KEY": ""
+                "BRAVE_API_KEY": "${BRAVE_API_KEY}"
             }
         }
     }
 }
 ```
 
+`~/.secrets.env` 自体は秘密を含むため、パーミッションを絞っておきます:
+
+```bash
+chmod 600 ~/.secrets.env   # 自分以外読めない
+```
+
 ### 第4層（追加）: 同期スクリプトの監査
 
-第2幕（GitHub到達）の教訓です。**設定ファイルのコピーを運ぶ自動スクリプトは、マスク処理が正しい経路と並存していないか監査**が必要でした。実際、本事故では「正しいマスク経路」と「無加工cpのレガシー経路」が二重に並存し、後者が生値を運んでいました。
+第2幕（GitHub到達）の教訓です。本事故の到達メカニズムを具体的に書くと:
+
+```text
+SessionStart/Stop hook の同期スクリプトが
+  設定ファイルの副本を知識ベースリポジトリへ「無加工のままcp」
+    → そのリポジトリの自動commit+pushが生値入りの副本を
+      GitHub private リポジトリまで運搬
+```
+
+「正しいマスク経路」と「無加工cpのレガシー経路」が二重に並存しており、後者が生値を運んでいました。監査の観点は:
 
 ```text
 チェックリスト:
 □ 設定ファイルをコピーするスクリプトは全て列挙したか
 □ それぞれマスク処理を経由しているか（無加工cp が無いか）
-□ git管理下の副本に生値が無いか（git grep で定期確認）
+□ git管理下の副本に生値が無いか（下記コマンドで定期確認）
+
+# git管理下の全履歴からキー名を含む行を探す（キー名で検索・値は検索しない）
+git grep -l "API_KEY" -- '*.json' '*.env*'
 ```
 
 ## インシデント対応フロー
@@ -236,9 +277,11 @@ export GITHUB_TOKEN=xxx
 万が一APIキーが露出した場合の対応:
 
 ```
-1. 露出したキーをローテーション（新しいキーを発行）
+1. 露出したキーをローテーション（新しいキーを発行・旧キーを失効させる）
 2. settings.json の allow リストを点検・混入エントリを削除
-3. git履歴に生値が残っていないか確認（remoteありなら到達範囲を調査）
+3. git履歴に生値が残っていないか確認
+   - remoteへpush済みなら到達範囲を調査（privateリポジトリでもGitHubのsecret scanning
+     alertを確認し、履歴から消すなら git filter-repo / BFG を検討・必要ならGitHub Supportへ報告）
 4. ~/.secrets.env を更新（値は記載しない形でインシデント記録）
 5. 原因を分析してフック・ルールを追加（同じ経路の再発を潰す）
 ```
