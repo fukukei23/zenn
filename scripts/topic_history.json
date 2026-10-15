@@ -563,6 +563,12 @@
       "title": "【Claude Code】crontab正典をgit管理する設計術：コミット漏れ検知hookをTDDで作る14テスト全記録",
       "slug": "claude-code-crontab-git-hook-tdd-14-b898c26a",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-10-15",
+      "title": "reserve-optimizer 商用化フェーズの全記録：C0 セキュリティ自己レビュー→C1 ハートビート→段階デプロイ戦略",
+      "slug": "reserve-optimizer-c0-c1-9b2a7b0c",
+      "source_repo": "reserve-optimizer"
     }
   ]
 }
