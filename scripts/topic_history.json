@@ -569,6 +569,12 @@
       "title": "reserve-optimizer 商用化フェーズの全記録：C0 セキュリティ自己レビュー→C1 ハートビート→段階デプロイ戦略",
       "slug": "reserve-optimizer-c0-c1-9b2a7b0c",
       "source_repo": "reserve-optimizer"
+    },
+    {
+      "date": "2026-10-16",
+      "title": "【GAS商用事例】本番運用で踏み抜いた5つの落とし穴と恒久対策",
+      "slug": "gas-5-96f4fbf1",
+      "source_repo": "reserve-optimizer"
     }
   ]
 }
