@@ -575,6 +575,12 @@
       "title": "【GAS商用事例】本番運用で踏み抜いた5つの落とし穴と恒久対策",
       "slug": "gas-5-96f4fbf1",
       "source_repo": "reserve-optimizer"
+    },
+    {
+      "date": "2026-10-19",
+      "title": "「Claude Code」モデル運用サイクル全記録：M3.1中国語混入からsystemd化まで学んだ4つの教訓",
+      "slug": "claude-code-m3-1-systemd-4-5fb33eb5",
+      "source_repo": "claude-config"
     }
   ]
 }
