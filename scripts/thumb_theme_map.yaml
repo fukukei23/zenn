@@ -1,0 +1,76 @@
+# drip thumb.png 用の英語テーママップ（2026-10-21 L1164）
+# 目的: MiniMax 画像内に日本語を描き込ませないため、prompt は英字のみにする。
+#       slug ごとに theme_en / keywords_en を CC が手書きで定義する。
+# 使い方: batch_thumb_gen.py から load_theme_map() で読み込み、build_image_prompt に渡す。
+
+nexuscore-stage-2-architect-debugger-guardian-3:
+  theme_en: "three-layer quality assurance pipeline for AI-generated code"
+  keywords_en: "three stacked gears, shield, checklist, code blocks"
+
+claude-code-tool-calling-5359933a:
+  theme_en: "tool calling and autonomous agent loop concepts"
+  keywords_en: "function call arrows, loop circle, circuit breaker switch"
+
+llm-cli-sync-from-ssot-sh-5-80c5343a:
+  theme_en: "multi-LLM review hardening CLI safety with shell script bug fixes"
+  keywords_en: "terminal window, warning triangle, five numbered fixes"
+
+claude-code-desktop-mcp-cost-delegation:
+  theme_en: "role delegation between CLI and desktop LLM backends"
+  keywords_en: "two panels split, gear swap arrows, cost coins"
+
+claude-code-desktop-mcp-cost-reduction:
+  theme_en: "cutting LLM API cost with MCP servers on desktop"
+  keywords_en: "server rack, downward arrow, coin stack"
+
+claude-code-settings-json-python-json:
+  theme_en: "safe JSON config editing with Python preserving structure"
+  keywords_en: "curly braces, python snake, protective shield"
+
+claude-code-commit-3-hook-git-commit-scop-1760a199:
+  theme_en: "three-layer git hooks preventing accidental commit leaks"
+  keywords_en: "three stacked layers, git branch icons, fence"
+
+claude-code-minimax-fallback:
+  theme_en: "LLM fallback strategy with seven layers of cost protection"
+  keywords_en: "seven nested shields, model switch arrow, coins"
+
+claude-code-sessionstart-hook-python:
+  theme_en: "session handoff state management with startup hooks"
+  keywords_en: "two hands passing envelope, hook anchor, clock"
+
+claude-code-sessionstart-hooks-automation:
+  theme_en: "automated CLI configuration via startup hooks"
+  keywords_en: "gear chain, hook, terminal, automation arrows"
+
+context-engineering-47kb-tool:
+  theme_en: "context engineering for optimizing LLM input size"
+  keywords_en: "funnel narrowing large file into small window, token blocks"
+
+bdd-for-beginners:
+  theme_en: "behavior driven development compared with test driven development"
+  keywords_en: "given when then labels, theater masks, two columns"
+
+cicd-for-beginners:
+  theme_en: "continuous integration and deployment pipeline basics"
+  keywords_en: "pipeline arrows, cloud server, rocket deploy"
+
+ddd-for-beginners:
+  theme_en: "domain driven design practical guide"
+  keywords_en: "domain layers, entity circles, repository boxes"
+
+design-principles-for-beginners:
+  theme_en: "SOLID DRY KISS YAGNI design principles"
+  keywords_en: "four principle cards, arrows, balance scale"
+
+dev-methods-selector:
+  theme_en: "choosing development methodology per project type"
+  keywords_en: "five recipe cards, selector dial, branching paths"
+
+caddy-nginx-replacement-vps:
+  theme_en: "Caddy web server replacing nginx on VPS"
+  keywords_en: "server tower, gear swap arrow, terminal, automatic HTTPS lock"
+
+nexuscore-multi-agent-architecture:
+  theme_en: "fourteen cooperating AI agents autonomous development framework"
+  keywords_en: "agent network nodes, central hub, branching connections"

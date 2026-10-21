@@ -32,12 +32,18 @@ def test_load_article_no_frontmatter_returns_empty_title():
 
 def test_build_image_prompt_combines_style_prefix():
     prompt = bg.build_image_prompt(
-        title="BDD入門",
-        head="TDDとBDDの違いを解説する",
+        theme_en="three-layer quality assurance for AI-generated code",
+        keywords_en="pipeline stages, shield icon, checklist",
     )
     assert prompt.startswith("minimal flat illustration")
-    assert "BDD入門" in prompt
-    assert "TDDとBDDの違い" in prompt
+    assert "three-layer quality assurance" in prompt
+    assert "pipeline stages" in prompt
+
+
+def test_build_image_prompt_excludes_japanese_characters():
+    """日本語が prompt に混入すると画像内に文字化けするため混入しないこと。"""
+    prompt = bg.build_image_prompt(theme_en="code review", keywords_en="magnifier, bug")
+    assert not any("一" <= ch <= "鿿" for ch in prompt)
 
 
 def test_build_thumb_copy_truncates_title_to_15_chars():
@@ -51,5 +57,19 @@ def test_build_thumb_copy_uses_separator_when_present():
     assert bg.build_thumb_copy("nginx書けない人、Caddy最強設定") == "nginx書けない人"
 
 
+def test_build_thumb_copy_strips_leading_decoration():
+    assert bg.build_thumb_copy("【NexusCore Stage 2】品質保証") == "NexusCore Stage 2"
+
+
 def test_build_thumb_copy_handles_short_title():
     assert bg.build_thumb_copy("短い") == "短い"
+
+
+def test_load_article_handles_unquoted_title():
+    """Zenn デフォルトの引用符なし title 形式に対応する。"""
+    import tempfile
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False, encoding="utf-8") as f:
+        f.write("---\ntitle: 引用符なしタイトル\nemoji: 🎭\n---\n\n本文\n")
+        path = f.name
+    title, _ = bg.load_article_title_and_head(path, head_chars=50)
+    assert title == "引用符なしタイトル"

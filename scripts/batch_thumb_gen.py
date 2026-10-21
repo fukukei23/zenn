@@ -9,7 +9,7 @@ ARTICLES_DIR = REPO_ROOT / "articles"
 MANUSCRIPTS_DIR = REPO_ROOT / "repost-manuscripts"
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
-TITLE_RE = re.compile(r'^title:\s*"(.*?)"\s*$', re.MULTILINE)
+TITLE_RE = re.compile(r'^title:\s*"?([^"\n]+?)"?\s*$', re.MULTILINE)
 PENDING_RE = re.compile(r"^- \[ \] (\S+)")
 
 STYLE_PREFIX = (
@@ -45,18 +45,36 @@ def load_article_title_and_head(article_path: str, head_chars: int = 200) -> tup
     return title, body_one_line[:head_chars]
 
 
-def build_image_prompt(title: str, head: str) -> str:
-    """スタイル prefix + title + 概要を結合して画像生成プロンプト作成。"""
-    return f"{STYLE_PREFIX}title={title} | abstract={head}"
+def build_image_prompt(theme_en: str, keywords_en: str = "") -> str:
+    """画像生成プロンプトを英字のみで構築する。
+
+    日本語を prompt に含めると MiniMax が画像内に文字化けした日本語を描き込むため、
+    呼び出し側は theme_en / keywords_en に英訳済み文字列を渡すこと（theme_map.yaml 参照）。
+    """
+    parts = [STYLE_PREFIX.rstrip(" --"), f"theme: {theme_en}"]
+    if keywords_en:
+        parts.append(f"elements: {keywords_en}")
+    return ", ".join(parts)
 
 
 def build_thumb_copy(title: str, limit: int = 15) -> str:
-    """title を thumb 用コピー（10-15字）に整形。句読点があれば最初の句読点で切る。"""
-    for sep in ("、", "。", "（", "("):
-        idx = title.find(sep)
+    """title を thumb 用コピー（10-15字）に整形する。
+
+    1. 先頭の装飾記号（【】「」『』〈〉）を除去する
+    2. 句読点・括弧があれば最初のものを境に切る
+    3. どちらにも当てはまらなければ limit 字で切る
+    """
+    cleaned = title.strip().lstrip("【】「」『』〈〉〔〕")
+    # 閉じ括弧は飾りの閉じとみなして、無条件に切り出す（例: 【NexusCore Stage 2】→ NexusCore Stage 2）
+    for close in ("】", "」", "』", "〉", "〕"):
+        idx = cleaned.find(close)
+        if idx > 0:
+            return cleaned[:idx]
+    for sep in ("、", "。", "（", "(", "：", ":"):
+        idx = cleaned.find(sep)
         if 0 < idx <= limit:
-            return title[:idx]
-    return title[:limit]
+            return cleaned[:idx]
+    return cleaned[:limit]
 
 
 def process_slug(slug: str) -> str:
