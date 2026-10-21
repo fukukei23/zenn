@@ -112,9 +112,48 @@ def _compose_thumb(slug: str, repo_root: Path) -> None:
     ], check=True)
 
 
+def main(verbose: bool = True) -> int:
+    """queue [ ] 全件を process_slug で順次処理し結果を集約する。
+
+    戻り値: 0=全件 ok / skipped・1=1 件以上失敗（failed/no-article/image-failed/thumb-failed/exception）
+
+    注意: image 実生成は MCP 経由のため CC が手動で行う前提（plan Task 5/6）。
+    本 main はテスト用のバッチ動作確認・バッチスクリプト雛形用。
+    """
+    slugs = parse_pending_slugs(str(QUEUE_PATH))
+    if not slugs:
+        if verbose:
+            print("[batch] queue empty")
+        return 0
+    if verbose:
+        print(f"[batch] processing {len(slugs)} slugs: {slugs}")
+    results: dict[str, str] = {}
+    for i, slug in enumerate(slugs, 1):
+        if verbose:
+            print(f"[batch] ({i}/{len(slugs)}) {slug}")
+        try:
+            results[slug] = process_slug(slug)
+        except Exception as e:  # noqa: BLE001
+            print(f"[batch] exception: {slug}: {e}")
+            results[slug] = "exception"
+    summary: dict[str, int] = {}
+    for v in results.values():
+        summary[v] = summary.get(v, 0) + 1
+    if verbose:
+        print(f"[batch] SUMMARY: {summary}")
+    failed = [k for k, v in results.items() if v not in ("ok", "skipped")]
+    if failed:
+        if verbose:
+            print(f"[batch] FAILED: {failed}")
+        return 1
+    return 0
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "list":
         for s in parse_pending_slugs(str(QUEUE_PATH)):
             print(s)
         sys.exit(0)
+    if len(sys.argv) > 1 and sys.argv[1] == "main-dry":
+        sys.exit(main(verbose=True))
     sys.exit(0)
