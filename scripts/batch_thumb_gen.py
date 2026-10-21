@@ -59,6 +59,59 @@ def build_thumb_copy(title: str, limit: int = 15) -> str:
     return title[:limit]
 
 
+def process_slug(slug: str) -> str:
+    """1 slug 分の画像生成+thumb合成。既存 thumb.png があれば skipped。"""
+    out_dir = MANUSCRIPTS_DIR / slug
+    thumb = out_dir / "thumb.png"
+    if thumb.exists():
+        return "skipped"
+    art = ARTICLES_DIR / f"{slug}.md"
+    if not art.exists():
+        print(f"[batch] article missing: {slug}")
+        return "no-article"
+    title, head = load_article_title_and_head(str(art))
+    prompt = build_image_prompt(title, head)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    bg_path = out_dir / "bg.jpg"
+    _image_to_path(prompt, str(bg_path))
+    if not bg_path.exists() or bg_path.stat().st_size == 0:
+        print(f"[batch] image gen failed: {slug}")
+        return "image-failed"
+    _compose_thumb(slug, REPO_ROOT)
+    if not thumb.exists():
+        print(f"[batch] thumb compose failed: {slug}")
+        return "thumb-failed"
+    print(f"[batch] OK: {slug}")
+    return "ok"
+
+
+def _image_to_path(prompt: str, out_jpg: str) -> str:
+    """MCP mcp__minimax-official__text_to_image 経由で画像を out_jpg に保存する。
+
+    本関数はプレースホルダ実装（CC がツールブロックで直接 MCP 呼び出し後に
+    out_jpg へ画像を書き込む運用が正・plan Task 5/6 参照）。process_slug の
+    バインディングポイントとして残し、テスト時は monkeypatch でスタブする。
+
+    引数 prompt: 画像生成プロンプト（process_slug で build_image_prompt から渡される）
+    引数 out_jpg: 保存先パス（process_slug で mkdir 済み）
+    戻り値: 呼び出し側で存在確認される out_jpg パス"""
+    return out_jpg
+
+
+def _compose_thumb(slug: str, repo_root: Path) -> None:
+    """既存 repost_make_thumb.py を subprocess で呼ぶ。"""
+    import subprocess
+    bg_path = repo_root / "repost-manuscripts" / slug / "bg.jpg"
+    thumb = repo_root / "repost-manuscripts" / slug / "thumb.png"
+    title, _ = load_article_title_and_head(str(repo_root / "articles" / f"{slug}.md"))
+    copy = build_thumb_copy(title)
+    subprocess.run([
+        "python3",
+        str(repo_root / "scripts" / "repost_make_thumb.py"),
+        str(bg_path), str(thumb), "AI", copy,
+    ], check=True)
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "list":
         for s in parse_pending_slugs(str(QUEUE_PATH)):
