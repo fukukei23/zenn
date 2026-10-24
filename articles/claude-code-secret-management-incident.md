@@ -3,7 +3,7 @@ title: "Claude CodeでAPIキーを漏らさない：権限ポップアップの�
 emoji: "🔐"
 type: "tech"
 topics: ["claude", "security", "api", "claudecode"]
-published: false
+published: true
 ---
 
 ## はじめに
