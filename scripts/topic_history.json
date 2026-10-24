@@ -587,6 +587,12 @@
       "title": "Claude Code設定の事故を4層で防ぐ：SSOT生成・月次監査・hook再入制御",
       "slug": "claude-code-4-ssot-hook-b9990de5",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-10-24",
+      "title": "AIには画像が見えるのか：Claude Codeの画像・動画読解を盲検で検証する",
+      "slug": "ai-claude-code-bea4a089",
+      "source_repo": "claude-config"
     }
   ]
 }
