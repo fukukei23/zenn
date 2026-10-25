@@ -1,0 +1,50 @@
+{"date": "2026-10-25", "platform": "note", "note_id": "nb985b0fa3549", "title": "「nginx書けない人に送るCaddy最強設定」〜VPS AIエージェントの本番構成晒し〜", "views": 13, "likes": 1, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "n813e97a72bed", "title": "新人エンジニアでもわかる！開発手法の選び方 — プロジェクト別に学ぶ5つのレシピ", "views": 32, "likes": null, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "n554204ad5d89", "title": "SOLID・DRY・KISS・YAGNI — 知ってると得する設計基本原则", "views": 22, "likes": null, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "n7b49cb791d7e", "title": "ドメイン駆動設計（DDD）を初めて学ぶ人のための実践ガイド", "views": 11, "likes": 2, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "n3eaf3d17d319", "title": "CI/CD超入門 — コードを書くだけで自動テスト・自動デプロイ", "views": 24, "likes": 3, "comments": 1}
+{"date": "2026-10-25", "platform": "note", "note_id": "nd863e77f7dd3", "title": "BDD（振舞駆動開発）とは？TDDとの違いと使い方", "views": 27, "likes": 3, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "n670be6ba8f92", "title": "Context Engineering入門: 47KBのPythonファイルでLLM入力を最適化する", "views": 59, "likes": 9, "comments": 2}
+{"date": "2026-10-25", "platform": "note", "note_id": "nfc5b3b428c0e", "title": "SessionStartフックでClaude Code CLIを自動構成する実践", "views": 36, "likes": null, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "na44ee31a3857", "title": "【Claude Code】SessionStart hookで始める状態管理入門：セッション引継ぎをPythonスクリプ", "views": 59, "likes": 6, "comments": 2}
+{"date": "2026-10-25", "platform": "note", "note_id": "n36bb19238fa9", "title": "Claude Code CLIにMiniMaxをフォールバックとして組み込んだ話（安いLLMを7層で守り抜く戦略）", "views": 82, "likes": 2, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "nbae15b618864", "title": "claude-code-commit-3-hook-git-commit-scop-1760a199", "views": 30, "likes": 2, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "n86eb16df3f58", "title": "Claude Code Desktop版でMCPを使ってコストを抑える方法", "views": 55, "likes": 3, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "n4e3d899e5e53", "title": "CLI版とDesktop版でGLM/MiniMaxの役割がまるで違う話", "views": 40, "likes": 1, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "nf77439cbd27b", "title": "Claude Code ハーネス入門：tool calling/自律ループ/サーキットブレーカ用語集", "views": 81, "likes": 1, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "n37323d23828f", "title": "nexuscore-stage-2-architect-debugger-guardian-3", "views": 44, "likes": 5, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "n14c86ea97402", "title": "LLMのハルシネーションを構造的に防ぐプロンプト設計（コードレビューでの実践）", "views": 48, "likes": 1, "comments": null}
+{"date": "2026-10-25", "platform": "note", "note_id": "n8e6a2700c136", "title": "AIエージェントを構築するなら絶対に読んでほしい「4層防御」の作り方", "views": 30, "likes": 11, "comments": 2}
+{"date": "2026-10-25", "platform": "note", "note_id": "nb3682aa4149e", "title": "【初心者向け】SSOTをPython+Obsidianで実装する：ssot-guide実例で学ぶデータ管理", "views": 1721, "likes": 30, "comments": 7}
+{"date": "2026-10-25", "platform": "note", "note_id": "n5cd534095417", "title": "【初心者向け】Claude CodeでAI駆動開発入門：私が実務で使った7つのパターン", "views": 82, "likes": 6, "comments": 1}
+{"date": "2026-10-25", "platform": "note", "note_id": "nb648028c5b59", "title": "Claude CodeはYouTubeを見られない — Gemini APIで楽曲をリバースエンジニアリングした話", "views": 111, "likes": 3, "comments": 1}
+{"date": "2026-10-25", "platform": "zenn", "slug": "claude-code-secret-management-incident", "title": "Claude CodeでAPIキーを漏らさない：権限ポップアップの「今後許可」が秘密を保存していた実録インシデント対応", "views": 2}
+{"date": "2026-10-25", "platform": "zenn", "slug": "python-ssrf-idor-path-injection-atelier-kyo-manage", "title": "【Python】SSRF・IDOR・Path Injectionをatelier-kyo-managerの実例で学ぶWe", "views": 1}
+{"date": "2026-10-25", "platform": "zenn", "slug": "claude-code-e2e-wsl-windows-desktop-linux", "title": "【Claude Code E2E検証】WSLパス変換フックの設計思想：Windows Desktop × Linux開発", "views": 1}
+{"date": "2026-10-25", "platform": "zenn", "slug": "gas-cloudflare-worker-stripe-1a9b764b", "title": "整形外科予約ボット設計入門：GAS×Cloudflare Worker×Stripeで学ぶマルチサービス連携", "views": 2}
+{"date": "2026-10-25", "platform": "zenn", "slug": "claude-code-moshi-mosh-tailscale-2b3f455c", "title": "スマホからClaude Code操作入門：Moshi+mosh+Tailscaleで構築した全手順", "views": 3}
+{"date": "2026-10-25", "platform": "zenn", "slug": "summary-python-defensive-impl-3-picks", "title": "【まとめ】Pythonで学ぶ静かに壊れるを防ぐ防御実装ノウハウ3選", "views": 1}
+{"date": "2026-10-25", "platform": "zenn", "slug": "ai-dev-loop-convergence-claude-code", "title": "AIの答えを、そのまま「正解」にしない開発ループ", "views": 1}
+{"date": "2026-10-25", "platform": "zenn", "slug": "claude-code-claude-md-3-layer-design", "title": "Claude Code設定ファイルの3層設計（グローバル/プロジェクト/ディレクトリ）", "views": 1}
+{"date": "2026-10-25", "platform": "zenn", "slug": "secret-leak-gate-ai-agent-env-2weeks", "title": "AIエージェント開発環境に秘密情報流出ゲートを自作して2週間運用したら誤警報ゼロだった話", "views": 7}
+{"date": "2026-10-25", "platform": "zenn", "slug": "claude-code-commit-3-hook-git-commit-scop-1760a199", "title": "【Claude Code】commit巻き込み事故を3層hookで防ぐ：git-commit-scoped設計", "views": 12}
+{"date": "2026-10-25", "platform": "zenn", "slug": "llm-cli-sync-from-ssot-sh-5-80c5343a", "title": "【初心者向け】マルチLLMレビューでCLI安全性を底上げ：sync-from-ssot.shの5欠陥修正実例", "views": 6}
+{"date": "2026-10-25", "platform": "zenn", "slug": "claude-code-tool-calling-5359933a", "title": "Claude Code ハーネス入門：tool calling/自律ループ/サーキットブレーカ用語集", "views": 20}
+{"date": "2026-10-25", "platform": "zenn", "slug": "nexuscore-stage-2-architect-debugger-guardian-3", "title": "【NexusCore Stage 2】architect/debugger/guardianで実現する3層品質保証アーキ", "views": 5}
+{"date": "2026-10-25", "platform": "zenn", "slug": "ssot-single-source-of-truth-python-obsidian-ssot-g", "title": "【初心者向け】SSOTをPython+Obsidianで実装する：ssot-guide実例で学ぶデータ管理", "views": 84}
+{"date": "2026-10-25", "platform": "zenn", "slug": "multi-tier-quality-gates", "title": "マルチ層品質ゲート設計（静的解析→動的テスト→Mutation Testingのパイプライン実装）", "views": 6}
+{"date": "2026-10-25", "platform": "zenn", "slug": "ai-agent-self-healing-loop", "title": "AIエージェントの自己修復ループ設計（テスト失敗→原因分析→自動修正の実装）", "views": 41}
+{"date": "2026-10-25", "platform": "zenn", "slug": "youtube-gemini-reverse-engineering-song-prompt", "title": "Claude CodeはYouTubeを見られない — Gemini APIで楽曲をリバースエンジニアリングした話", "views": 40}
+{"date": "2026-10-25", "platform": "zenn", "slug": "vibe-coding-civilservant-projects", "title": "コードを書かずに20個のプロジェクトを作った話（Vibe Coding 1年の記録）", "views": 38}
+{"date": "2026-10-25", "platform": "zenn", "slug": "tdd-for-beginners", "title": "TDD（テスト駆動開発）を初めて学ぶ人のための完全ガイド", "views": 18}
+{"date": "2026-10-25", "platform": "zenn", "slug": "specification-driven-development", "title": "仕様駆動開発 — 「何を作るか」を先に決めて品質を保つ方法", "views": 8}
+{"date": "2026-10-25", "platform": "zenn", "slug": "claude-code-settings-json-python-json", "title": "【Claude Code】settings.json安全編集術：Pythonで構造を壊さずJSONを操作する具体例", "views": 33}
+{"date": "2026-10-25", "platform": "zenn", "slug": "claude-code-sessionstart-hook-python", "title": "【Claude Code】SessionStart hookで始める状態管理入門：セッション引継ぎをPythonスクリプ", "views": 26}
+{"date": "2026-10-25", "platform": "zenn", "slug": "ssot-300-decision-logs-lessons", "title": "300件の意思決定ログから学ぶSSOT運用1年目の知見", "views": 30}
+{"date": "2026-10-25", "platform": "zenn", "slug": "claude-code-desktop-mcp-cost-delegation", "title": "CLI版とDesktop版でGLM/MiniMaxの役割がまるで違う話", "views": 18}
+{"date": "2026-10-25", "platform": "zenn", "slug": "claude-code-ai-7", "title": "【初心者向け】Claude CodeでAI駆動開発入門：私が実務で使った7つのパターン", "views": 54}
+{"date": "2026-10-25", "platform": "zenn", "slug": "flask-resale-management-solo", "title": "Flask物販管理システムを1人で作った話（BUYMA × Buyandship）", "views": 25}
+{"date": "2026-10-25", "platform": "zenn", "slug": "civilservant-20repos-survival", "title": "非IT公務員が1年で20リポジトリ作った生存戦略 — プロンプトエンジニアリングで開発者になる", "views": 43}
+{"date": "2026-10-25", "platform": "zenn", "slug": "mutation-testing-mutmut-practice", "title": "Mutation Testingでテスト品質を測る（mutmut実践記録）", "views": 90}
+{"date": "2026-10-25", "platform": "zenn", "slug": "dev-methods-selector", "title": "新人エンジニアでもわかる！開発手法の選び方 — プロジェクト別に学ぶ5つのレシピ", "views": 14}
+{"date": "2026-10-25", "platform": "zenn", "slug": "design-principles-for-beginners", "title": "SOLID・DRY・KISS・YAGNI — 知ってると得する設計基本原则", "views": 110}
