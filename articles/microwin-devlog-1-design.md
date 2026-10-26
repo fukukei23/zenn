@@ -3,7 +3,7 @@ title: "公務員が副業でAndroidアプリを作ってみた【設計編】�
 emoji: "🧹"
 type: "tech"
 topics: ["Android", "AI駆動開発", "ClaudeCode", "設計", "個人開発"]
-published: false
+published: true
 ---
 
 ## はじめに
