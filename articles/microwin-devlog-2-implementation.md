@@ -3,7 +3,7 @@ title: "公務員が副業でAndroidアプリを作ってみた【実装編】�
 emoji: "🧱"
 type: "tech"
 topics: ["Android", "ReactNative", "SQLite", "TDD", "AI駆動開発"]
-published: false
+published: true
 ---
 
 ## はじめに
