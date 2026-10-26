@@ -593,6 +593,12 @@
       "title": "AIには画像が見えるのか：Claude Codeの画像・動画読解を盲検で検証する",
       "slug": "ai-claude-code-bea4a089",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-10-26",
+      "title": "cronが消える理由を追う：Claude Code定期処理の失効・再登録・復旧設計",
+      "slug": "cron-claude-code-7384cb67",
+      "source_repo": "claude-config"
     }
   ]
 }
