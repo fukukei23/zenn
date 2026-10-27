@@ -7,41 +7,42 @@
 [qiita-post] publish: HTTP=200 / url=https://qiita.com/fukukei23/items/69e6c999974261a70b22 / private=False
 69e6c999974261a70b22 note=https://note.com/fukukei23/n/n3046a7b70603 — Claude Codeの記憶をObsidianでSSOT化する設計——複数AIのセッションを1箇所に統合する方法
 - [x] llm-routing-one-month-report Qiita=bafb0eac4c29ae30469e note=https://note.com/fukukei23/n/n9f52ff20a22c — 月間27億トークンを処理したLLMルーティングの実運用レポート（1ヶ月の振り返り）
-- [n] multi-agent-orchestration-design — 14のAIエージェントを協調させるマルチエージェントアーキテクチャの設計
-- [n] multi-tier-quality-gates — マルチ層品質ゲート設計（静的解析→動的テスト→Mutation Testingのパイプライン実装）
-- [ ] mutation-testing-mutmut-practice — Mutation Testingでテスト品質を測る（mutmut実践記録）
-- [ ] claude-code-arsenal-7-weapons — Claude Codeを武器庫にした話 — 7つの仕組みで1人開発を最大化
-- [ ] pw-stealth-enhanced-python-anti-detection — playwright-stealthが開発停止なのでPython版を自作してPyPIに公開した話
-- [ ] claude-code-cost-optimization — Claude Code CLIをGLM（Z.AI）で代替した話（コスト大幅削減の実測）
-- [ ] openclaw-vps-docker-caddy-infrastructure — VPS + Docker + Caddy + OpenClaw：自宅AIアシスタントのインフラ構築
-- [ ] ai-agent-self-healing-loop — AIエージェントの自己修復ループ設計（テスト失敗→原因分析→自動修正の実装）
-- [ ] ai-governance-stit-irg — AI駆動開発のガバナンス設計——自分を止めるルールをテンプレート化した話
-- [ ] claude-code-claude-md-3-layer-design — Claude Code設定ファイルの3層設計（グローバル/プロジェクト/ディレクトリ）
-- [ ] specification-driven-development — 仕様駆動開発 — 「何を作るか」を先に決めて品質を保つ方法
-- [ ] flask-resale-management-solo — Flask物販管理システムを1人で作った話（BUYMA × Buyandship）
-- [ ] linebot-stripe-cloudflare-reservation — LINE Bot × Stripe × Cloudflare Workers で予約システムを2週間で作った話
-- [ ] tdd-for-beginners — TDD（テスト駆動開発）を初めて学ぶ人のための完全ガイド
-- [ ] clean-architecture-for-beginners — クリーンアーキテクチャ入門 — レイヤー分離で保守性の高い設計を
-- [ ] youtube-gemini-reverse-engineering-song-prompt — Claude CodeはYouTubeを見られない — Gemini APIで楽曲をリバースエンジニアリングした話
-- [ ] claude-code-ai-7 — 【初心者向け】Claude CodeでAI駆動開発入門：私が実務で使った7つのパターン
-- [ ] ssot-single-source-of-truth-python-obsidian-ssot-g — 【初心者向け】SSOTをPython+Obsidianで実装する：ssot-guide実例で学ぶデータ管理
-- [ ] ai-agent-vps-security — AIエージェントを構築するなら絶対に読んでほしい「4層防御」の作り方
-- [ ] ai-code-review-prompt-hallucination — LLMのハルシネーションを構造的に防ぐプロンプト設計（コードレビューでの実践）
-- [ ] claude-code-commit-3-hook-git-commit-scop-1760a199 — 【Claude Code】commit巻き込み事故を3層hookで防ぐ：git-commit-scoped設計
-- [ ] claude-code-minimax-fallback — Claude Code CLIにMiniMaxをフォールバックとして組み込んだ話（安いLLMを7層で守り抜く戦略）
-- [ ] claude-code-sessionstart-hook-python — 【Claude Code】SessionStart hookで始める状態管理入門：セッション引継ぎをPythonスクリプ
-- [ ] claude-code-sessionstart-hooks-automation — SessionStartフックでClaude Code CLIを自動構成する実践
-- [ ] context-engineering-47kb-tool — Context Engineering入門: 47KBのPythonファイルでLLM入力を最適化する
-- [ ] bdd-for-beginners — BDD（振舞駆動開発）とは？TDDとの違いと使い方
-- [ ] cicd-for-beginners — CI/CD超入門 — コードを書くだけで自動テスト・自動デプロイ
-- [ ] ddd-for-beginners — ドメイン駆動設計（DDD）を初めて学ぶ人のための実践ガイド
-- [ ] design-principles-for-beginners —  SOLID・DRY・KISS・YAGNI — 知ってると得する設計基本原则
-- [ ] dev-methods-selector — 新人エンジニアでもわかる！開発手法の選び方 — プロジェクト別に学ぶ5つのレシピ
-- [ ] caddy-nginx-replacement-vps — 「nginx書けない人に送るCaddy最強設定」〜VPS AIエージェントの本番構成晒し〜
-- [ ] nexuscore-multi-agent-architecture — 14のAIエージェントが協調する自律型開発フレームワークの設計と実装
-- [ ] nexuscore-stage-2-architect-debugger-guardian-3 — 【NexusCore Stage 2】architect/debugger/guardianで実現する3層品質保証アーキ
-- [ ] claude-code-tool-calling-5359933a — Claude Code ハーネス入門：tool calling/自律ループ/サーキットブレーカ用語集
-- [ ] llm-cli-sync-from-ssot-sh-5-80c5343a — 【初心者向け】マルチLLMレビューでCLI安全性を底上げ：sync-from-ssot.shの5欠陥修正実例
-- [ ] claude-code-desktop-mcp-cost-delegation — CLI版とDesktop版でGLM/MiniMaxの役割がまるで違う話
-- [ ] claude-code-desktop-mcp-cost-reduction — Claude Code Desktop版でMCPを使ってコストを抑える方法
-- [ ] claude-code-settings-json-python-json — 【Claude Code】settings.json安全編集術：Pythonで構造を壊さずJSONを操作する具体例
+- [x] multi-agent-orchestration-design Qiita=[qiita-post] href="https://support.qiita.com/hc/ja/requests/new" target="_blank">support HTTP=429 url=None private=None — 14のAIエージェントを協調させるマルチエージェントアーキテクチャの設計
+- [x] multi-tier-quality-gates Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/2b7740129c07046eae3e private=False — マルチ層品質ゲート設計（静的解析→動的テスト→Mutation Testingのパイプライン実装）
+- [x] mutation-testing-mutmut-practice Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/c4451b589e0f3f9cc7b0 private=False — Mutation Testingでテスト品質を測る（mutmut実践記録）
+- [x] claude-code-arsenal-7-weapons Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/319528a2938e74a1dfcd private=False — Claude Codeを武器庫にした話 — 7つの仕組みで1人開発を最大化
+- [x] pw-stealth-enhanced-python-anti-detection Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/83186256e2aae043e567 private=False note=https://note.com/fukukei23/n/nde617138223a — playwright-stealthが開発停止なのでPython版を自作してPyPIに公開した話
+- [x] claude-code-cost-optimization Qiita=[qiita-post] href="https://support.qiita.com/hc/ja/requests/new" target="_blank">support HTTP=429 url=None private=None — Claude Code CLIをGLM（Z.AI）で代替した話（コスト大幅削減の実測）
+- [x] openclaw-vps-docker-caddy-infrastructure Qiita=[qiita-post] href="https://support.qiita.com/hc/ja/requests/new" target="_blank">support HTTP=429 url=None private=None — VPS + Docker + Caddy + OpenClaw：自宅AIアシスタントのインフラ構築
+- [x] ai-agent-self-healing-loop Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/2fad304d5531e6af9c81 private=False note=https://note.com/fukukei23/n/n95d8fe4b5ca3 — AIエージェントの自己修復ループ設計（テスト失敗→原因分析→自動修正の実装）
+- [x] ai-governance-stit-irg Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/346e8686acf9004cbbb4 private=False — AI駆動開発のガバナンス設計——自分を止めるルールをテンプレート化した話
+- [x] claude-code-claude-md-3-layer-design Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/6f558bac5b3e5f244d8f private=False — Claude Code設定ファイルの3層設計（グローバル/プロジェクト/ディレクトリ）
+- [x] specification-driven-development Qiita=[qiita-post] href="https://support.qiita.com/hc/ja/requests/new" target="_blank">サポートフォーム</a>よりご連絡ください。 HTTP=429 url=None private=None note=https://note.com/fukukei23/n/nd650a3d0a598 — 仕様駆動開発 — 「何を作るか」を先に決めて品質を保つ方法
+- [x] flask-resale-management-solo Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/60979138fdaa2ac4ef36 private=False — Flask物販管理システムを1人で作った話（BUYMA × Buyandship）
+- [x] linebot-stripe-cloudflare-reservation Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/a6943a601a4476f09e03 private=False — LINE Bot × Stripe × Cloudflare Workers で予約システムを2週間で作った話
+- [x] tdd-for-beginners Qiita=[qiita-post] href="https://support.qiita.com/hc/ja/requests/new" target="_blank">support HTTP=429 url=None private=None note=https://note.com/fukukei23/n/n5f3a0a7c0e33 — TDD（テスト駆動開発）を初めて学ぶ人のための完全ガイド
+- [x] clean-architecture-for-beginners Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/0b41b4736e8198efb0fb private=False — クリーンアーキテクチャ入門 — レイヤー分離で保守性の高い設計を
+- [x] youtube-gemini-reverse-engineering-song-prompt Qiita=[qiita-post] href="https://support.qiita.com/hc/ja/requests/new" target="_blank">support HTTP=429 url=None private=None — Claude CodeはYouTubeを見られない — Gemini APIで楽曲をリバースエンジニアリングした話
+- [x] claude-code-ai-7 Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/a8201a2706e1ebaf8587 private=False note=https://note.com/fukukei23/n/n5cd534095417 — 【初心者向け】Claude CodeでAI駆動開発入門：私が実務で使った7つのパターン
+- [x] ssot-single-source-of-truth-python-obsidian-ssot-g Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/61f5c05fd89a965c998d private=False — 【初心者向け】SSOTをPython+Obsidianで実装する：ssot-guide実例で学ぶデータ管理
+- [x] ai-agent-vps-security Qiita=[qiita-post] href="https://support.qiita.com/hc/ja/requests/new" target="_blank">support HTTP=429 url=None private=None — AIエージェントを構築するなら絶対に読んでほしい「4層防御」の作り方
+- [x] ai-code-review-prompt-hallucination Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/c59ce59f8f22e540f55c private=False note=https://note.com/fukukei23/n/n14c86ea97402 — LLMのハルシネーションを構造的に防ぐプロンプト設計（コードレビューでの実践）
+- [n] nexuscore-stage-2-architect-debugger-guardian-3 — 【NexusCore Stage 2】architect/debugger/guardianで実現する3層品質保証アーキ
+- [n] claude-code-tool-calling-5359933a — Claude Code ハーネス入門：tool calling/自律ループ/サーキットブレーカ用語集
+- [n] llm-cli-sync-from-ssot-sh-5-80c5343a — 【初心者向け】マルチLLMレビューでCLI安全性を底上げ：sync-from-ssot.shの5欠陥修正実例
+- [n] claude-code-desktop-mcp-cost-delegation — CLI版とDesktop版でGLM/MiniMaxの役割がまるで違う話
+- [n] claude-code-desktop-mcp-cost-reduction — Claude Code Desktop版でMCPを使ってコストを抑える方法
+- [n] claude-code-settings-json-python-json — 【Claude Code】settings.json安全編集術：Pythonで構造を壊さずJSONを操作する具体例
+- [n] claude-code-commit-3-hook-git-commit-scop-1760a199 — 【Claude Code】commit巻き込み事故を3層hookで防ぐ：git-commit-scoped設計（連続2回 EXIT=3 = 2026-10-20 09:21 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [x] claude-code-minimax-fallback Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/db5f87bc5d7e710bf687 private=False note=https://note.com/fukukei23/n/n36bb19238fa9 — Claude Code CLIにMiniMaxをフォールバックとして組み込んだ話（安いLLMを7層で守り抜く戦略）（連続2回 EXIT=3 = 2026-10-21 10:07 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [n] claude-code-sessionstart-hook-python — 【Claude Code】SessionStart hookで始める状態管理入門：セッション引継ぎをPythonスクリプ（連続2回 EXIT=3 = 2026-10-21 13:53 cron-id=78766e31 = thumb.png 未生成・末尾へ移動）
+- [n] claude-code-sessionstart-hooks-automation — SessionStartフックでClaude Code CLIを自動構成する実践（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=78766e31 = thumb.png 未生成・末尾へ移動）
+- [n] context-engineering-47kb-tool — Context Engineering入門: 47KBのPythonファイルでLLM入力を最適化する（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=78766e31+117b8634 = thumb.png 未生成・末尾へ移動）
+- [x] bdd-for-beginners Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/87bb3a0b2a1cccbb362d private=False note=https://note.com/fukukei23/n/nd863e77f7dd3 — BDD（振舞駆動開発）とは？TDDとの違いと使い方（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [n] cicd-for-beginners — CI/CD超入門 — コードを書くだけで自動テスト・自動デプロイ（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [n] ddd-for-beginners — ドメイン駆動設計（DDD）を初めて学ぶ人のための実践ガイド（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [x] design-principles-for-beginners Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/0d04b8070b70eea5e0c2 private=False note=https://note.com/fukukei23/n/n554204ad5d89 —  SOLID・DRY・KISS・YAGNI — 知ってると得する設計基本原则（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [n] dev-methods-selector — 新人エンジニアでもわかる！開発手法の選び方 — プロジェクト別に学ぶ5つのレシピ（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [n] caddy-nginx-replacement-vps — 「nginx書けない人に送るCaddy最強設定」〜VPS AIエージェントの本番構成晒し〜（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [x] nexuscore-multi-agent-architecture Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/c0dfd9c2313b1ba04cd9 private=False note=https://note.com/fukukei23/n/n0f9e668ef2c4 — 14のAIエージェントが協調する自律型開発フレームワークの設計と実装（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [n] microwin-devlog-2-implementation note=https://note.com/fukukei23/n/n6271b5c5bab2 — 公務員が副業でAndroidアプリを作ってみた【実装編】〜 設計レビューの指摘をコードに落とすまで
