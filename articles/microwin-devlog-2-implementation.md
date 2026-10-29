@@ -1,5 +1,5 @@
 ---
-title: "公務員が副業でAndroidアプリを作ってみた【実装編】〜 設計レビューの指摘をコードに落とすまで"
+title: "非IT職の社会人が空き時間でAndroidアプリを作ってみた【実装編】〜 設計レビューの指摘をコードに落とすまで"
 emoji: "🧱"
 type: "tech"
 topics: ["Android", "ReactNative", "SQLite", "TDD", "AI駆動開発"]
