@@ -27,7 +27,7 @@
 - [x] ssot-single-source-of-truth-python-obsidian-ssot-g Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/61f5c05fd89a965c998d private=False — 【初心者向け】SSOTをPython+Obsidianで実装する：ssot-guide実例で学ぶデータ管理
 - [x] ai-agent-vps-security Qiita=[qiita-post] href="https://support.qiita.com/hc/ja/requests/new" target="_blank">support HTTP=429 url=None private=None — AIエージェントを構築するなら絶対に読んでほしい「4層防御」の作り方
 - [x] ai-code-review-prompt-hallucination Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/c59ce59f8f22e540f55c private=False note=https://note.com/fukukei23/n/n14c86ea97402 — LLMのハルシネーションを構造的に防ぐプロンプト設計（コードレビューでの実践）
-- [x] nexuscore-stage-2-architect-debugger-guardian-3 Qiita=36830feb2595958e5fd8 — 【NexusCore Stage 2】architect/debugger/guardianで実現する3層品質保証アーキテクチャ
+- [x] nexuscore-stage-2-architect-debugger-guardian-3 Qiita=36830feb2595958e5fd8 note=https://note.com/fukukei23/n/ned4542b5bf70 — 【NexusCore Stage 2】architect/debugger/guardianで実現する3層品質保証アーキテクチャ
 - [n] claude-code-tool-calling-5359933a — Claude Code ハーネス入門：tool calling/自律ループ/サーキットブレーカ用語集
 - [n] llm-cli-sync-from-ssot-sh-5-80c5343a — 【初心者向け】マルチLLMレビューでCLI安全性を底上げ：sync-from-ssot.shの5欠陥修正実例
 - [n] claude-code-desktop-mcp-cost-delegation — CLI版とDesktop版でGLM/MiniMaxの役割がまるで違う話
