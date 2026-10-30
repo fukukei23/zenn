@@ -252,7 +252,7 @@ flowchart TD
 
 ## 関連記事
 
-- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — このインフラの上で動く運用の全貌
+- [非IT職の社会人がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — このインフラの上で動く運用の全貌
 - [OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用](./openclaw-glm5-cost-optimization-24h) — インフラコストとAPIコストの全体像
 - [Claude Code + OpenClaw 二刀流](./claude-code-openclaw-dual-wielding) — VPS（本番）とローカル（開発）の二台運用
 - [AIエージェントにソウルを与える：OpenClawのカスタマイズ徹底解説](./openclaw-soul-memory-customization) — インフラ上で動くAIの性格・記憶設計

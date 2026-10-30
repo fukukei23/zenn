@@ -1,16 +1,16 @@
 ---
-title: "公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録"
+title: "非IT職の社会人がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録"
 emoji: "🦞"
 type: "tech"
 topics: ["openclaw", "ai", "docker", "automation", "linux"]
 published: true
 ---
 
-# 公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録
+# 非IT職の社会人がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録
 
 ## はじめに
 
-**結論**: 40代の非IT公務員がAI駆動開発で、37万スターのオープンソース「OpenClaw」をVPSで動かし、24時間稼働するAI執事「フクロウ」を作って3ヶ月経ちました。この記事はその記録です。
+**結論**: 40代の非IT職の社会人がAI駆動開発で、37万スターのオープンソース「OpenClaw」をVPSで動かし、24時間稼働するAI執事「フクロウ」を作って3ヶ月経ちました。この記事はその記録です。
 
 - **運用開始**: 2026年2月26日
 - **構成**: VPS（Debian 12）+ Docker Compose + Caddy

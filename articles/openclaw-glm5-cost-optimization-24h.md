@@ -139,7 +139,7 @@ VPS代（~$5/月）はAPI料金に比べれば微々たるもの。
 
 ## 関連記事
 
-- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — OpenClaw運用全体の概要と成果
+- [非IT職の社会人がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — OpenClaw運用全体の概要と成果
 - [Claude Code + OpenClaw 二刀流](./claude-code-openclaw-dual-wielding) — 開発と24時間執事の使い分け
 - [AIエージェントにソウルを与える：OpenClawのカスタマイズ徹底解説](./openclaw-soul-memory-customization) — 性格・記憶・セッション設計の詳細
 - [OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み](./openclaw-heartbeat-cron-automation) — 3層Heartbeatとコスト管理ルール

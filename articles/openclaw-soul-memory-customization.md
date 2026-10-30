@@ -163,7 +163,7 @@ OpenClawは「設定ファイルを書く＝AIを育てる」という体験で�
 
 ## 関連記事
 
-- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — ソウル設計の背景となる全体運用記録
+- [非IT職の社会人がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — ソウル設計の背景となる全体運用記録
 - [OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用](./openclaw-glm5-cost-optimization-24h) — コスト計算ルールと閾値の詳細
 - [Claude Code + OpenClaw 二刀流](./claude-code-openclaw-dual-wielding) — CLAUDE.mdとソウル.mdの比較
 - [VPS + Docker + Caddy + OpenClaw：インフラ構築](./openclaw-vps-docker-caddy-infrastructure) — 設定ファイルを動かすインフラ基盤

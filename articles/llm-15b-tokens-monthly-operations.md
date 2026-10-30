@@ -212,7 +212,7 @@ pkill -f glm_rate_proxy    # プロキシを止めるだけ
 
 - [429エラーと戦った3日間](./429-rate-limit-incident-3days) — レートプロキシのバグによる429インシデントの詳細
 - [OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用](./openclaw-glm5-cost-optimization-24h) — LLMモデル使い分けのコスト詳細
-- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — ルーティング先で動くOpenClaw運用の全貌
+- [非IT職の社会人がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — ルーティング先で動くOpenClaw運用の全貌
 - [OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み](./openclaw-heartbeat-cron-automation) — ルーティングで制御するHeartbeatのコスト管理
 
 ---

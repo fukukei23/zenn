@@ -189,7 +189,7 @@ memory/channels/
 
 ## 関連記事
 
-- [公務員がOpenClawで24時間AI執事を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — フクロウ運用の全体像
+- [非IT職の社会人がOpenClawで24時間AI執事を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — フクロウ運用の全体像
 - [OpenClaw Heartbeat設計](./openclaw-heartbeat-cron-automation) — Heartbeat cronの3段階設計
 - [AIエージェントにソウル（魂）を与える](./openclaw-soul-memory-customization) — SOUL.mdの設計思想
 - [Claude Code + OpenClaw 二刀流](./claude-code-openclaw-dual-wielding) — 開発と運用の両立

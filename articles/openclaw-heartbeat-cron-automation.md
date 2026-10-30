@@ -208,7 +208,7 @@ Heartbeatは「AIにシゴトを与える」仕組みです。設計次第で24�
 
 ## 関連記事
 
-- [公務員がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — Heartbeatを支える運用全体の概要
+- [非IT職の社会人がOpenClawで24時間AI執事「フクロウ」を作った3ヶ月の記録](./openclaw-24h-owl-butler-3months) — Heartbeatを支える運用全体の概要
 - [OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用](./openclaw-glm5-cost-optimization-24h) — 各Heartbeat層のコスト試算詳細
 - [Claude Code + OpenClaw 二刀流](./claude-code-openclaw-dual-wielding) — 1日のワークフローにおけるHeartbeatの位置づけ
 - [AIエージェントにソウルを与える：OpenClawのカスタマイズ徹底解説](./openclaw-soul-memory-customization) — Heartbeatが更新するメモリシステムの設計
