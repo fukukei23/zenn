@@ -1,5 +1,5 @@
 ---
-title: 【NexusCore Stage 2】architect/debugger/guardianで実現する3層品質保証アーキテクチャ
+title: "【NexusCore Stage 2】architect/debugger/guardianで実現する3層品質保証アーキテクチャ"
 emoji: 🛡️
 type: tech
 topics: ["NexusCore", "マルチエージェント", "品質保証", "LLM駆動開発"]
