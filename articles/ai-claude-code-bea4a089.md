@@ -1,5 +1,5 @@
 ---
-title: AIには画像が見えるのか：Claude Codeの画像・動画読解を盲検で検証する
+title: "AIには画像が見えるのか：Claude Codeの画像・動画読解を盲検で検証する"
 emoji: 🔍
 type: tech
 topics:

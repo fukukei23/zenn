@@ -1,5 +1,5 @@
 ---
-title: 禁止列挙を脱却する：Claude Code外交文章ガードレール設計の観点ベース進化実録
+title: "禁止列挙を脱却する：Claude Code外交文章ガードレール設計の観点ベース進化実録"
 emoji: 🛡️
 type: tech
 topics:

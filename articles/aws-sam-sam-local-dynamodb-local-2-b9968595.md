@@ -1,5 +1,5 @@
 ---
-title: 【AWS SAM】sam local統合テストでDynamoDB Localと格闘した2つの障害と解決法
+title: "【AWS SAM】sam local統合テストでDynamoDB Localと格闘した2つの障害と解決法"
 emoji: 🐛
 type: tech
 topics: ["AWS", "SAM", "Lambda", "DynamoDB", "統合テスト"]

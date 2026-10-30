@@ -1,5 +1,5 @@
 ---
-title: 【Python】正規表現の貪欲マッチでCLIツールが誤ブロックされた実例と修正法
+title: "【Python】正規表現の貪欲マッチでCLIツールが誤ブロックされた実例と修正法"
 emoji: 🛡️
 type: tech
 topics: ["Python", "正規表現", "CLI", "Claude Code", "テスト"]

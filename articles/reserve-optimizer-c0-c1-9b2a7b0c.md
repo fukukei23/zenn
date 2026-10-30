@@ -1,5 +1,5 @@
 ---
-title: reserve-optimizer 商用化フェーズの全記録：C0 セキュリティ自己レビュー→C1 ハートビート→段階デプロイ戦略
+title: "reserve-optimizer 商用化フェーズの全記録：C0 セキュリティ自己レビュー→C1 ハートビート→段階デプロイ戦略"
 emoji: 🛡️
 type: tech
 topics: [reserve-optimizer, Cloudflare, 段階デプロイ, OWASP, fail-closed]

@@ -1,5 +1,5 @@
 ---
-title: 【Claude Code】夜間ループCLI統合設計：night_loop.pyで学ぶTDD 11テスト実装術
+title: "【Claude Code】夜間ループCLI統合設計：night_loop.pyで学ぶTDD 11テスト実装術"
 emoji: 🌙
 type: tech
 topics:

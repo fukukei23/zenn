@@ -1,5 +1,5 @@
 ---
-title: GitHub Pages自動デプロイ設定の3つの落とし穴：configure-pagesとworkflow重複を防ぐには
+title: "GitHub Pages自動デプロイ設定の3つの落とし穴：configure-pagesとworkflow重複を防ぐには"
 emoji: 🚧
 type: tech
 topics:

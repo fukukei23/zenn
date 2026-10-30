@@ -1,5 +1,5 @@
 ---
-title: 日本語品質warn-onlyフックを3リポ同時展開した話：既存挙動を壊さない段階的ロールアウト
+title: "日本語品質warn-onlyフックを3リポ同時展開した話：既存挙動を壊さない段階的ロールアウト"
 emoji: 🚦
 type: tech
 topics:

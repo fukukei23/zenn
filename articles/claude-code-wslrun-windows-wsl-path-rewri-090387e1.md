@@ -1,5 +1,5 @@
 ---
-title: 【Claude Code】wslrunディスパッチャでWindows-WSL相互運用：path-rewriteフック回避の具体設計
+title: "【Claude Code】wslrunディスパッチャでWindows-WSL相互運用：path-rewriteフック回避の具体設計"
 emoji: 🐧
 type: tech
 topics: ["ClaudeCode", "WSL", "Windows", "Python", "bash"]

@@ -1,5 +1,5 @@
 ---
-title: 「Claude Code」呼称ルール警告hook実装：SSOT衛生管理を「ユーザー」→「ふくけい」置換で実現
+title: "「Claude Code」呼称ルール警告hook実装：SSOT衛生管理を「ユーザー」→「ふくけい」置換で実現"
 emoji: 🪝
 type: tech
 topics:

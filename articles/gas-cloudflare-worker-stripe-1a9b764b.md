@@ -1,5 +1,5 @@
 ---
-title: 整形外科予約ボット設計入門：GAS×Cloudflare Worker×Stripeで学ぶマルチサービス連携
+title: "整形外科予約ボット設計入門：GAS×Cloudflare Worker×Stripeで学ぶマルチサービス連携"
 emoji: 🏥
 type: tech
 topics:

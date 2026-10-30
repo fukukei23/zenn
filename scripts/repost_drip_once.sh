@@ -112,6 +112,12 @@ qiita_post() {
   local slug="$1"
   local title
   title=$(gen_title "$slug")
+  # 空タイトルPOSTをfail-fast（2026-10-31: クォート無しfrontmatterでgen_titleが空を返し
+  # 空タイトルで4日連続403した事故の根本対策・投稿せず次回枠へ持ち越し）
+  if [ -z "$title" ]; then
+    echo "[drip] title空（gen_title取得失敗・frontmatterのtitle行確認要）slug=$slug → 投稿中止" >&2
+    return 3
+  fi
   local out
   # ログはstderrへ分離しQID取得元のstdoutを単一行に保つ（2026-10-13実測:
   # 複数行混入QIDがキュー行を破壊した事故の再発防止）

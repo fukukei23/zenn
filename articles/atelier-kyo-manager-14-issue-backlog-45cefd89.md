@@ -1,6 +1,6 @@
 ---
 
-title: 【atelier-kyo-manager事例】包括的リポジトリレビュー14件を記録する：推測ゼロ実測issue-backlog形式
+title: "【atelier-kyo-manager事例】包括的リポジトリレビュー14件を記録する：推測ゼロ実測issue-backlog形式"
 emoji: "📋"
 type: "tech"
 topics: ["atelier-kyo-manager", "リファクタリング", "コードレビュー", "GitHub"]

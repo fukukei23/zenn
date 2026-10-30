@@ -1,5 +1,5 @@
 ---
-title: 【Claude Code】突破不能案件で「できます」が刺さる：空約束誘発を防ぐ具体設計
+title: "【Claude Code】突破不能案件で「できます」が刺さる：空約束誘発を防ぐ具体設計"
 emoji: 🤝
 type: tech
 topics: ["claudecode", "ai駆動開発", "失敗学", "プロンプト設計"]

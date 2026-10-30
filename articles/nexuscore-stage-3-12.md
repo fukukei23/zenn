@@ -1,5 +1,5 @@
 ---
-title: 【NexusCore Stage 3】12エージェント協調の要諦：未使用モジュール棚卸しから学ぶ保守性の心得
+title: "【NexusCore Stage 3】12エージェント協調の要諦：未使用モジュール棚卸しから学ぶ保守性の心得"
 emoji: 🧹
 type: tech
 topics: ["NexusCore", "保守性", "リファクタリング", "Python"]

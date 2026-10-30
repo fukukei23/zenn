@@ -1,5 +1,5 @@
 ---
-title: 【初心者向け】RSS × Discord Webhookで自動監視ツール設計：pokeka-lottery-monitor実例
+title: "【初心者向け】RSS × Discord Webhookで自動監視ツール設計：pokeka-lottery-monitor実例"
 emoji: 📰
 type: tech
 topics: [Python, Discord, RSS, 初心者向け, Webhook]

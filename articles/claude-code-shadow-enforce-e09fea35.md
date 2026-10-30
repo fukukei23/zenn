@@ -1,5 +1,5 @@
 ---
-title: 【Claude Code】shadow→enforce昇格プロセス入門：誤検知ゼロを達成した段階的導入の具体手順
+title: "【Claude Code】shadow→enforce昇格プロセス入門：誤検知ゼロを達成した段階的導入の具体手順"
 emoji: 🚦
 type: tech
 topics: [ClaudeCode, hook, gate-design, fail-safe]

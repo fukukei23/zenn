@@ -1,5 +1,5 @@
 ---
-title: 【Claude Code】commit巻き込み事故を3層hookで防ぐ：git-commit-scoped設計
+title: "【Claude Code】commit巻き込み事故を3層hookで防ぐ：git-commit-scoped設計"
 emoji: 🛡️
 type: tech
 topics: [ClaudeCode, git, pre-commit, hooks, 安全設計]
