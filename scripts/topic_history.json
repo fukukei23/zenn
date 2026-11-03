@@ -599,6 +599,12 @@
       "title": "cronが消える理由を追う：Claude Code定期処理の失効・再登録・復旧設計",
       "slug": "cron-claude-code-7384cb67",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-11-03",
+      "title": "停止後にセンサーを再取り込む設計：Android崩溃復旧を実間で学ぶ",
+      "slug": "android-31864143",
+      "source_repo": "nemly-app"
     }
   ]
 }
