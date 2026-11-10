@@ -3,7 +3,7 @@ title: "Claude CodeをGLMに差し替えて月91億トークンを$72固定枠�
 emoji: "💰"
 type: "tech"
 topics: ["claudecode", "llm", "glm"]
-published: false
+published: true
 ---
 
 ## はじめに
