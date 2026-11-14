@@ -611,6 +611,12 @@
       "title": "Claude Codeで図解付き記事を公開するまで：生成・検証・資産同期を分離した実装記録",
       "slug": "claude-code-cc45ae99",
       "source_repo": "cc-stories-guide"
+    },
+    {
+      "date": "2026-11-14",
+      "title": "Claude Codeのコンテキスト浪費を防ぐ全記録：使用量注入・警告・節約術",
+      "slug": "claude-code-ed485044",
+      "source_repo": "claude-config"
     }
   ]
 }
