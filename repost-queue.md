@@ -28,21 +28,31 @@
 - [x] ai-agent-vps-security Qiita=[qiita-post] href="https://support.qiita.com/hc/ja/requests/new" target="_blank">support HTTP=429 url=None private=None — AIエージェントを構築するなら絶対に読んでほしい「4層防御」の作り方
 - [x] ai-code-review-prompt-hallucination Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/c59ce59f8f22e540f55c private=False note=https://note.com/fukukei23/n/n14c86ea97402 — LLMのハルシネーションを構造的に防ぐプロンプト設計（コードレビューでの実践）
 - [x] nexuscore-stage-2-architect-debugger-guardian-3 Qiita=36830feb2595958e5fd8 note=https://note.com/fukukei23/n/ned4542b5bf70 — 【NexusCore Stage 2】architect/debugger/guardianで実現する3層品質保証アーキテクチャ
-- [n] claude-code-tool-calling-5359933a — Claude Code ハーネス入門：tool calling/自律ループ/サーキットブレーカ用語集
-- [n] llm-cli-sync-from-ssot-sh-5-80c5343a — 【初心者向け】マルチLLMレビューでCLI安全性を底上げ：sync-from-ssot.shの5欠陥修正実例
-- [n] claude-code-desktop-mcp-cost-delegation — CLI版とDesktop版でGLM/MiniMaxの役割がまるで違う話
-- [n] claude-code-desktop-mcp-cost-reduction — Claude Code Desktop版でMCPを使ってコストを抑える方法
-- [n] claude-code-settings-json-python-json — 【Claude Code】settings.json安全編集術：Pythonで構造を壊さずJSONを操作する具体例
-- [n] claude-code-commit-3-hook-git-commit-scop-1760a199 — 【Claude Code】commit巻き込み事故を3層hookで防ぐ：git-commit-scoped設計（連続2回 EXIT=3 = 2026-10-20 09:21 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [x] claude-code-tool-calling-5359933a Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/c927fa46bc769455fdbd private=False — Claude Code ハーネス入門：tool calling/自律ループ/サーキットブレーカ用語集
+- [x] llm-cli-sync-from-ssot-sh-5-80c5343a Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/dea33066db47d0d45c3d private=False — 【初心者向け】マルチLLMレビューでCLI安全性を底上げ：sync-from-ssot.shの5欠陥修正実例
+- [x] claude-code-desktop-mcp-cost-delegation Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/09e10b64bd085fd3e44f private=False — CLI版とDesktop版でGLM/MiniMaxの役割がまるで違う話
+- [x] claude-code-desktop-mcp-cost-reduction Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/560ccbb82d1ed610ae0e private=False — Claude Code Desktop版でMCPを使ってコストを抑える方法
+- [x] claude-code-settings-json-python-json Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/a632a71ed16ec1f25ac7 private=False — 【Claude Code】settings.json安全編集術：Pythonで構造を壊さずJSONを操作する具体例
+- [x] claude-code-commit-3-hook-git-commit-scop-1760a199 Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/d37ec9d9f3a4ac9045d5 private=False — 【Claude Code】commit巻き込み事故を3層hookで防ぐ：git-commit-scoped設計（連続2回 EXIT=3 = 2026-10-20 09:21 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
 - [x] claude-code-minimax-fallback Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/db5f87bc5d7e710bf687 private=False note=https://note.com/fukukei23/n/n36bb19238fa9 — Claude Code CLIにMiniMaxをフォールバックとして組み込んだ話（安いLLMを7層で守り抜く戦略）（連続2回 EXIT=3 = 2026-10-21 10:07 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
-- [n] claude-code-sessionstart-hook-python — 【Claude Code】SessionStart hookで始める状態管理入門：セッション引継ぎをPythonスクリプ（連続2回 EXIT=3 = 2026-10-21 13:53 cron-id=78766e31 = thumb.png 未生成・末尾へ移動）
-- [n] claude-code-sessionstart-hooks-automation — SessionStartフックでClaude Code CLIを自動構成する実践（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=78766e31 = thumb.png 未生成・末尾へ移動）
-- [n] context-engineering-47kb-tool — Context Engineering入門: 47KBのPythonファイルでLLM入力を最適化する（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=78766e31+117b8634 = thumb.png 未生成・末尾へ移動）
+- [x] claude-code-sessionstart-hook-python Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/bcceefb75e0ab3451ae7 private=False — 【Claude Code】SessionStart hookで始める状態管理入門：セッション引継ぎをPythonスクリプ（連続2回 EXIT=3 = 2026-10-21 13:53 cron-id=78766e31 = thumb.png 未生成・末尾へ移動）
+- [x] claude-code-sessionstart-hooks-automation Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/8a3c0a0aadc470134cd4 private=False — SessionStartフックでClaude Code CLIを自動構成する実践（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=78766e31 = thumb.png 未生成・末尾へ移動）
+- [x] context-engineering-47kb-tool Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/9a78c9a8c27c02663414 private=False — Context Engineering入門: 47KBのPythonファイルでLLM入力を最適化する（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=78766e31+117b8634 = thumb.png 未生成・末尾へ移動）
 - [x] bdd-for-beginners Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/87bb3a0b2a1cccbb362d private=False note=https://note.com/fukukei23/n/nd863e77f7dd3 — BDD（振舞駆動開発）とは？TDDとの違いと使い方（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
-- [n] cicd-for-beginners — CI/CD超入門 — コードを書くだけで自動テスト・自動デプロイ（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
-- [n] ddd-for-beginners — ドメイン駆動設計（DDD）を初めて学ぶ人のための実践ガイド（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [x] cicd-for-beginners Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/7cd5fcdb8a72c5fa6bf4 private=False — CI/CD超入門 — コードを書くだけで自動テスト・自動デプロイ（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [x] ddd-for-beginners Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/b436a0f3cd5c872973b2 private=False — ドメイン駆動設計（DDD）を初めて学ぶ人のための実践ガイド（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
 - [x] design-principles-for-beginners Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/0d04b8070b70eea5e0c2 private=False note=https://note.com/fukukei23/n/n554204ad5d89 —  SOLID・DRY・KISS・YAGNI — 知ってると得する設計基本原则（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
-- [n] dev-methods-selector — 新人エンジニアでもわかる！開発手法の選び方 — プロジェクト別に学ぶ5つのレシピ（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [x] dev-methods-selector Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/398b9a8fbc7d2edf73f3 private=False — 新人エンジニアでもわかる！開発手法の選び方 — プロジェクト別に学ぶ5つのレシピ（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
 - [n] caddy-nginx-replacement-vps — 「nginx書けない人に送るCaddy最強設定」〜VPS AIエージェントの本番構成晒し〜（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
 - [x] nexuscore-multi-agent-architecture Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/c0dfd9c2313b1ba04cd9 private=False note=https://note.com/fukukei23/n/n0f9e668ef2c4 — 14のAIエージェントが協調する自律型開発フレームワークの設計と実装（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
 - [n] microwin-devlog-2-implementation note=https://note.com/fukukei23/n/n6271b5c5bab2 — 公務員が副業でAndroidアプリを作ってみた【実装編】〜 設計レビューの指摘をコードに落とすまで
+- [ ] microwin-devlog-3-tasks — 非IT職の社会人が空き時間でAndroidアプリを作ってみた【タスク設計編】〜 100個の掃除タスクをAIに書かせて4ラウンドレビューした話
+- [ ] claude-code-secret-management-incident — Claude CodeでAPIキーを漏らさない：権限ポップアップの「今後許可」が秘密を保存していた実録インシデント対応
+- [ ] claude-code-glm-cache-billing-91b-monthly — Claude CodeをGLMに差し替えて月91億トークンを$72固定枠で運用した実測 — キャッシュ課金の罠と文脈肥大対策
+- [ ] 429-rate-limit-incident-3days — Claude Code + GLM API + レートプロキシで429エラーと戦った3日間
+- [ ] claude-code-m3-1-systemd-4-5fb33eb5 — Claude Code LLMプロキシ運用の1週間：中国語混入からsystemd化までの4教訓
+- [ ] atelier-kyo-manager-ci-44-failed-0 — CI完全緑化への道：44件のテスト失敗を段階的に0にした具体的な戦い方
+- [ ] test-coverage-zero-to-76 — 個人開発のテストカバレッジを0%→76テストに上げた地道な作業記録
+- [ ] selenium-to-playwright-migration-scraping — Selenium→Playwright移行でスクレイピングが安定した話
+- [ ] zenn-pipeline-glm-minimax-automation — Zenn記事半自動パイプラインをGLM+MiniMaxで構築した話
+- [ ] stride-threat-modeling-personal-projects — 個人開発でSTRIDE脅威モデリングをやってみた（3プロジェクト実践）

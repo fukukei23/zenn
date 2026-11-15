@@ -74,3 +74,43 @@ caddy-nginx-replacement-vps:
 nexuscore-multi-agent-architecture:
   theme_en: "fourteen cooperating AI agents autonomous development framework"
   keywords_en: "agent network nodes, central hub, branching connections"
+
+microwin-devlog-3-tasks:
+  theme_en: "cleaning task list design for Android app with AI review rounds"
+  keywords_en: "checklist cards, broom icon, review loop arrows, smartphone"
+
+claude-code-secret-management-incident:
+  theme_en: "API secret leak incident response for CLI permission dialogs"
+  keywords_en: "key icon, warning triangle, vault door, magnifying glass"
+
+claude-code-glm-cache-billing-91b-monthly:
+  theme_en: "monthly cost monitoring of billions of LLM tokens with cache billing trap"
+  keywords_en: "dollar coins, downward graph, cache layers, monthly calendar"
+
+429-rate-limit-incident-3days:
+  theme_en: "surviving three days of rate limit 429 errors with API proxy"
+  keywords_en: "429 code on screen, shield wall, clock, retry arrows"
+
+claude-code-m3-1-systemd-4-5fb33eb5:
+  theme_en: "one week of LLM proxy operations fixing Japanese quality drift"
+  keywords_en: "proxy tower, four lesson cards, service restart arrows, sunrise"
+
+atelier-kyo-manager-ci-44-failed-0:
+  theme_en: "fixing forty four failing tests to fully green CI"
+  keywords_en: "red x marks turning green checkmarks, test tubes, progress bar"
+
+test-coverage-zero-to-76:
+  theme_en: "growing test coverage from zero to seventy six tests step by step"
+  keywords_en: "seedling to tree growth stages, rising coverage graph, green shield"
+
+selenium-to-playwright-migration-scraping:
+  theme_en: "migrating web scraping from selenium to playwright for stability"
+  keywords_en: "old snake to new robot, browser windows, migration arrows"
+
+zenn-pipeline-glm-minimax-automation:
+  theme_en: "semi automated article publishing pipeline with two LLM engines"
+  keywords_en: "conveyor belt, two engine gears, article pages, automation arrows"
+
+stride-threat-modeling-personal-projects:
+  theme_en: "STRIDE threat modeling practiced across three personal projects"
+  keywords_en: "six threat category cards, shield diagram, three project boxes"
