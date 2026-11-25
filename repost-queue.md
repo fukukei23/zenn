@@ -43,16 +43,17 @@
 - [x] ddd-for-beginners Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/b436a0f3cd5c872973b2 private=False — ドメイン駆動設計（DDD）を初めて学ぶ人のための実践ガイド（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
 - [x] design-principles-for-beginners Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/0d04b8070b70eea5e0c2 private=False note=https://note.com/fukukei23/n/n554204ad5d89 —  SOLID・DRY・KISS・YAGNI — 知ってると得する設計基本原则（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
 - [x] dev-methods-selector Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/398b9a8fbc7d2edf73f3 private=False — 新人エンジニアでもわかる！開発手法の選び方 — プロジェクト別に学ぶ5つのレシピ（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
-- [n] caddy-nginx-replacement-vps — 「nginx書けない人に送るCaddy最強設定」〜VPS AIエージェントの本番構成晒し〜（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
+- [x] caddy-nginx-replacement-vps Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/b5701c657398efeb8422 private=False — 「nginx書けない人に送るCaddy最強設定」〜VPS AIエージェントの本番構成晒し〜（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
 - [x] nexuscore-multi-agent-architecture Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/c0dfd9c2313b1ba04cd9 private=False note=https://note.com/fukukei23/n/n0f9e668ef2c4 — 14のAIエージェントが協調する自律型開発フレームワークの設計と実装（連続2回 EXIT=3 = 2026-10-21 14:27 cron-id=117b8634+78766e31 = thumb.png 未生成・末尾へ移動）
-- [n] microwin-devlog-2-implementation note=https://note.com/fukukei23/n/n6271b5c5bab2 — 公務員が副業でAndroidアプリを作ってみた【実装編】〜 設計レビューの指摘をコードに落とすまで
-- [ ] microwin-devlog-3-tasks — 非IT職の社会人が空き時間でAndroidアプリを作ってみた【タスク設計編】〜 100個の掃除タスクをAIに書かせて4ラウンドレビューした話
-- [ ] claude-code-secret-management-incident — Claude CodeでAPIキーを漏らさない：権限ポップアップの「今後許可」が秘密を保存していた実録インシデント対応
-- [ ] claude-code-glm-cache-billing-91b-monthly — Claude CodeをGLMに差し替えて月91億トークンを$72固定枠で運用した実測 — キャッシュ課金の罠と文脈肥大対策
-- [ ] 429-rate-limit-incident-3days — Claude Code + GLM API + レートプロキシで429エラーと戦った3日間
-- [ ] claude-code-m3-1-systemd-4-5fb33eb5 — Claude Code LLMプロキシ運用の1週間：中国語混入からsystemd化までの4教訓
-- [ ] atelier-kyo-manager-ci-44-failed-0 — CI完全緑化への道：44件のテスト失敗を段階的に0にした具体的な戦い方
-- [ ] test-coverage-zero-to-76 — 個人開発のテストカバレッジを0%→76テストに上げた地道な作業記録
-- [ ] selenium-to-playwright-migration-scraping — Selenium→Playwright移行でスクレイピングが安定した話
-- [ ] zenn-pipeline-glm-minimax-automation — Zenn記事半自動パイプラインをGLM+MiniMaxで構築した話
-- [ ] stride-threat-modeling-personal-projects — 個人開発でSTRIDE脅威モデリングをやってみた（3プロジェクト実践）
+- [x] microwin-devlog-2-implementation note=https://note.com/fukukei23/n/n6271b5c5bab2 Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/1ec512c93d4f8bdf127c private=False — 公務員が副業でAndroidアプリを作ってみた【実装編】〜 設計レビューの指摘をコードに落とすまで
+- [x] microwin-devlog-3-tasks Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/9e3000e7ff7c8fee0bb4 private=False — 非IT職の社会人が空き時間でAndroidアプリを作ってみた【タスク設計編】〜 100個の掃除タスクをAIに書かせて4ラウンドレビューした話
+- [x] claude-code-secret-management-incident Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/deee2516d6a145ae4af7 private=False note=https://note.com/fukukei23/n/n439d61fc8bc1 — Claude CodeでAPIキーを漏らさない：権限ポップアップの「今後許可」が秘密を保存していた実録インシデント対応
+- [x] claude-code-glm-cache-billing-91b-monthly Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/e20b272e7a7c9ab25e3b private=False — Claude CodeをGLMに差し替えて月91億トークンを$72固定枠で運用した実測 — キャッシュ課金の罠と文脈肥大対策
+- [x] 429-rate-limit-incident-3days Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/0900a45b40b8da378381 private=False — Claude Code + GLM API + レートプロキシで429エラーと戦った3日間
+- [x] claude-code-m3-1-systemd-4-5fb33eb5 Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/a4e76f55cd4fb0496c41 private=False note=https://note.com/fukukei23/n/n10386f693cbd — Claude Code LLMプロキシ運用の1週間：中国語混入からsystemd化までの4教訓
+- [x] atelier-kyo-manager-ci-44-failed-0 Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/9085aa0c35e648a80eaa private=False — CI完全緑化への道：44件のテスト失敗を段階的に0にした具体的な戦い方
+- [x] test-coverage-zero-to-76 Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/e586c4c23c36973c8086 private=False — 個人開発のテストカバレッジを0%→76テストに上げた地道な作業記録
+- [x] selenium-to-playwright-migration-scraping Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/9dcc1a6a8913fae40e21 private=False note=https://note.com/fukukei23/n/n12f694b2e30d — Selenium→Playwright移行でスクレイピングが安定した話
+- [x] zenn-pipeline-glm-minimax-automation Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/07bcee598d846f71c2f5 private=False — Zenn記事半自動パイプラインをGLM+MiniMaxで構築した話
+- [x] stride-threat-modeling-personal-projects Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/6ee78fdbb88db664f07f private=False — 個人開発でSTRIDE脅威モデリングをやってみた（3プロジェクト実践）
+- [ ] openclaw-heartbeat-cron-automation — OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み

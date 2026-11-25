@@ -114,3 +114,11 @@ zenn-pipeline-glm-minimax-automation:
 stride-threat-modeling-personal-projects:
   theme_en: "STRIDE threat modeling practiced across three personal projects"
   keywords_en: "six threat category cards, shield diagram, three project boxes"
+
+
+
+
+
+openclaw-heartbeat-cron-automation:
+  theme_en: "AI heartbeat cron automation for scheduled agent jobs"
+  keywords_en: "heartbeat pulse line, clock gear, owl icon, schedule cards"
