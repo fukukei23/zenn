@@ -122,3 +122,39 @@ stride-threat-modeling-personal-projects:
 openclaw-heartbeat-cron-automation:
   theme_en: "AI heartbeat cron automation for scheduled agent jobs"
   keywords_en: "heartbeat pulse line, clock gear, owl icon, schedule cards"
+
+llm-15b-tokens-monthly-operations:
+  theme_en: "monthly operations routing billions of tokens through GLM API"
+  keywords_en: "token stream, routing arrows, calendar months, gauge meter"
+
+claude-code-openclaw-dual-wielding:
+  theme_en: "dual wielding coding CLI and 24-hour AI butler owl"
+  keywords_en: "two swords, laptop and owl, day and night split"
+
+wsl2-tmux-claude-code-always-on:
+  theme_en: "keeping coding CLI always running with tmux on WSL2"
+  keywords_en: "terminal panes, persistent session, moon icon, Linux penguin"
+
+artex-ai-pentest-defense-idor-case-study:
+  theme_en: "AI pentest lessons finding IDOR vulnerability in own app"
+  keywords_en: "magnifying glass, broken lock, ID badge, warning triangle"
+
+python-mixin-pattern-large-codebase-split:
+  theme_en: "splitting 4000-line Python class with mixin pattern"
+  keywords_en: "blocks splitting apart, python snake, layered cards, wrench"
+
+mcp-15-servers-cleanup-criteria:
+  theme_en: "cleaning up fifteen MCP servers with keep or remove criteria"
+  keywords_en: "server icons row, broom, checkmark and cross, sorting arrows"
+
+ai-autonomous-development-authority-levels:
+  theme_en: "three authority levels deciding how much AI can do alone"
+  keywords_en: "three-tier pyramid, control slider, AI robot, dial gauge"
+
+rss-discord-webhook-pokeka-lottery-monitor:
+  theme_en: "RSS and Discord webhook auto monitoring tool"
+  keywords_en: "rss feed waves, bell notification, lottery card, monitor screen"
+
+refactor-199-lines-to-57-steps:
+  theme_en: "refactoring 199-line function down to 57 lines"
+  keywords_en: "code lines shrinking arrow, scissors, clean blocks, ruler"
