@@ -3,8 +3,14 @@
 
 import json
 import os
+import sys
+from datetime import datetime, timezone
 
 import requests
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import discord_api as _api
 
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_FULL = "fukukei23/zenn"
@@ -215,6 +221,61 @@ def main():
                 json.dump(meta, f, ensure_ascii=False, indent=2)
     else:
         print("GITHUB_TOKEN not set, skipping Issue creation")
+
+
+def resolve_channel_id(webhook_url: str) -> str:
+    """webhook URLからchannel_idを解決（失敗時はwebhook送信にフォールバックするため呼び出し側で処理）。"""
+    return _api.resolve_channel_id_from_webhook(webhook_url)
+
+
+def build_approval_content(slug: str, title: str) -> str:
+    """承認メッセージ文面（誘導・所要時間・誤却下復旧手順を含む）。"""
+    return (
+        f"📝 Zenn記事ドラフトの承認をお願いします\n\n"
+        f"**タイトル**: {title}\n**slug**: `{slug}`\n\n"
+        f"**このメッセージの 👍 をタップすると公開処理が進みます**（自発で 👎 を付けると却下です）\n"
+        f"通常は最長約90分以内で公開処理が進みます。\n"
+        f"誤って 👎 を付けた場合は、このメッセージに再度 👍 を付けると復旧します。\n")
+
+
+def build_entry(slug: str, article_path: str, channel_id: str, message_id: str,
+                title: str = "") -> dict:
+    """jsonエントリを構築する（hash照合・ループ管理・rejected保持の元データ）。"""
+    from approve_checker import content_hash
+    return {
+        "message_id": message_id,
+        "channel_id": channel_id,
+        "slug": slug,
+        "title": title,
+        "content_hash": content_hash(article_path),
+        "status": "pending",
+        "attempts": 0,
+        "last_notify_date": datetime.now(timezone.utc).date().isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+
+
+def send_approval_message(meta: dict, entries_path: str, bot_token: str,
+                          webhook_url: str, article_path: str,
+                          issue_num: int) -> dict:
+    """承認メッセージをbot送信+初期👍付与+json記録。entryを返す。
+
+    webhookからchannel_idを解決 → bot送信 → 👍初期付与 → entries.jsonに記録。
+    """
+    slug = meta["slug"]
+    title = meta.get("title", slug)
+    channel_id = resolve_channel_id(webhook_url)
+    content = build_approval_content(slug, title)
+    message_id = _api.send_message(channel_id, bot_token, content)
+    _api.add_reaction(channel_id, message_id, bot_token, _api.REACTION_APPROVE)
+
+    entries = json.load(open(entries_path, encoding="utf-8")) if os.path.exists(entries_path) else {}
+    entries[str(issue_num)] = build_entry(slug, article_path, channel_id, message_id, title)
+    tmp = entries_path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(entries, f, ensure_ascii=False, indent=1)
+    os.replace(tmp, entries_path)
+    return entries[str(issue_num)]
 
 
 if __name__ == "__main__":

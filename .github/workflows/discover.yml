@@ -95,6 +95,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/notifier.py
 
+      - name: Send approval message (Discord bot + json record)
+        if: always() && steps.check.outputs.skip != 'true'
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/notifier_send_approval.py
+
       - name: Cleanup temp files
         if: always()
         run: rm -f scan_results.json article_meta.json skip.flag generator_error.json
