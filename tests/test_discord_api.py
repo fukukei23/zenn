@@ -61,3 +61,135 @@ class TestGetApprovalDecision:
             return {"bot_id_999"}
         monkeypatch.setattr(discord_api, "_get_reaction_user_ids", fake_users)
         assert discord_api.get_approval_decision("c1", "m1", "tok", "123") == "pending"
+
+
+class _Resp:
+    """requests.Responseの最小モック（status_code/json/textのみ使用）。"""
+
+    def __init__(self, status_code, payload=None, text="err"):
+        self.status_code = status_code
+        self._payload = payload or {}
+        self.text = text
+
+    def json(self):
+        return self._payload
+
+
+class TestResolveChannelId:
+    def test_200_with_channel_id(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "get", lambda url, timeout=None: _Resp(200, {"channel_id": 42}))
+        assert discord_api.resolve_channel_id_from_webhook("https://wh") == "42"
+
+    def test_non_200_raises(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "get", lambda url, timeout=None: _Resp(404))
+        import pytest
+        with pytest.raises(discord_api.DiscordAPIError):
+            discord_api.resolve_channel_id_from_webhook("https://wh")
+
+    def test_missing_channel_id_raises(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "get", lambda url, timeout=None: _Resp(200, {}))
+        import pytest
+        with pytest.raises(discord_api.DiscordAPIError):
+            discord_api.resolve_channel_id_from_webhook("https://wh")
+
+    def test_request_exception_raises(self, monkeypatch):
+        def raise_conn(url, timeout):
+            raise discord_api.requests.exceptions.RequestException("conn refused")
+        monkeypatch.setattr(discord_api.requests, "get", raise_conn)
+        import pytest
+        with pytest.raises(discord_api.DiscordAPIError):
+            discord_api.resolve_channel_id_from_webhook("https://wh")
+
+
+class TestSendMessage:
+    def test_200_returns_id(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "post",
+            lambda url, json=None, headers=None, timeout=None: _Resp(200, {"id": "mid9"}))
+        assert discord_api.send_message("c1", "tok", "hello") == "mid9"
+
+    def test_401_raises(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "post",
+            lambda url, json=None, headers=None, timeout=None: _Resp(401, text="unauthorized"))
+        import pytest
+        with pytest.raises(discord_api.DiscordAPIError):
+            discord_api.send_message("c1", "tok", "hello")
+
+
+class TestAddReaction:
+    def test_204_ok(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "put",
+            lambda url, headers=None, timeout=None: _Resp(204))
+        discord_api.add_reaction("c1", "m1", "tok", "👍")
+
+    def test_non_2xx_raises(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "put",
+            lambda url, headers=None, timeout=None: _Resp(500, text="boom"))
+        import pytest
+        with pytest.raises(discord_api.DiscordAPIError):
+            discord_api.add_reaction("c1", "m1", "tok", "👍")
+
+
+class TestMessageExists:
+    def test_200_true(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "get",
+            lambda url, headers=None, timeout=None: _Resp(200))
+        assert discord_api.message_exists("c1", "m1", "tok") is True
+
+    def test_404_false(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "get",
+            lambda url, headers=None, timeout=None: _Resp(404))
+        assert discord_api.message_exists("c1", "m1", "tok") is False
+
+    def test_403_raises(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "get",
+            lambda url, headers=None, timeout=None: _Resp(403, text="forbidden"))
+        import pytest
+        with pytest.raises(discord_api.DiscordAPIError):
+            discord_api.message_exists("c1", "m1", "tok")
+
+
+class TestGetReactionUserIds:
+    def test_200_returns_set(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "get",
+            lambda url, headers=None, timeout=None: _Resp(200, {"dummy": None}))
+        # jsonはlistを返すべきだがモックはdict→ここでは素通しを確認するためlist版を別途
+        monkeypatch.setattr(
+            discord_api.requests, "get",
+            lambda url, headers=None, timeout=None: _Resp(200, [{"id": "1"}, {"id": "2"}]))
+        assert discord_api._get_reaction_user_ids("c1", "m1", "tok", "approve") == {"1", "2"}
+
+    def test_over_100_fail_closed(self, monkeypatch):
+        users = [{"id": str(i)} for i in range(100)]
+        monkeypatch.setattr(
+            discord_api.requests, "get",
+            lambda url, headers=None, timeout=None: _Resp(200, users))
+        import pytest
+        with pytest.raises(discord_api.DiscordAPIError):
+            discord_api._get_reaction_user_ids("c1", "m1", "tok", "approve")
+
+    def test_non_200_raises(self, monkeypatch):
+        monkeypatch.setattr(
+            discord_api.requests, "get",
+            lambda url, headers=None, timeout=None: _Resp(429, text="rate"))
+        import pytest
+        with pytest.raises(discord_api.DiscordAPIError):
+            discord_api._get_reaction_user_ids("c1", "m1", "tok", "reject")
+
+
+class TestSendErrorNotification:
+    def test_never_raises(self, monkeypatch):
+        def raise_conn(url, json=None, timeout=None):
+            raise discord_api.requests.exceptions.RequestException("net down")
+        monkeypatch.setattr(discord_api.requests, "post", raise_conn)
+        discord_api.send_error_notification("https://wh", "test")  # 例外を投げないことが仕様

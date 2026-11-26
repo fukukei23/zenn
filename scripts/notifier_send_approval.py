@@ -39,7 +39,7 @@ def main() -> int:
     if not meta:
         return 0
     token = os.environ["GITHUB_TOKEN"]
-    bot_token = os.environ["DISCORD_BOT_TOKEN"]
+    bot_token = os.environ.get("DISCORD_BOT_TOKEN", "")
     webhook_url = os.environ.get("DISCORD_WEBHOOK_URL", "")
     if not bot_token or not webhook_url:
         print("DISCORD_BOT_TOKEN/DISCORD_WEBHOOK_URL未設定 → 承認メッセージ送信をスキップ")

@@ -48,3 +48,51 @@ class TestLoopExceeded:
             json.dump(entries, f, ensure_ascii=False)
         assert ra.update_entry_for_reapproval(
             entries_path, "106", article_path="/nonexistent") is None
+
+    def test_missing_entry_returns_none(self, tmp_path):
+        entries_path = str(tmp_path / "discord_messages.json")
+        with open(entries_path, "w", encoding="utf-8") as f:
+            json.dump({}, f, ensure_ascii=False)
+        assert ra.update_entry_for_reapproval(
+            entries_path, "999", article_path="/nonexistent") is None
+
+
+class TestBuildContentFixesLimit:
+    def test_fixes_capped_at_five(self):
+        fixes = [(f"元{i}", f"修{i}", f"理由{i}") for i in range(7)]
+        c = ra.build_reapproval_content("s", "t", fixes)
+        assert "修6" not in c  # 7件目は出ない（上限5）
+        assert "修4" in c      # 5件目は出る
+
+
+class TestMain:
+    def test_main_sends_and_updates_entry(self, monkeypatch, tmp_path):
+        """reapprover main正常系: entry更新+送信+👍付与（L57-85）。"""
+        entries = {"106": {"slug": "s", "message_id": "old", "channel_id": "c1",
+                           "content_hash": "old", "status": "reapproval",
+                           "attempts": 0, "last_notify_date": "x",
+                           "created_at": "2026-11-26T00:00:00+00:00"}}
+        entries_path = tmp_path / "discord_messages.json"
+        entries_path.write_text(json.dumps(entries, ensure_ascii=False), encoding="utf-8")
+        (tmp_path / "article_meta.json").write_text(
+            json.dumps({"slug": "s", "title": "T"}, ensure_ascii=False), encoding="utf-8")
+        monkeypatch.setenv("DISCORD_BOT_TOKEN", "tok")
+        monkeypatch.setenv("ISSUE_NUMBER", "106")
+        mids = iter(["mid_ra"])
+        monkeypatch.setattr(
+            ra.discord_api, "send_message", lambda cid, tok, c: next(mids))
+        reacts = []
+        monkeypatch.setattr(
+            ra.discord_api, "add_reaction",
+            lambda cid, mid, tok, e: reacts.append(e))
+        monkeypatch.setattr(ra, "ENTRIES_PATH", str(entries_path))
+        monkeypatch.setattr(ra, "REPO_ROOT", str(tmp_path))
+        assert ra.main() == 0
+        entries2 = json.load(open(entries_path, encoding="utf-8"))
+        assert entries2["106"]["message_id"] == "mid_ra"  # 送信後にentry更新
+        assert reacts == [ra.discord_api.REACTION_APPROVE]
+
+    def test_main_no_issue_number_returns_zero(self, monkeypatch):
+        monkeypatch.setenv("DISCORD_BOT_TOKEN", "tok")
+        monkeypatch.delenv("ISSUE_NUMBER", raising=False)
+        assert ra.main() == 0
