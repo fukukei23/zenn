@@ -92,7 +92,7 @@ class TestMain:
         assert entries2["106"]["message_id"] == "mid_ra"  # 送信後にentry更新
         assert reacts == [ra.discord_api.REACTION_APPROVE]
 
-    def test_main_no_issue_number_returns_zero(self, monkeypatch):
+    def test_main_no_issue_number_fails_fast(self, monkeypatch):
         monkeypatch.setenv("DISCORD_BOT_TOKEN", "tok")
         monkeypatch.delenv("ISSUE_NUMBER", raising=False)
-        assert ra.main() == 0
+        assert ra.main() == 1  # サイレント0ではなくfail-fast（MLR指摘採用）

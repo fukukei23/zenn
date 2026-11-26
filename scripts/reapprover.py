@@ -58,7 +58,8 @@ def main() -> int:
     webhook_url = os.environ.get("DISCORD_WEBHOOK_URL", "")
     issue_key = os.environ.get("ISSUE_NUMBER", "")
     if not issue_key:
-        return 0
+        print("ERROR: ISSUE_NUMBER未設定（再承認メッセージ送信不能・MLR指摘採用でfail-fast化）")
+        return 1
     meta_path = os.path.join(REPO_ROOT, "article_meta.json")
     slug = ""
     title = ""

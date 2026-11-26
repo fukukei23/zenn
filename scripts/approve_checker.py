@@ -277,7 +277,8 @@ def main() -> int:
             continue  # slug未記録エントリ（旧データ）はhash照合のみスキップ
         try:
             result = handle_entry(entry, issue_num, pat, webhook_url)
-        except discord_api.DiscordAPIError as exc:
+        except (discord_api.DiscordAPIError, requests.RequestException) as exc:
+            # PAT期限切れ等の401/403も通知へ出す（MLR指摘採用・静かなworkflow失敗防止）
             discord_api.send_error_notification(webhook_url, f"issue#{issue_num}: {exc}")
             result = "error"
         actions[key] = result
