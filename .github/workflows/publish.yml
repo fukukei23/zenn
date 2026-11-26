@@ -40,6 +40,14 @@ jobs:
           GATE=$(grep -o 'gate=[a-z]*' /tmp/ja_gate.log | tail -1 | cut -d= -f2)
           echo "gate=${GATE:-fixed}" >> "$GITHUB_OUTPUT"
 
+      - name: Re-send approval message (gate=fixed)
+        if: steps.ja_gate.outputs.gate == 'fixed'
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: python scripts/reapprover.py
+
       - name: Publish article
         id: publish
         if: steps.ja_gate.outputs.gate == 'clean'
