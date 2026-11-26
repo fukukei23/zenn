@@ -1,0 +1,37 @@
+name: Approve Checker
+
+on:
+  schedule:
+    - cron: '17 * * * *'   # 毎時17分（:00/:30回避・発火集中回避）
+  workflow_dispatch: {}    # Phase 0実測用手動発火
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: approve-check
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Approve checker (reaction判定→PAT転送)
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_APPROVER_USER_ID: ${{ secrets.DISCORD_APPROVER_USER_ID }}
+          GITHUB_PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python scripts/approve_checker.py
