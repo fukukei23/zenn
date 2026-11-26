@@ -103,6 +103,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/notifier_send_approval.py
 
+      - name: Push approval state json
+        # MLR指摘採用（2026-11-26）: runner消滅でjsonが失われ承認フローが動かない欠陥の修復
+        if: always() && steps.check.outputs.skip != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/discord_messages.json
+          git diff --cached --quiet || git commit -m "chore: approval state json update"
+          git push
+
       - name: Cleanup temp files
         if: always()
         run: rm -f scan_results.json article_meta.json skip.flag generator_error.json

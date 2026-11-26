@@ -59,13 +59,18 @@ class TestLoopLimit:
 
 class TestRecoverRejected:
     def test_rejected_with_new_thumb_up_recovers(self, monkeypatch, entries):
-        """rejected状態+再👍 → 復旧（再オープン+転送）。API副作用はモック遮断。"""
+        """rejected状態+再👍 → 復旧（再オープン+即転送・specどおり）。API副作用はモック遮断。"""
         monkeypatch.setenv("DISCORD_BOT_TOKEN", "test-token")
         monkeypatch.setattr(ac, "get_decision", lambda e: "approve")
         monkeypatch.setattr(ac.discord_api, "message_exists", lambda cid, mid, tok: True)
         monkeypatch.setattr(ac, "reopen_issue", lambda pat, num: None)
+        transferred = []
+        monkeypatch.setattr(
+            ac, "post_approve_transfer",
+            lambda pat, num, mid, ts: transferred.append(num))
         entry = entries["107"]
         assert ac.handle_entry(entry, issue_num=107, pat="p", webhook_url="") == "recover"
+        assert transferred == [107]  # 復旧時に即転送（MLR指摘採用・転送なしpopの欠陥修正）
 
     def test_rejected_without_thumb_up_stays(self, monkeypatch, entries):
         monkeypatch.setenv("DISCORD_BOT_TOKEN", "test-token")
@@ -120,7 +125,7 @@ class TestHandleEntryBranches:
         assert ac.handle_entry(entry, issue_num=106, pat="p", webhook_url="") == "forwarded"
         assert entry["attempts"] == 2  # reapproval承認時のみインクリメント
 
-    def test_reject_closes_issue(self, monkeypatch, entries):
+    def test_reject_closes_issue_and_keeps_entry_rejected(self, monkeypatch, entries):
         self._base_mocks(monkeypatch)
         calls = []
         monkeypatch.setattr(ac, "get_decision", lambda e: "reject")
@@ -129,6 +134,17 @@ class TestHandleEntryBranches:
         entry = entries["106"]
         assert ac.handle_entry(entry, issue_num=106, pat="p", webhook_url="") == "reject"
         assert calls == [106]
+        assert entry["status"] == "rejected"  # 復旧可能状態を保持（MLR指摘採用・即popの欠陥修正）
+
+    def test_deleted_notifies_issue_before_removal(self, monkeypatch, entries):
+        self._base_mocks(monkeypatch)
+        monkeypatch.setattr(ac.discord_api, "message_exists", lambda cid, mid, tok: False)
+        notified = []
+        monkeypatch.setattr(
+            ac, "notify_message_deleted", lambda pat, num: notified.append(num))
+        entry = entries["106"]
+        assert ac.handle_entry(entry, issue_num=106, pat="p", webhook_url="") == "deleted"
+        assert notified == [106]  # サイレント消失防止コメント（MLR指摘採用）
 
     def test_loop_exceeded_skips_without_transfer(self, monkeypatch, entries):
         self._base_mocks(monkeypatch)
@@ -244,6 +260,26 @@ class TestMainEmpty:
         monkeypatch.setenv("GITHUB_PAT", "p")
         monkeypatch.setattr(ac, "load_entries", lambda path=None: {})
         assert ac.main() == 0
+
+
+class TestGitPushFailLoud:
+    def test_push_failure_raises_runtime_error(self, monkeypatch):
+        """push失敗は黙殺せずfail-loud（MLR指摘採用・二重転送防止）。"""
+        def fake_run(cmd, cwd=None, check=False, capture_output=False, text=False):
+            class R:
+                stderr = "rejected: protected branch"
+                returncode = 1 if len(cmd) > 1 and cmd[1] == "push" else 0
+
+            return R()
+
+        monkeypatch.setattr(ac.subprocess, "run", fake_run)
+        try:
+            ac.git_commit_push("test")
+        except RuntimeError as exc:
+            assert "git push失敗" in str(exc)
+        else:
+            raise AssertionError("RuntimeErrorが投げられなかった")
+
 
 
 class TestCleanup:

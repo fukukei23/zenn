@@ -111,6 +111,14 @@ def close_issue_reject(pat: str, issue_num: int) -> None:
     resp.raise_for_status()
 
 
+def notify_message_deleted(pat: str, issue_num: int) -> None:
+    """Discordメッセージ404時にissueへ手動確認コメント（サイレント消失防止・MLR指摘採用）。"""
+    body = ("⚠️ Discord承認メッセージが見つかりません（削除またはbot権限喪失の可能性）。\n"
+            "このissueの承認待ち状態を解除しました。意図しない消失の場合は手動で/approveをコメントしてください。")
+    resp = gh_api(pat, "POST", f"issues/{issue_num}/comments", {"body": body})
+    resp.raise_for_status()
+
+
 # ---------- 判定・処理 ----------
 
 def get_decision(entry: dict) -> str:
@@ -153,10 +161,14 @@ def handle_entry(entry: dict, issue_num: int, pat: str, webhook_url: str) -> str
     """
     now_iso = datetime.now(timezone.utc).isoformat()
 
-    # 1. 404=メッセージ削除 → エントリ削除
+    # 1. 404=メッセージ削除 → 可視化コメント後エントリ削除（サイレント消失防止・MLR指摘採用）
     exists = discord_api.message_exists(entry["channel_id"], entry["message_id"],
                                         os.environ["DISCORD_BOT_TOKEN"])
     if not exists:
+        try:
+            notify_message_deleted(pat, issue_num)
+        except Exception:
+            pass  # コメント失敗でもエントリ処理は継続（best effort）
         return "deleted"
 
     # 2. 判定（取得失敗はfail-closed・何もせずerror通知）
@@ -168,10 +180,11 @@ def handle_entry(entry: dict, issue_num: int, pat: str, webhook_url: str) -> str
 
     status = entry.get("status", "pending")
 
-    # 3. rejected状態: 再👍で自動復旧（issue再オープン+転送）
+    # 3. rejected状態: 再👍で自動復旧（issue再オープン+即転送・specどおり・MLR指摘採用で転送追加）
     if status == "rejected":
         if decision == "approve":
             reopen_issue(pat, issue_num)
+            post_approve_transfer(pat, issue_num, entry["message_id"], now_iso)
             entry["status"] = "pending"
             return "recover"
         return "pending"
@@ -219,16 +232,17 @@ def handle_entry(entry: dict, issue_num: int, pat: str, webhook_url: str) -> str
         post_approve_transfer(pat, issue_num, entry["message_id"], now_iso)
         return "forwarded"
 
-    # 7. reject → issue却下Close
+    # 7. reject → issue却下Close（エントリはrejected保持・30日以内の再👍で復旧可能・MLR指摘採用）
     if decision == "reject":
         close_issue_reject(pat, issue_num)
+        entry["status"] = "rejected"
         return "reject"
 
     return "pending"
 
 
 def git_commit_push(message: str) -> None:
-    """json変更をcommit+push（pull --rebaseで衝突回避・衝突時はGitHub API再検証は省略形で次回実行）。"""
+    """json変更をcommit+push（pull --rebaseで衝突回避・push失敗はfail-loud・MLR指摘採用）。"""
     subprocess.run(["git", "pull", "--rebase"], cwd=REPO_ROOT, check=False)
     subprocess.run(["git", "add", os.path.relpath(ENTRIES_PATH, REPO_ROOT)],
                    cwd=REPO_ROOT, check=True)
@@ -236,7 +250,10 @@ def git_commit_push(message: str) -> None:
                        capture_output=True, text=True, check=False)
     if r.returncode != 0:
         return  # 変更なし等
-    subprocess.run(["git", "push"], cwd=REPO_ROOT, check=False)
+    r = subprocess.run(["git", "push"], cwd=REPO_ROOT, capture_output=True, text=True,
+                       check=False)
+    if r.returncode != 0:
+        raise RuntimeError(f"git push失敗（状態json未反映・次回二重転送の可能性）: {r.stderr[:200]}")
 
 
 def main() -> int:
@@ -264,14 +281,20 @@ def main() -> int:
             discord_api.send_error_notification(webhook_url, f"issue#{issue_num}: {exc}")
             result = "error"
         actions[key] = result
-        if result in ("forwarded", "reject", "recover", "deleted"):
-            entries.pop(key)  # 転送成功・却下・復旧・削除でエントリ除去（二重転送防止）
+        if result in ("forwarded", "recover", "deleted"):
+            entries.pop(key)  # 転送成功・復旧・削除でエントリ除去（rejectはrejected保持・MLR指摘採用）
 
     entries = cleanup_expired(entries)
 
     if actions:
         save_entries(ENTRIES_PATH, entries)
-        git_commit_push("chore: approve-check状態更新（自動）")
+        try:
+            git_commit_push("chore: approve-check状態更新（自動）")
+        except RuntimeError as exc:
+            discord_api.send_error_notification(
+                webhook_url, f"状態jsonのpush失敗: {exc}")
+            print(json.dumps(actions, ensure_ascii=False))
+            return 1
         print(json.dumps(actions, ensure_ascii=False))
     return 0
 
