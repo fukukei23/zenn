@@ -158,3 +158,43 @@ rss-discord-webhook-pokeka-lottery-monitor:
 refactor-199-lines-to-57-steps:
   theme_en: "refactoring 199-line function down to 57 lines"
   keywords_en: "code lines shrinking arrow, scissors, clean blocks, ruler"
+
+civilservant-20repos-survival:
+  theme_en: "civil servant survival strategy building twenty code repositories in one year"
+  keywords_en: "twenty stacked code repositories, office worker silhouette, climbing progress ladder, growth chart"
+
+vibe-coding-civilservant-projects:
+  theme_en: "vibe coding one year record creating twenty projects without writing code manually"
+  keywords_en: "flowing waves turning into code blocks, relaxed developer chair, twenty small project icons"
+
+it-ssot-portfolio-interview-prep:
+  theme_en: "single source of truth numbers auto reflected into job interview slides"
+  keywords_en: "single database feeding presentation slides, sync arrows, interview desk, numbers dashboard"
+
+ai-code-review-hallucination-verification:
+  theme_en: "verifying hallucinations in AI code review prompts"
+  keywords_en: "magnifying glass over robot reviewer, false claim bubbles, check marks, magnified code"
+
+ai-coding-governance-collapse:
+  theme_en: "governance collapse record from continuous AI code generation and rebuilding"
+  keywords_en: "collapsing tower of code blocks, cracked shield, rebuilding blueprint, warning lights"
+
+openclaw-59-specialist-agents:
+  theme_en: "fifty nine specialist AI agents working together"
+  keywords_en: "grid of many small robot specialists, orchestration hub, teamwork network"
+
+openclaw-glm5-cost-optimization-24h:
+  theme_en: "twenty four hour AI assistant with monthly cost optimization"
+  keywords_en: "clock with coins, descending cost graph, AI assistant dashboard, battery saving"
+
+python-bare-except:
+  theme_en: "removing bare except for safe error handling in python"
+  keywords_en: "crossed out bare except text, safety net, precise error type labels, python snake logo"
+
+gitignore-include-pitfall:
+  theme_en: "gitignore parent directory pitfall swallowing child directories"
+  keywords_en: "folder tree with trap hole, falling files, warning sign, git branch logo"
+
+fail-closed-design:
+  theme_en: "fail closed design keeps unsafe code behind locked gate"
+  keywords_en: "locked gate blocking red code blocks, green safe path, security door, shield"

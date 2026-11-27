@@ -57,12 +57,22 @@
 - [x] zenn-pipeline-glm-minimax-automation Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/07bcee598d846f71c2f5 private=False — Zenn記事半自動パイプラインをGLM+MiniMaxで構築した話
 - [x] stride-threat-modeling-personal-projects Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/6ee78fdbb88db664f07f private=False — 個人開発でSTRIDE脅威モデリングをやってみた（3プロジェクト実践）
 - [x] openclaw-heartbeat-cron-automation Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/e36aee2937e92eeb88d8 private=False — OpenClaw Heartbeat設計：AIに定期的にお仕事をさせる仕組み
-- [ ] llm-15b-tokens-monthly-operations — 月間15億トークンをGLM APIで捌くLLMルーティングの実運用（3ヶ月目）
-- [ ] claude-code-openclaw-dual-wielding — Claude Code + OpenClaw 二刀流：コーディングと24時間執事の両立
-- [ ] wsl2-tmux-claude-code-always-on — WSL2 + tmuxでClaude Code CLIを常時稼働させる環境構築
-- [ ] artex-ai-pentest-defense-idor-case-study — AIペネトレーション事件の教訓を自分のアプリで試したら、IDORの穴が見つかった話
-- [ ] python-mixin-pattern-large-codebase-split — Mixinで4,000行Pythonクラスを整理した
-- [ ] mcp-15-servers-cleanup-criteria — 15個MCPサーバーを運用して分かった不要なものと必要なもの
+- [x] llm-15b-tokens-monthly-operations Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/ca18764147a00a10e85a private=False note=https://note.com/fukukei23/n/nf49a15e67a69 — 月間15億トークンをGLM APIで捌くLLMルーティングの実運用（3ヶ月目）
+- [x] claude-code-openclaw-dual-wielding Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/268483aea15655819236 private=False — Claude Code + OpenClaw 二刀流：コーディングと24時間執事の両立
+- [x] wsl2-tmux-claude-code-always-on Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/cb1659b4416fecea9ad2 private=False — WSL2 + tmuxでClaude Code CLIを常時稼働させる環境構築
+- [x] artex-ai-pentest-defense-idor-case-study Qiita=[qiita-post] HTTP=200 url=https://qiita.com/fukukei23/items/67f449e5bfecf49cb0c4 private=False note=https://note.com/fukukei23/n/ncfe792ff30cf — AIペネトレーション事件の教訓を自分のアプリで試したら、IDORの穴が見つかった話
+- [n] python-mixin-pattern-large-codebase-split — Mixinで4,000行Pythonクラスを整理した
+- [n] mcp-15-servers-cleanup-criteria — 15個MCPサーバーを運用して分かった不要なものと必要なもの
 - [ ] ai-autonomous-development-authority-levels — 自律開発の3段階権限設計（AIにどこまで任せるか）
 - [ ] rss-discord-webhook-pokeka-lottery-monitor — 【初心者向け】RSS × Discord Webhookで自動監視ツール設計：pokeka-lottery-monitor実例
 - [ ] refactor-199-lines-to-57-steps — 【リファクタリング入門】199行の関数を57行にした具体的手順
+- [ ] civilservant-20repos-survival — 非IT公務員が1年で20リポジトリ作った生存戦略 — プロンプトエンジニアリングで開発者になる
+- [ ] vibe-coding-civilservant-projects — コードを書かずに20個のプロジェクトを作った話（Vibe Coding 1年の記録）
+- [ ] it-ssot-portfolio-interview-prep — 【IT転職面接】SSOTで管理する数値を面接資料に自動反映：portfolio数値マスター×interview
+- [ ] ai-code-review-hallucination-verification — AIコードレビュープロンプトの幻覚を検証した話（v2→v3の改善）
+- [ ] ai-coding-governance-collapse — 「AIにコードを書かせ続けた結果起こった悲劇」〜ガバナンス崩壊＆立て直し記録〜
+- [ ] openclaw-59-specialist-agents — OpenClawの59体専門エージェントを動かす方法
+- [ ] openclaw-glm5-cost-optimization-24h — OpenClaw × GLM-5で月額コストを抑えた24時間AIアシスタント運用
+- [ ] python-bare-except — 【Python】bare except全廃で安全なエラー処理を実装する具体的手順
+- [ ] gitignore-include-pitfall — 【GitHub】.gitignoreの厄介な罠：親ディレクトリ指定が子ディレクトリを巻き込む「包含漏れ」の実例
+- [ ] fail-closed-design — 【初心者向け】fail-closed設計で学ぶ 安全性の低いコードが如何に危険か
