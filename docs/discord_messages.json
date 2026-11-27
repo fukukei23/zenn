@@ -1,1 +1,13 @@
-{}
+{
+ "108": {
+  "message_id": "1575881050633273446",
+  "channel_id": "1480559453538484375",
+  "slug": "ai-fkb-python-463c7675",
+  "title": "AIの失敗を知識に変える話：FKB学習ループと二段承認をPythonで実装",
+  "content_hash": "0c9b498edeabe8f4843a192cf99f89d72dd14dd8174b9f18f6931c79cd5b3890",
+  "status": "pending",
+  "attempts": 0,
+  "last_notify_date": "2026-11-27",
+  "created_at": "2026-11-27T14:28:41.344190+00:00"
+ }
+}
