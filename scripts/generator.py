@@ -18,6 +18,9 @@ GLM_BASE_URL = "https://api.z.ai/api/coding/paas/v4"
 MINIMAX_BASE_URL = "https://api.minimax.io/v1"
 TOPIC_MODEL = "MiniMax-M3"
 ARTICLE_MODEL = "GLM-5.1"
+# 推理系モデルは<think>だけで数千token消費する。実測reasoning_tokens=3271〜4814
+# （2026-11-27再現テスト）で4000が全消費され空応答化した事故の修復値。
+TOPIC_MAX_TOKENS = 12000
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -97,11 +100,9 @@ def extract_topics(minimax_client, scan_results, past_titles):
 [{{"title": "記事タイトル", "summary": "2-3行の概要", "repo": "リポジトリ名", "tags": ["tag1", "tag2"]}}]"""
 
     # MiniMaxは確率的に出力が揺らぐため、壊れたJSONを返した場合は再生成してリトライする
-    # max_tokens=4000: 推理系モデルは<think>で数千token消費するため1000では息切れする
-    # （2026-08-13〜15の生成停止事故: finish_reason=length・本文にJSON配列が無い）
     last_text = ""
     for _attempt in range(3):
-        text = chat(minimax_client, TOPIC_MODEL, prompt, max_tokens=4000)
+        text = chat(minimax_client, TOPIC_MODEL, prompt, max_tokens=TOPIC_MAX_TOKENS)
         last_text = text
         match = re.search(r"\[.*\]", text, re.DOTALL)
         if not match:

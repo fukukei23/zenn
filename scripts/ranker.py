@@ -25,6 +25,9 @@ SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_DIR = os.path.join(SCRIPTS_DIR, "..")
 RANKING_PATH = os.path.join(REPO_DIR, "docs", "公開ランキング.md")
 ARTICLES_DIR = os.path.join(REPO_DIR, "articles")
+# 推理系モデルの<think>消費は採点のような短い出力でも数百〜数千tokenに達する
+# （2026-11-27 generator同型事故の実測reasoning_tokens=3271〜4814）。300は不足。
+RANK_MAX_TOKENS = 8000
 
 # 級分類: (級名, (下限, 上限), 説明)
 GRADE_RANGES = [
@@ -156,7 +159,7 @@ def score_article(client, title, summary, tags):
 
     # MiniMaxはJSON出力が揺らぐため5回リトライ（generator.extract_topics と同じ堅牢パターン）
     for _attempt in range(5):
-        text = chat(client, TOPIC_MODEL, prompt, max_tokens=300)
+        text = chat(client, TOPIC_MODEL, prompt, max_tokens=RANK_MAX_TOKENS)
         m = re.search(r"\{.*\}", text, re.S)
         if not m:
             continue

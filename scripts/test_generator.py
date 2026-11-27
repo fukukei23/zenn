@@ -8,6 +8,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import generator
 from generator import slug_from_title, validate_article, save_generator_error, SLUG_MIN, SLUG_MAX
 
 
@@ -89,3 +90,39 @@ class TestSaveGeneratorError:
         data = json.load(open(os.path.join(str(tmp_path), "generator_error.json")))
         assert "ValueError" in data["traceback"]
         assert "test error" in data["traceback"]
+
+
+class TestExtractTopicsParams:
+    def test_topic_extraction_uses_sufficient_max_tokens(self, monkeypatch):
+        """extract_topicsは推理消費に耐えるmax_tokensをchatへ渡すこと。
+
+        背景: 2026-11-15〜27にMiniMax-M3の推理消費増大でmax_tokens=4000が
+        <think>だけで全消費され13連続空応答（finish_reason=length）。
+        実測reasoning_tokens=3271〜4814のため12000が下限回復値（同日再現テスト）。
+        """
+        captured = {}
+
+        def fake_chat(client, model, prompt, max_tokens=4000):
+            captured["max_tokens"] = max_tokens
+            return '[{"title": "t1", "summary": "s", "repo": "r", "tags": ["x"]}]'
+
+        monkeypatch.setattr(generator, "chat", fake_chat)
+        topics = generator.extract_topics(None, {"k": "v"}, [])
+        assert captured["max_tokens"] == generator.TOPIC_MAX_TOKENS == 12000
+        assert len(topics) == 1
+
+    def test_retry_loop_passes_same_max_tokens(self, monkeypatch):
+        """リトライ時も同一max_tokensを渡すこと（2回目で成功する経路）。"""
+        calls = []
+
+        def fake_chat(client, model, prompt, max_tokens=4000):
+            calls.append(max_tokens)
+            if len(calls) < 2:
+                return "broken not json"
+            return '[{"title": "t1", "summary": "s", "repo": "r", "tags": ["x"]}]'
+
+        monkeypatch.setattr(generator, "chat", fake_chat)
+        topics = generator.extract_topics(None, {"k": "v"}, [])
+        assert len(calls) == 2
+        assert calls[0] == calls[1] == 12000
+        assert len(topics) == 1

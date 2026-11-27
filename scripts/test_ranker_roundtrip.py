@@ -7,6 +7,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ranker
 from ranker import parse_ranking_md  # noqa: E402
 
 
@@ -44,3 +45,22 @@ class TestReachRoundTrip:
         os.unlink(path)
         assert len(recs) == 1
         assert recs[0]["reach"] is None
+
+
+class TestScoreArticleParams:
+    def test_scoring_uses_sufficient_max_tokens(self, monkeypatch):
+        """score_articleは推理消費に耐えるmax_tokensをchatへ渡すこと。
+
+        背景: 2026-11-15〜27にMiniMax-M3の推理消費増大で同型のextract_topicsが
+        空応答化（think全消費）。rankerのmax_tokens=300は同型欠陥の予兆地雷。
+        """
+        captured = {}
+
+        def fake_chat(client, model, prompt, max_tokens=300):
+            captured["max_tokens"] = max_tokens
+            return '{"buzz": 7, "tech": 8, "importance": 6, "reach": 5}'
+
+        monkeypatch.setattr(ranker, "chat", fake_chat)
+        result = ranker.score_article(None, "タイトル", "要約", ["tag1"])
+        assert captured["max_tokens"] == ranker.RANK_MAX_TOKENS == 8000
+        assert result == {"buzz": 7, "tech": 8, "importance": 6, "reach": 5}
