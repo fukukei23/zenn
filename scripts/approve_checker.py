@@ -200,8 +200,8 @@ def handle_entry(entry: dict, issue_num: int, pat: str, webhook_url: str) -> str
         current_hash = content_hash(slug_path)
         if current_hash != entry["content_hash"]:
             today = datetime.now(timezone.utc).date().isoformat()
-            if entry.get("last_notify_date") == today:
-                return "renotify_skipped"  # 1日1回上限
+            if entry.get("renotified_date") == today:
+                return "renotify_skipped"  # 再通知は1日1回上限（初回通知日と分離・MLR r2 GLM指摘採用）
             entry["content_hash"] = current_hash
             entry["status"] = "reapproval"
             entry["attempts"] = entry.get("attempts", 0) + 1
@@ -218,7 +218,7 @@ def handle_entry(entry: dict, issue_num: int, pat: str, webhook_url: str) -> str
             discord_api.add_reaction(entry["channel_id"], mid, bot_token,
                                      discord_api.REACTION_APPROVE)
             entry["message_id"] = mid
-            entry["last_notify_date"] = today
+            entry["renotified_date"] = today
             return "renotified"
 
     # 6. approve → PAT転送

@@ -171,10 +171,10 @@ class TestHandleEntryBranches:
         entry["slug"] = "my-slug"
         entry["content_hash"] = "stale"
         from datetime import datetime, timezone
-        entry["last_notify_date"] = datetime.now(timezone.utc).date().isoformat()
+        entry["renotified_date"] = datetime.now(timezone.utc).date().isoformat()
         monkeypatch.setattr(ac, "REPO_ROOT", str(tmp_path))
         assert ac.handle_entry(entry, issue_num=106, pat="p", webhook_url="") == "renotify_skipped"
-        assert sent == []  # 1日1回上限・再送しない
+        assert sent == []  # 再通知1日1回上限（renotified_date基準・MLR r2 GLM指摘採用）
 
     def test_renotified_on_hash_change(self, monkeypatch, entries, tmp_path):
         self._base_mocks(monkeypatch)
@@ -196,6 +196,26 @@ class TestHandleEntryBranches:
         assert entry["status"] == "reapproval"
         assert entry["attempts"] == 1
         assert entry["content_hash"] == ac.content_hash(str(art))  # 修正後本文で再hash
+        assert entry["renotified_date"] != ""  # 再通知日が記録される
+
+    def test_renotified_same_day_as_first_notify(self, monkeypatch, entries, tmp_path):
+        """初回通知当日のhash不一致でも再通知が通る（renotified_date未記録・MLR r2 GLM指摘採用）。"""
+        self._base_mocks(monkeypatch)
+        monkeypatch.setattr(ac, "get_decision", lambda e: "pending")
+        mids = iter(["mid_day0"])
+        monkeypatch.setattr(
+            ac.discord_api, "send_message", lambda cid, tok, c: next(mids))
+        monkeypatch.setattr(ac.discord_api, "add_reaction", lambda cid, mid, tok, e: None)
+        (tmp_path / "articles").mkdir()
+        art = tmp_path / "articles" / "my-slug.md"
+        art.write_text("---\ntitle: T\n---\n\n新しい本文\n", encoding="utf-8")
+        entry = entries["106"]
+        entry["slug"] = "my-slug"
+        entry["content_hash"] = "stale"
+        from datetime import datetime, timezone
+        entry["last_notify_date"] = datetime.now(timezone.utc).date().isoformat()  # 初回通知日=当日
+        monkeypatch.setattr(ac, "REPO_ROOT", str(tmp_path))
+        assert ac.handle_entry(entry, issue_num=106, pat="p", webhook_url="") == "renotified"  # 当日でも再通知する
 
     def test_approve_transfer_loop_exceeded_downgrade(self, monkeypatch, entries):
         self._base_mocks(monkeypatch)
