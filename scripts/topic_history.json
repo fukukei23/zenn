@@ -623,6 +623,12 @@
       "title": "AI生成コードを安全化するsandbox_policy設計：事前検査・資源制限・禁止パスの実践",
       "slug": "ai-sandbox-policy-84c9195b",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-11-27",
+      "title": "AIの失敗を知識に変える話：FKB学習ループと二段承認をPythonで実装",
+      "slug": "ai-fkb-python-463c7675",
+      "source_repo": "NexusCore"
     }
   ]
 }
