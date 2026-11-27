@@ -242,8 +242,11 @@ def handle_entry(entry: dict, issue_num: int, pat: str, webhook_url: str) -> str
 
 
 def git_commit_push(message: str) -> None:
-    """json変更をcommit+push（pull --rebaseで衝突回避・push失敗はfail-loud・MLR指摘採用）。"""
-    subprocess.run(["git", "pull", "--rebase"], cwd=REPO_ROOT, check=False)
+    """json変更をcommit+push（pull --rebase失敗はfail-loud・push失敗もfail-loud・MLR指摘採用）。"""
+    r = subprocess.run(["git", "pull", "--rebase"], cwd=REPO_ROOT,
+                       capture_output=True, text=True, check=False)
+    if r.returncode != 0:
+        raise RuntimeError(f"git pull --rebase失敗（競合の疑い・状態json未反映）: {r.stderr[:200]}")
     subprocess.run(["git", "add", os.path.relpath(ENTRIES_PATH, REPO_ROOT)],
                    cwd=REPO_ROOT, check=True)
     r = subprocess.run(["git", "commit", "-m", message], cwd=REPO_ROOT,

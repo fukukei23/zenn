@@ -9,13 +9,29 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
+
+import requests
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import discord_api
 from approve_checker import ENTRIES_PATH, REPO_ROOT, LOOP_LIMIT, content_hash, load_entries, save_entries
+
+REPO_FULL = "fukukei23/zenn"
+
+
+def resolve_slug_from_issue(token: str, issue_key: str) -> str:
+    """issue本文から<!-- slug: -->を抽出（publish.yml runnerにはarticle_meta.jsonが無いため・MLR r1 GLM指摘採用）。"""
+    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
+    resp = requests.get(
+        f"https://api.github.com/repos/{REPO_FULL}/issues/{issue_key}",
+        headers=headers, timeout=30)
+    resp.raise_for_status()
+    m = re.search(r"<!-- slug: ([^\s>]+) -->", resp.json().get("body", ""))
+    return m.group(1) if m else ""
 
 
 def build_reapproval_content(slug: str, title: str, fixes: list[tuple[str, str, str]]) -> str:
@@ -67,6 +83,12 @@ def main() -> int:
         meta = json.load(open(meta_path, encoding="utf-8"))
         slug = meta.get("slug", "")
         title = meta.get("title", slug)
+    else:
+        # publish.yml（issue_commentトリガー）ではarticle_meta.jsonはローカル生成物で存在しない
+        # → issue本文からslugを解決（MLR r1 GLM指摘採用・空slug再送の欠陥修復）
+        token = os.environ.get("GITHUB_TOKEN", "")
+        slug = resolve_slug_from_issue(token, issue_key) if token else ""
+        title = slug
     article_path = os.path.join(REPO_ROOT, "articles", f"{slug}.md") if slug else ""
     entry = update_entry_for_reapproval(ENTRIES_PATH, issue_key, article_path)
     if entry is None:

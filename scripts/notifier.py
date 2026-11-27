@@ -38,9 +38,8 @@ def send_discord(webhook_url, meta):
 **リポジトリ**: {repo}
 **プレビュー**: {preview_url}
 
-:white_check_mark: 公開OK → Issueに `/approve` とコメント
-:pencil2: 修正 → 記事ファイルを編集後に `/approve`
-:x: 却下 → IssueをClose""",
+:white_check_mark: 承認は **続けて届く Discord承認メッセージの 👍 をタップ**（自動で公開処理が進みます）
+:x: 却下 → 承認メッセージに 👎 を付けると自動却下されます""",
     }
 
     resp = requests.post(webhook_url, json=message, timeout=15)

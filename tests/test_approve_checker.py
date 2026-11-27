@@ -172,7 +172,7 @@ class TestHandleEntryBranches:
         entry["content_hash"] = "stale"
         from datetime import datetime, timezone
         entry["last_notify_date"] = datetime.now(timezone.utc).date().isoformat()
-        ac.REPO_ROOT = str(tmp_path)
+        monkeypatch.setattr(ac, "REPO_ROOT", str(tmp_path))
         assert ac.handle_entry(entry, issue_num=106, pat="p", webhook_url="") == "renotify_skipped"
         assert sent == []  # 1日1回上限・再送しない
 
@@ -190,7 +190,7 @@ class TestHandleEntryBranches:
         entry["slug"] = "my-slug"
         entry["content_hash"] = "stale"
         entry["last_notify_date"] = "2026-11-01"  # 当日ではない
-        ac.REPO_ROOT = str(tmp_path)
+        monkeypatch.setattr(ac, "REPO_ROOT", str(tmp_path))
         assert ac.handle_entry(entry, issue_num=106, pat="p", webhook_url="") == "renotified"
         assert entry["message_id"] == "mid_re"
         assert entry["status"] == "reapproval"
@@ -230,7 +230,7 @@ class TestHandleEntryBranches:
         entry["content_hash"] = "stale"
         entry["attempts"] = 2  # 再送時++で3に到達=超過
         entry["last_notify_date"] = "2026-11-01"
-        ac.REPO_ROOT = str(tmp_path)
+        monkeypatch.setattr(ac, "REPO_ROOT", str(tmp_path))
         assert ac.handle_entry(entry, issue_num=106, pat="p", webhook_url="wh") == "loop_exceeded"
         assert sent == []  # 再送前に降格・メッセージは送らない
         assert len(notified) == 1
