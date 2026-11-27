@@ -617,6 +617,12 @@
       "title": "Claude Codeのコンテキスト浪費を防ぐ全記録：使用量注入・警告・節約術",
       "slug": "claude-code-ed485044",
       "source_repo": "claude-config"
+    },
+    {
+      "date": "2026-11-27",
+      "title": "AI生成コードを安全化するsandbox_policy設計：事前検査・資源制限・禁止パスの実践",
+      "slug": "ai-sandbox-policy-84c9195b",
+      "source_repo": "NexusCore"
     }
   ]
 }
