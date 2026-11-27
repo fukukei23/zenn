@@ -105,13 +105,15 @@ jobs:
 
       - name: Push approval state json
         # MLR指摘採用（2026-11-26）: runner消滅でjsonが失われ承認フローが動かない欠陥の修復
+        # 2026-11-27実測修復: 前ステップが書いたjsonはunstagedで残りpull --rebaseが拒否される
+        # （exit 128実測）ため、add/commitを先に実施してからrebaseする
         if: always() && steps.check.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase || (git rebase --abort; exit 1)
           git add docs/discord_messages.json
           git diff --cached --quiet || git commit -m "chore: approval state json update"
+          git pull --rebase || (git rebase --abort; exit 1)
           git push
 
       - name: Cleanup temp files
