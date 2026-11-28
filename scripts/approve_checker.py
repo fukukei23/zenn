@@ -241,19 +241,32 @@ def handle_entry(entry: dict, issue_num: int, pat: str, webhook_url: str) -> str
     return "pending"
 
 
-def git_commit_push(message: str) -> None:
-    """json変更をcommit+push（add/commit→pull --rebase→push順・fail-loud・MLR指摘採用）。
+BOT_USER_NAME = "github-actions[bot]"
+BOT_USER_EMAIL = "github-actions[bot]@users.noreply.github.com"
 
-    2026-11-28実測修復: forwarded時のentries.popでunstaged modifiedが生じた状態で
-    pull --rebaseが先行すると「cannot pull with rebase」で必ず失敗する（run 46108013219
-    exit 1実測）。discover.yml/publish.ymlの73beb22と同型欠陥のapprove_checker側で、
-    add/commitをrebase前に移動（順序回帰テスト: TestGitCommitPushOrder）。
+
+def git_commit_push(message: str) -> None:
+    """json変更をcommit+push（config→add/commit→pull --rebase→push順・fail-loud）。
+
+    2026-11-28実測修復2件:
+    ①pull --rebaseをadd/commit後に移動（73beb22と同型・forwarded時のentries.popで
+    unstaged modifiedが生じpullが「cannot pull with rebase」で拒否・run 46108013219）。
+    ②runnerにuser設定が無くcommitがexit 128で失敗してもcapture_outputでstderrが
+    握り潰され静かなearly returnしていた（silent failure・mktemp隔離再現実験で
+    COMMIT_EXIT=128実測）ためidentityを設定し・nothing to commit以外のcommit失敗は
+    fail-loudに（順序回帰テスト: TestGitCommitPushOrder）。
     """
+    subprocess.run(["git", "config", "user.name", BOT_USER_NAME],
+                   cwd=REPO_ROOT, check=True)
+    subprocess.run(["git", "config", "user.email", BOT_USER_EMAIL],
+                   cwd=REPO_ROOT, check=True)
     subprocess.run(["git", "add", os.path.relpath(ENTRIES_PATH, REPO_ROOT)],
                    cwd=REPO_ROOT, check=True)
     r = subprocess.run(["git", "commit", "-m", message], cwd=REPO_ROOT,
                        capture_output=True, text=True, check=False)
     if r.returncode != 0:
+        if "nothing to commit" not in (r.stdout + r.stderr):
+            raise RuntimeError(f"git commit失敗（identity・hook等の疑い）: {r.stderr[:200]}")
         return  # 変更なし等
     r = subprocess.run(["git", "pull", "--rebase"], cwd=REPO_ROOT,
                        capture_output=True, text=True, check=False)

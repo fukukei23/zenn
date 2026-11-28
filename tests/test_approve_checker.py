@@ -317,6 +317,7 @@ class TestGitCommitPushOrder:
             calls.append((cmd[1], tuple(cmd[2:])))
 
             class R:
+                stdout = ""
                 stderr = ""
                 returncode = 0
             return R()
@@ -324,8 +325,56 @@ class TestGitCommitPushOrder:
         monkeypatch.setattr(ac.subprocess, "run", fake_run)
         ac.git_commit_push("test")
 
-        assert [c[0] for c in calls] == ["add", "commit", "pull", "push"], calls
-        assert calls[2] == ("pull", ("--rebase",)), calls  # pullは必ず--rebase付き
+        assert [c[0] for c in calls] == ["config", "config", "add", "commit",
+                                         "pull", "push"], calls
+        assert calls[0] == ("config", ("user.name", "github-actions[bot]")), calls
+        assert calls[1] == ("config",
+                            ("user.email",
+                             "github-actions[bot]@users.noreply.github.com")), calls
+        assert calls[4] == ("pull", ("--rebase",)), calls  # pullは必ず--rebase付き
+
+    def test_commit_identity_error_fails_loud(self, monkeypatch):
+        """commit失敗（identity欠如等・nothing to commit以外）はfail-loud。
+
+        2026-11-28実測: runnerにuser設定が無くcommitがexit 128で失敗しても
+        capture_outputでstderrが握り潰され静かなearly returnしていた
+        （entries push未実行・ジョブログに痕跡なし=silent failure・mktemp隔離
+        再現実験でCOMMIT_EXIT=128実測）。
+        """
+        def fake_run(cmd, cwd=None, check=False, capture_output=False, text=False):
+            class R:
+                stdout = ""
+                stderr = "fatal: empty ident name"
+                returncode = 128 if len(cmd) > 1 and cmd[1] == "commit" else 0
+            return R()
+
+        monkeypatch.setattr(ac.subprocess, "run", fake_run)
+        try:
+            ac.git_commit_push("test")
+        except RuntimeError as exc:
+            assert "git commit失敗" in str(exc)
+        else:
+            raise AssertionError("RuntimeErrorが投げられなかった")
+
+    def test_commit_nothing_to_commit_is_ok(self, monkeypatch):
+        """nothing to commit（変更なし）は正常系・pull/pushは実行しない。"""
+        calls = []
+
+        def fake_run(cmd, cwd=None, check=False, capture_output=False, text=False):
+            op = cmd[1] if len(cmd) > 1 else cmd[0]
+            is_commit = len(cmd) > 1 and cmd[1] == "commit"
+            calls.append(op)
+
+            class R:
+                stdout = "nothing to commit" if is_commit else ""
+                stderr = ""
+                returncode = 1 if is_commit else 0
+            return R()
+
+        monkeypatch.setattr(ac.subprocess, "run", fake_run)
+        ac.git_commit_push("test")
+
+        assert calls == ["config", "config", "add", "commit"], calls  # pull/pushは飛ばされる
 
 
 
