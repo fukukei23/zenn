@@ -629,6 +629,12 @@
       "title": "AIの失敗を知識に変える話：FKB学習ループと二段承認をPythonで実装",
       "slug": "ai-fkb-python-463c7675",
       "source_repo": "NexusCore"
+    },
+    {
+      "date": "2026-11-28",
+      "title": "「記録した」だけで完了にしない：Claude Codeの判断ログをDoDで検証する",
+      "slug": "claude-code-dod-bde5d650",
+      "source_repo": "cc-stories-guide"
     }
   ]
 }
