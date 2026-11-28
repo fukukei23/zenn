@@ -301,6 +301,33 @@ class TestGitPushFailLoud:
             raise AssertionError("RuntimeErrorが投げられなかった")
 
 
+class TestGitCommitPushOrder:
+    def test_order_add_commit_then_pull_rebase_then_push(self, monkeypatch):
+        """entries変更（unstaged json）が残ったままpull --rebaseが先行すると必ず失敗する順序回帰テスト。
+
+        2026-11-28実測事故: forwarded時にentries.popでunstaged modifiedが生じ、
+        先行したpull --rebaseが「cannot pull with rebase: You have unstaged changes」
+        で拒否され状態jsonのpushが失敗（run 46108013219・exit 1実測）。
+        discover.yml/publish.ymlは11-27に73beb22で修復済みの同型欠陥の
+        approve_checker.py側修復漏れ。add/commitをrebase前に移動して解消。
+        """
+        calls = []
+
+        def fake_run(cmd, cwd=None, check=False, capture_output=False, text=False):
+            calls.append((cmd[1], tuple(cmd[2:])))
+
+            class R:
+                stderr = ""
+                returncode = 0
+            return R()
+
+        monkeypatch.setattr(ac.subprocess, "run", fake_run)
+        ac.git_commit_push("test")
+
+        assert [c[0] for c in calls] == ["add", "commit", "pull", "push"], calls
+        assert calls[2] == ("pull", ("--rebase",)), calls  # pullは必ず--rebase付き
+
+
 
 class TestCleanup:
     def test_30day_old_entries_removed(self):

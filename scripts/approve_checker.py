@@ -242,17 +242,23 @@ def handle_entry(entry: dict, issue_num: int, pat: str, webhook_url: str) -> str
 
 
 def git_commit_push(message: str) -> None:
-    """json変更をcommit+push（pull --rebase失敗はfail-loud・push失敗もfail-loud・MLR指摘採用）。"""
-    r = subprocess.run(["git", "pull", "--rebase"], cwd=REPO_ROOT,
-                       capture_output=True, text=True, check=False)
-    if r.returncode != 0:
-        raise RuntimeError(f"git pull --rebase失敗（競合の疑い・状態json未反映）: {r.stderr[:200]}")
+    """json変更をcommit+push（add/commit→pull --rebase→push順・fail-loud・MLR指摘採用）。
+
+    2026-11-28実測修復: forwarded時のentries.popでunstaged modifiedが生じた状態で
+    pull --rebaseが先行すると「cannot pull with rebase」で必ず失敗する（run 46108013219
+    exit 1実測）。discover.yml/publish.ymlの73beb22と同型欠陥のapprove_checker側で、
+    add/commitをrebase前に移動（順序回帰テスト: TestGitCommitPushOrder）。
+    """
     subprocess.run(["git", "add", os.path.relpath(ENTRIES_PATH, REPO_ROOT)],
                    cwd=REPO_ROOT, check=True)
     r = subprocess.run(["git", "commit", "-m", message], cwd=REPO_ROOT,
                        capture_output=True, text=True, check=False)
     if r.returncode != 0:
         return  # 変更なし等
+    r = subprocess.run(["git", "pull", "--rebase"], cwd=REPO_ROOT,
+                       capture_output=True, text=True, check=False)
+    if r.returncode != 0:
+        raise RuntimeError(f"git pull --rebase失敗（競合の疑い・状態json未反映）: {r.stderr[:200]}")
     r = subprocess.run(["git", "push"], cwd=REPO_ROOT, capture_output=True, text=True,
                        check=False)
     if r.returncode != 0:
