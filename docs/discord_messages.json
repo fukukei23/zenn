@@ -11,13 +11,13 @@
   "created_at": "2026-11-27T14:28:41.344190+00:00"
  },
  "107": {
-  "message_id": "1576093777657856082",
+  "message_id": "1576102281437253824",
   "channel_id": "1480559453538484375",
   "slug": "ai-sandbox-policy-84c9195b",
   "title": "AI生成コードを安全化するsandbox_policy設計：事前検査・資源制限・禁止パスの実践",
-  "content_hash": "1fde0364299b99cfd7bfd3fd9303054258c0d7a99ce49f854e4082560ed6a570",
+  "content_hash": "0aed774661862968877f8946a36f37c26820a76565a3663fb1a2c5257483b72b",
   "status": "reapproval",
-  "attempts": 1,
+  "attempts": 2,
   "last_notify_date": "2026-11-28",
   "created_at": "2026-11-27T14:05:50+00:00"
  }
