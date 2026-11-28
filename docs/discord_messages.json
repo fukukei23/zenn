@@ -20,5 +20,16 @@
   "attempts": 3,
   "last_notify_date": "2026-11-28",
   "created_at": "2026-11-27T14:05:50+00:00"
+ },
+ "109": {
+  "message_id": "1576147038628872234",
+  "channel_id": "1480559453538484375",
+  "slug": "claude-code-dod-bde5d650",
+  "title": "「記録した」だけで完了にしない：Claude Codeの判断ログをDoDで検証する",
+  "content_hash": "0a7061db70f4b69b70dde5c8ce52381508de80231114892e30fa07fa9daa82f8",
+  "status": "pending",
+  "attempts": 0,
+  "last_notify_date": "2026-11-28",
+  "created_at": "2026-11-28T08:05:37.764385+00:00"
  }
 }
