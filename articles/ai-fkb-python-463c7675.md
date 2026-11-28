@@ -19,7 +19,7 @@ Claude Codeを使い、12体のエージェントが協調してコード生成�
 
 ## 1. 失敗を知識に変える：FKB学習ループ
 
-FKBはFailure Knowledge Base（失敗知識ベース）の略。**失敗の教科書データベース**だ。学習ループは、postmortemとknowledge_curatorの2エージェント、および中央FKBの3要素で構成する。
+FKBはFailure Knowledge Base（失敗知識ベース）の略。**失敗の教科書データベース**だ。学習ループは、postmortemとknowledge_curatorの2エージェント、および中央FKBの3要素から構成される。
 
 - **postmortem**: テストがfailのまま修正試行を使い切った（失敗枯渇）状態を検知し、失敗を解剖する事故調査官
 - **knowledge_curator**: 分析が正しいか・既存知識と重複しないかを検証する司書
